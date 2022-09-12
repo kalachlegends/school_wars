@@ -3,13 +3,21 @@ defmodule User.Services do
   alias SchoolWars.Repo
 
   def register_user(login, password) do
-    if Repo.one(
-        from user in User,
-          where: user.login == ^login
-      ) != [] do
-      {:error, "login already exists"}
+    if String.contains?("№") do
+      {:error, "login contains bad char"}
     else
-      Repo.insert(User.changeset(%User{}, %{login: login, hash: :crypto.hash(:sha224, password), data: %{}, comments: []}))
+      if Repo.one(
+          from user in User,
+            where: user.login == ^login
+        ) != nil  do
+        {:error, "login already exists"}
+      else
+        Repo.insert(User.changeset(%User{}, %{login: login, hash: :crypto.hash(:sha224, password), data: %{}, comments: []}))
+      end
+      Repo.one(
+          from user in User,
+            where: user.login == ^login
+      )
     end
   end
 
@@ -33,7 +41,10 @@ defmodule User.Services do
     Session.delete(token)
   end
 
-  def delete_user(login, password) do
+  def delete_user(token, login, password) do
+    if token != nil do
+      Session.delete(token)
+    end
     hash = :crypto.hash(:sha224, password)
     new_login = "DELETED_USER№" <> to_string(DateTime.utc_now() |> DateTime.to_unix())
     from(user in User,

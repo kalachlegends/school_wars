@@ -9,4 +9,22 @@ defmodule Answer do
     field :comments, {:array, :integer}
     field :inserted_at, :utc_datetime
   end
+
+  def changeset(answer, params \\ %{}) do
+    answer
+    |> Ecto.Changeset.cast(params, [
+      :content,
+      :rating,
+      :author,
+      :data,
+      :comments
+    ])
+    |> Ecto.Changeset.validate_required([
+      :content,
+      :rating,
+      :author,
+      :data,
+      :comments
+    ])
+  end
 end

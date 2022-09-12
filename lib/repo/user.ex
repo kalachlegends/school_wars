@@ -8,4 +8,10 @@ defmodule User do
     field :comments, {:array, :integer}
     field :inserted_at, :utc_datetime
   end
+
+  def changeset(user, params \\ %{}) do
+    user
+    |> Ecto.Changeset.cast(params, [:login, :hash, :data, :comments])
+    |> Ecto.Changeset.validate_required([:login, :hash, :data, :comments])
+  end
 end

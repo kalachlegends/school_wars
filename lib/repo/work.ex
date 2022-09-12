@@ -11,4 +11,26 @@ defmodule Work do
     field :comments, {:array, :integer}
     field :inserted_at, :utc_datetime
   end
+
+  def changeset(work, params \\ %{}) do
+    work
+    |> Ecto.Changeset.cast(params, [
+      :content,
+      :rating,
+      :status,
+      :author,
+      :data,
+      :answers,
+      :comments
+    ])
+    |> Ecto.Changeset.validate_required([
+      :content,
+      :rating,
+      :status,
+      :author,
+      :data,
+      :answers,
+      :comments
+    ])
+  end
 end

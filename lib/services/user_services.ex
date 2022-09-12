@@ -3,7 +3,7 @@ defmodule User.Services do
   alias SchoolWars.Repo
 
   def register_user(login, password) do
-    if String.contains?("№") do
+    if String.contains?(login, "№") do
       {:error, "login contains bad char"}
     else
       if Repo.one(

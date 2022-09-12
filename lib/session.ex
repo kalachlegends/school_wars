@@ -133,3 +133,23 @@ defmodule Session do
 
   defp schedule_work, do: Process.send_after(self(), :clear_old_sessions, @token_max_age * 1000)
 end
+
+defmodule Session.Plug do
+  import Plug.Conn
+
+  alias ApiCore.Account.Session, as: ApiSession
+  def init(_opts), do: {:ok, []}
+
+  def call(conn, _opts) do
+    Session.read(get_session(conn, :token))
+    |> case do
+      nil ->
+        conn
+        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :index))
+        |> halt()
+
+      _ ->
+        conn
+    end
+  end
+end

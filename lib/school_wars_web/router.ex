@@ -14,6 +14,12 @@ defmodule SchoolWarsWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :session_verify, do: plug(Session.Plug)
+
+  pipeline :token do
+    plug :session_verify
+  end
+
   scope "/", SchoolWarsWeb do
     pipe_through :browser
 

@@ -1,7 +1,7 @@
 defmodule Session do
   defstruct data: nil, token: nil, token_age: nil, token_max_age: nil
 
-  @token_max_age Application.get_env(:api_core, :token_max_age) || 3600
+  @token_max_age 3600 * 24
   @table_name :session
   @table_struct [:user_token, :user_data, :date_time]
 

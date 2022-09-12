@@ -2,13 +2,13 @@ import Config
 
 # Configure your database
 config :school_wars, SchoolWars.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "school_wars_dev",
+  username: "854948b6-efeb-4fac-bc83-d62cc3f5b366-user",
+  password: "pw-fd1944df-e39e-424a-84e0-63586969dc08",
+  database: "854948b6-efeb-4fac-bc83-d62cc3f5b366",
+  hostname: "postgres-free-tier-v2020.gigalixir.com",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 1
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

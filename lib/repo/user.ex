@@ -13,5 +13,6 @@ defmodule User do
     user
     |> Ecto.Changeset.cast(params, [:login, :hash, :data, :comments])
     |> Ecto.Changeset.validate_required([:login, :hash, :data, :comments])
+    |> Ecto.Changeset.unique_constraint(:login)
   end
 end

@@ -12,6 +12,7 @@ defmodule SchoolWars.Application do
       SchoolWars.Repo,
       # Start the Telemetry supervisor
       SchoolWarsWeb.Telemetry,
+      Session,
       # Start the PubSub system
       {Phoenix.PubSub, name: SchoolWars.PubSub},
       # Start the Endpoint (http/https)

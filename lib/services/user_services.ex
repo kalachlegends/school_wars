@@ -35,7 +35,7 @@ defmodule User.Services do
 
   def delete_user(login, password) do
     hash = :crypto.hash(:sha224, password)
-    new_login = "DELETED_USER" <> to_string(DateTime.utc_now() |> DateTime.to_unix())
+    new_login = "DELETED_USER№" <> to_string(DateTime.utc_now() |> DateTime.to_unix())
     from(user in User,
       where: user.login == ^login and user.hash == ^hash,
       update: [set: [login: ^new_login, hash: <<0>>]])

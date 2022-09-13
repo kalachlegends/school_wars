@@ -26,7 +26,8 @@ config :school_wars, SchoolWarsWeb.Endpoint,
   secret_key_base: "88QjxV30zOS+hCIRpE29hf0ISETFxnYWttL4JN9B5ptgiZgHlnpTLjdppb179Qbn",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support

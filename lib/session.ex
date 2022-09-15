@@ -137,7 +137,6 @@ end
 defmodule Session.Plug do
   import Plug.Conn
 
-  alias ApiCore.Account.Session, as: ApiSession
   def init(_opts), do: {:ok, []}
 
   def call(conn, _opts) do
@@ -150,6 +149,34 @@ defmodule Session.Plug do
 
       _ ->
         conn
+    end
+  end
+end
+
+defmodule Session.PlugAdmin do
+  import Plug.Conn
+  import Ecto.Query
+  alias SchoolWars.Repo
+
+  def init(_opts), do: {:ok, []}
+
+  def call(conn, _opts) do
+    Session.read(get_session(conn, :token))
+    |> case do
+      nil ->
+        conn
+        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :index))
+        |> halt()
+
+      data ->
+        roles = data.data.account.data["roles"]
+        if "admin" in roles do
+          conn
+        else
+          conn
+          |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :index))
+          |> halt()
+        end
     end
   end
 end

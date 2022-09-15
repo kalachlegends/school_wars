@@ -12,7 +12,7 @@ defmodule User.Services do
         ) != nil  do
         {:error, "login already exists"}
       else
-        Repo.insert(User.changeset(%User{}, %{login: login, hash: :crypto.hash(:sha224, password), data: %{}, comments: []}))
+        Repo.insert(User.changeset(%User{}, %{login: login, hash: :crypto.hash(:sha224, password), data: %{roles: ["admin"]}, comments: []}))
       end
       Repo.one(
           from user in User,

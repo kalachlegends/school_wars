@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+.main {
+    flex: 1 1 auto;
+    height: 100%;
+}
+.container{
+    margin: 0 auto;
+    max-width: 1890px;
+    height: 100%;
+}
+.wp-margin{
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 100%;
+}

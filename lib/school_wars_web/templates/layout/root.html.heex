@@ -1,31 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "SchoolWars", suffix: " · Phoenix Framework" %>
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/scss/style.css")}/>
-    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
-  </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "SchoolWars" , suffix: " · Phoenix Framework" %>
+      <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css" )} />
+      <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/scss/style.css" )} />
+      <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js" )}></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="container">
+        <div class="header__body wp-margin">
+          <a href="/" class="logo">
+            <span class="logo__text">SchoolWars</span>
+            <img src={Routes.static_path(@conn, "/images/logo.png" )} alt="">
+          </a>
+          <nav class="nav">
+            <ul class="nav__list">
+              <li class="nav-item"><a href="">Рейтинги</a></li>
+              <li class="nav-item"><a href="">Задачи</a></li>
+              <li class="nav-item"><a href="">Лекции</a></li>
+              <li class="nav-item"><a href="">Войти</a></li>
+              <li class="nav-item"><a href="">ru</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </header>
-    <%= @inner_content %>
-  </body>
+    <main class="main">
+      <%= @inner_content %>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__body">
+          <div class="logo">
+            <span class="logo__text">SchoolWars</span>
+            <img src="" alt="">
+          </div>
+          <ul class="footer-list">
+            <li class="item-list-footer"><a href="">Рейтинги</a></li>
+            <li class="item-list-footer"><a href="">Рейтинги</a></li>
+            <li class="item-list-footer"><a href="">Рейтинги</a></li>
+          </ul>
+          <span class="fw-300 c-grey">special ver for hahacton</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+
 </html>

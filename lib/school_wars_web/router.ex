@@ -16,14 +16,26 @@ defmodule SchoolWarsWeb.Router do
 
   pipeline :session_verify, do: plug(Session.Plug)
 
+  pipeline :session_verify_admin, do: plug(Session.PlugAdmin)
+
   pipeline :token do
     plug :session_verify
+  end
+
+  pipeline :admin do
+    plug :session_verify_admin
   end
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", SchoolWarsWeb do
+    pipe_through [:browser, :admin]
+
+    get "/token", PageController, :index_token
   end
 
   # Other scopes may use custom stacks.

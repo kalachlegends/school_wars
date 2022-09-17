@@ -275,11 +275,12 @@ a {
     }
 }
 
-// SECTION LESSONS
+// SECTION SCHOOL
 
 .school-top {
     &__title {
         text-align: center;
+        margin-bottom: 100px;
     }
     &__row {
         display: flex;
@@ -289,10 +290,54 @@ a {
 }
 
 .block-top {
+    font-family: "Comic CAT";
+    font-style: italic;
+    font-weight: 400;
+    @include adaptiv-font(28, 14);
+    &:nth-child(2) {
+        margin-top: -90px;
+    }
+    line-height: 41px;
+    flex: 0 1 24%;
     &__title {
         display: flex;
         flex-direction: column;
+        margin-top: 12px;
     }
     &__img {
+        width: 100%;
+        position: relative;
+        padding: 0px 0 100% 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+// SECTION TABLE
+.lessons-2 {
+    .lessons {
+        &__row {
+        }
+        &__img {
+            width: 49%;
+            position: relative;
+            padding: 24px 0 89% 0;
+        }
+        &__text {
+        }
+    }
+}
+.table {
+    thead {
+        th {
+            text-align: start;
+            @include adaptiv-font(18, 11);
+        }
+    }
+    td {
+        padding: 10px;
+        @include adaptiv-font(18, 11);
     }
 }

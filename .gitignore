@@ -37,3 +37,7 @@ npm-debug.log
 Mnesia*
 
 .elixir_ls
+
+/config/config.exs
+
+/config/dev.exs

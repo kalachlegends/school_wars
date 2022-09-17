@@ -126,3 +126,15 @@
         max-height: 10%;
     }
 }
+
+.input {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    font-weight: 600;
+    @include adaptiv-font(18, 14);
+    &::placeholder {
+        color: #dedede;
+    }
+}

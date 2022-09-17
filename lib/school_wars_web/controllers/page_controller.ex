@@ -12,6 +12,8 @@ defmodule SchoolWarsWeb.PageController do
   # end
 
   def login(conn, _params) do
-    render(conn, "login.html")
+    conn
+    |> put_root_layout({SchoolWarsWeb.LayoutView, "clean.html"})
+    |> render("login.html")
   end
 end

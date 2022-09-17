@@ -30,6 +30,7 @@ defmodule SchoolWarsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/login", PageController, :login
   end
 
   scope "/", SchoolWarsWeb do

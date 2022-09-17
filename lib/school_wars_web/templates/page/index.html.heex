@@ -1,45 +1,131 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
+<section class="main-window">
+  <div class="main-window__row wp-margin-landing">
+    <div class="main-window__body">
+      <h1 class="h1">Иследуй, развивайся, преуспевай
+        вместе с School Wars</h1>
+      <h2 class="h2">Инновационая школьная платформа
+        где школы соревнуются между друг другом</h2>
+      <div class="main-window__btns">
+        <a class="btn-default mr-8" href=" ">Оставить заявку </a>
+        <a class="btn-default" href=" ">Задачник </a>
+      </div>
+    </div>
+    <div class="main-window__img ">
+      <div class="main-window__images img-fluid anim-right">
+        <img src={Routes.static_path(@conn, "/images/humans/smile-human-main.svg" )} alt="">
+      </div>
+    </div>
+  </div>
 </section>
+<section class="lessons">
+  <div class="lessons__row wp-margin-landing">
+    <div class="df-as-js">
+      <div class="lessons__img img-fluid ">
+        <img src={Routes.static_path(@conn, "/images/humans/smile-human.svg" )} alt="">
+      </div>
+    </div>
+    <div class="lessons__text">
+      <h1 class="h1">Каждый ученик сможет создать
+        свое задание или урок</h1>
+      <h2 class="h2">За задание ученику даются баллы, также как и за прохождение. Все баллы учеников суммируюстя в общий
+        балл
+        школы.
+      </h2>
+    </div>
 
-<section class="row">
-  <article class="column">
-    <h2><%= get_flash(@conn, :info) %></h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2> <%= @data.account.login %> </h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
-  </article>
+  </div>
 </section>
-<script>
+<section class="school-top">
+  <h1 class="school-top__title h1 ">ТОП ШКОЛ ЗА ЭТОТ МЕСЯЦ</h1>
+  <div class="school-top__row wp-margin-landing">
+    <div class="block-top">
+      <div class="block-top__img img-fluid">
+        <img src={Routes.static_path(@conn, "/images/top/top-2.svg" )} alt="">
+      </div>
+      <div class="block-top__title">
+        <span class="text-tr-uppercase text-align-center ">
+          Карагандинская
+        </span>
+        <span class="text-tr-uppercase text-align-center ">
+          81 школа
+        </span>
+        <span class="text-tr-uppercase df-aic-jc  text-align-center img-width-100">
+          <span class="mr-6">19 000</span> <img src={Routes.static_path(@conn, "/images/icon/star-filed.svg" )} alt="">
+        </span>
+      </div>
+    </div>
+    <div class="block-top">
+      <div class="block-top__img img-fluid">
+        <img src={Routes.static_path(@conn, "/images/top/top-1.svg" )} alt="">
+      </div>
+      <div class="block-top__title">
+        <span class="text-tr-uppercase text-align-center ">
+          Карагандинская
+        </span>
+        <span class="text-tr-uppercase text-align-center ">
+          81 школа
+        </span>
+        <span class="text-tr-uppercase df-aic-jc text-align-center  img-width-100">
+          <span class="mr-6">19 000</span> <img src={Routes.static_path(@conn, "/images/icon/star-filed.svg" )} alt="">
+        </span>
+      </div>
+    </div>
+    <div class="block-top">
+      <div class="block-top__img img-fluid">
+        <img src={Routes.static_path(@conn, "/images/top/top-3.svg" )} alt="">
+      </div>
+      <div class="block-top__title">
+        <span class="text-tr-uppercase text-align-center ">
+          Карагандинская
+        </span>
+        <span class="text-tr-uppercase text-align-center ">
+          81 школа
+        </span>
+        <span class="text-tr-uppercase df-aic-jc text-align-center img-width-100">
+          <span class="mr-6">19 000</span> <img src={Routes.static_path(@conn, "/images/icon/star-filed.svg" )} alt="">
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="lessons-2 lessons">
+  <div class="lessons__row wp-margin-landing">
+    <div class="df-as-js">
+      <div class="lessons__img img-fluid ">
+        <img src={Routes.static_path(@conn, "/images/humans/love-human.svg" )} alt="">
+      </div>
+    </div>
+    <div class="lessons__text">
+      <h1 class="h1">ОТДЕЛЬНАЯ БЛАГОДАРНОСТЬ ЗА СТАРАНИЯ ЭТИМ УЧЕНИКАМ</h1>
+      <table class="table" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Место</th>
+            <th>Ученик</th>
+            <th>Рейтинг</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Артем Калачев </td>
+            <td>19 200</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Артем Калачев </td>
+            <td>19 200</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Артем Калачев </td>
+            <td>19 200</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  
-</script>
+
+
+  </div>
+</section>

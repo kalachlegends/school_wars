@@ -13,7 +13,11 @@ const postcssPresetEnv = require('postcss-preset-env')
 
 const loader = {
     '.svg': 'file',
-    '.scss': 'file'
+    '.scss': 'file',
+    '.woff': 'file',
+    '.woff2': 'file',
+    '.eot': 'file',
+    '.ttf': 'file',
 }
 
 const plugins = [

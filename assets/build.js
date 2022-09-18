@@ -3,7 +3,8 @@ const esbuildSass = require("esbuild-sass-plugin")
 const args = process.argv.slice(2)
 const watch = args.includes('--watch')
 const deploy = args.includes('--deploy')
-
+const jquery = require("jquery")
+const { globalExternals } = require("@fal-works/esbuild-plugin-global-externals");
 //==========
 
 const postcss = require('postcss')
@@ -29,7 +30,8 @@ const plugins = [
             );
             return css;
         },
-    })
+    }),
+
 ]
 
 let opts = {

@@ -7,22 +7,31 @@ defmodule User.Services do
       {:error, "login contains bad char"}
     else
       if Repo.one(
-          from user in User,
-            where: user.login == ^login
-        ) != nil  do
+           from user in User,
+             where: user.login == ^login
+         ) != nil do
         {:error, "login already exists"}
       else
-        Repo.insert(User.changeset(%User{}, %{login: login, hash: :crypto.hash(:sha224, password), data: %{roles: ["admin"]}, comments: []}))
+        Repo.insert(
+          User.changeset(%User{}, %{
+            login: login,
+            hash: :crypto.hash(:sha224, password),
+            data: %{roles: ["admin"]},
+            comments: []
+          })
+        )
       end
+
       Repo.one(
-          from user in User,
-            where: user.login == ^login
+        from user in User,
+          where: user.login == ^login
       )
     end
   end
 
   def login_user(login, password) do
     hash = :crypto.hash(:sha224, password)
+
     Repo.one(
       from user in User,
         where: user.login == ^login and user.hash == ^hash
@@ -30,8 +39,10 @@ defmodule User.Services do
     |> case do
       %User{} = user ->
         {:ok, Session.write(%{account: user}).token}
+
       nil ->
         {:error, "no such user"}
+
       any ->
         any
     end
@@ -45,15 +56,19 @@ defmodule User.Services do
     if token != nil do
       Session.delete(token)
     end
+
     hash = :crypto.hash(:sha224, password)
     new_login = "DELETED_USER№" <> to_string(DateTime.utc_now() |> DateTime.to_unix())
+
     from(user in User,
       where: user.login == ^login and user.hash == ^hash,
-      update: [set: [login: ^new_login, hash: <<0>>]])
+      update: [set: [login: ^new_login, hash: <<0>>]]
+    )
     |> Repo.update_all([])
     |> case do
       {1, nil} ->
         {:ok, "user deleted"}
+
       any ->
         any
     end

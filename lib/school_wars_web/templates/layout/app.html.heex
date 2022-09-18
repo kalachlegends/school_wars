@@ -1,5 +1,51 @@
 <main class="container">
-  <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <p class="alert alert-info d-none" id="alert-info" role="alert">
+    <%= get_flash(@conn, :info) %>
+  </p>
+  <p class="alert alert-danger d-none" id="alert-danger" role="alert">
+    <%= get_flash(@conn, :error) %>
+  </p>
   <%= @inner_content %>
 </main>
+<script type="text/javascript">
+  setTimeout(function () {
+    const Swal = globalThis.Swal,
+      $ = globalThis.$
+    const alertDangerText = $("#alert-danger").text()
+    const alertInfoText = $("#alert-info").text()
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    if (alertInfoText.length > 4) {
+      Toast.fire({
+        icon: 'success',
+        title: alertInfoText.trim()
+      })
+
+    }
+
+
+    if (alertDangerText.length > 4) {
+      Toast.fire({
+        icon: 'error',
+        title: alertDangerText.trim()
+      })
+
+    }
+
+
+
+  }, 10)
+
+
+
+</script>

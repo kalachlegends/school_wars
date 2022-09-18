@@ -1,4 +1,13 @@
 @import "mixins/mixins.scss";
+.lock {
+    overflow: hidden;
+}
+a {
+    color: black;
+    &:hover {
+        text-decoration: underline;
+    }
+}
 .wrapper {
     display: flex;
     min-height: 100%;
@@ -109,6 +118,12 @@
     align-items: center;
     justify-content: center;
 }
+.df-aic-jc-fx-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
 .df-as-js {
     display: flex;
     align-items: flex-start;
@@ -125,4 +140,63 @@
         max-width: 10%;
         max-height: 10%;
     }
+}
+
+.input {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    font-weight: 600;
+    @include adaptiv-font(18, 14);
+    &::placeholder {
+        color: #dedede;
+    }
+}
+
+.input-block {
+    position: relative;
+    &.icon {
+        .input {
+            padding: 20px 20px 20px 60px;
+        }
+        img {
+            position: absolute;
+            top: 32%;
+            left: 20px;
+        }
+    }
+}
+.btn-grey {
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    padding: 20px;
+    width: 100%;
+    font-weight: 600;
+    @include adaptiv-font(18, 14);
+    background-color: white;
+}
+.gap-10 {
+    gap: 10px;
+}
+.width-80 {
+    width: 80%;
+}
+.table {
+    thead {
+        th {
+            text-align: start;
+            @include adaptiv-font(18, 11);
+        }
+    }
+    td {
+        padding: 10px;
+        @include adaptiv-font(18, 11);
+    }
+}
+.width-50 {
+    width: 50%;
+}
+.d-none {
+    display: none;
 }

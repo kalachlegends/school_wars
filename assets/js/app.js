@@ -27,9 +27,6 @@ import "phoenix_html"
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import $ from "jquery";
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
 
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
@@ -48,6 +45,11 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+import $ from "jquery";
+
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+globalThis.$ = $;
+globalThis.Swal = Swal;
 
 // DROP DOWN 
 

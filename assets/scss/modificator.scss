@@ -1,4 +1,13 @@
 @import "mixins/mixins.scss";
+.lock {
+    overflow: hidden;
+}
+a {
+    color: black;
+    &:hover {
+        text-decoration: underline;
+    }
+}
 .wrapper {
     display: flex;
     min-height: 100%;
@@ -144,9 +153,18 @@
         color: #dedede;
     }
 }
+
 .input-block {
-    img {
-        position: absolute;
+    position: relative;
+    &.icon {
+        .input {
+            padding: 20px 20px 20px 60px;
+        }
+        img {
+            position: absolute;
+            top: 32%;
+            left: 20px;
+        }
     }
 }
 .btn-grey {
@@ -163,4 +181,19 @@
 }
 .width-80 {
     width: 80%;
+}
+.table {
+    thead {
+        th {
+            text-align: start;
+            @include adaptiv-font(18, 11);
+        }
+    }
+    td {
+        padding: 10px;
+        @include adaptiv-font(18, 11);
+    }
+}
+.width-50 {
+    width: 50%;
 }

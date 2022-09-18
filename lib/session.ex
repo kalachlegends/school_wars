@@ -144,7 +144,7 @@ defmodule Session.Plug do
     |> case do
       nil ->
         conn
-        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :index))
+        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :login))
         |> halt()
 
       _ ->
@@ -170,6 +170,7 @@ defmodule Session.PlugAdmin do
 
       data ->
         roles = data.data.account.data["roles"]
+
         if "admin" in roles do
           conn
         else

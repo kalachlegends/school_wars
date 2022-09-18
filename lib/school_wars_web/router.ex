@@ -10,6 +10,8 @@ defmodule SchoolWarsWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :home_layout, do: plug(:put_root_layout, {SchoolWarsWeb.LayoutView, :home})
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -31,12 +33,13 @@ defmodule SchoolWarsWeb.Router do
 
     get "/", PageController, :index
     get "/login", PageController, :login
+    post "/login", UserController, :login_submit
   end
 
   scope "/", SchoolWarsWeb do
-    pipe_through [:browser, :admin]
+    pipe_through [:browser, :home_layout, :session_verify]
 
-    get "/token", PageController, :index_token
+    get "/home", HomeController, :index
   end
 
   # Other scopes may use custom stacks.

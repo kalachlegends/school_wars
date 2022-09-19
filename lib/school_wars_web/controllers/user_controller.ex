@@ -12,9 +12,15 @@ defmodule SchoolWarsWeb.UserController do
         |> put_flash(:info, "Вы успешно авторизованы!")
         |> redirect(to: Routes.home_path(conn, :index))
 
-      {:error, _reason} ->
+      {:error, "no such user"} ->
         conn
         |> put_flash(:error, "Не верный пароль или логин")
+        |> redirect(to: Routes.page_path(conn, :login))
+
+      any ->
+        IO.inspect(any, label: "actual error")
+        conn
+        |> put_flash(:error, "Произошла серверная ошибка")
         |> redirect(to: Routes.page_path(conn, :login))
     end
   end

@@ -1,0 +1,175 @@
+
+<div id="task-container">
+    <div id="task-content">
+        <div id="questions-container">
+
+        </div>
+        <div id="task-adder">
+            <button onclick="addTask('open')">
+                Add Open Task
+            </button>
+            <button onclick="addTask('closed')">
+                Add Closed Task
+            </button>
+            <button onclick="addTask('multiple')">
+                Add Closed Task With Multiple Answers
+            </button>
+        </div>
+    </div>
+    <div id="task-sidebar-container">
+        <div id="task-sidebar">
+            <div class="task-sidebar-title">
+                Title
+            </div>
+        </div>
+    </div>
+</div>
+<template id="question-template">
+    <div class="question-container" onclick="console.log(event.target)">
+        <div class="question">
+            <div class="question-number">
+
+            </div>
+            <input type="text", placeholder="Put your question text here", required>
+        </div>
+    </div>
+</template>
+<template id="answer-open-adder">
+    <div class="answer-open-adder">
+        <button onclick="addAnswer(event, 'open')">
+            Add Another Possible Answer
+        </button>
+    </div>
+</template>
+<template id="answer-closed-adder">
+    <div class="answer-closed-adder">
+        <button onclick="addAnswer(event, 'closed')">
+            Add Another Answer
+        </button>
+    </div>
+</template>
+<template id="answer-multiple-adder">
+    <div class="answer-multiple-adder">
+        <button onclick="addAnswer(event, 'multiple')">
+            Add Another Answer
+        </button>
+    </div>
+</template>
+<template id="answers">
+    <div class="answers">
+    </div>
+</template>
+<template id="answer-open">
+    <div class="answer-open">
+        <input type="text", placeholder="Put the correct answer here", required>
+    </div>
+</template>
+<template id="answer-closed">
+    <div class="answer-closed">
+        <input type="radio", class="answer1", name="">
+        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+    </div>
+</template>
+<template id="answer-multiple">
+    <div class="answer-multiple">
+        <input type="checkbox", class="answer1", name="">
+        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+    </div>
+</template>
+<script>
+    const questions_container = document.querySelector("#questions-container")
+    const task_adder = document.querySelector("#task-adder")
+    const template = document.querySelector("#question-template")
+    function addTask(type) {
+        let qnum = questions_container.childElementCount + 1
+        let clone = template.content.cloneNode(true)
+        clone.querySelector(".question-number").innerText = qnum
+        let answers = document.querySelector("#answers").content.cloneNode(true).querySelector(".answers")
+        if (type == "open") {
+            let container = clone.querySelector(".question-container")
+            answers.append(document.querySelector("#answer-open").content.cloneNode(true))
+            createListeners(answers.querySelectorAll("input"))
+            container.append(answers)
+            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(true))
+            questions_container.append(clone)
+        } else {
+            let container = clone.querySelector(".question-container")
+            let answers = document.querySelector("#answers").content.cloneNode(true).querySelector(".answers")
+            let answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+            answer.querySelector("input").setAttribute("name", `ans${qnum}`)
+            createListeners(answer.querySelectorAll("input"))
+            answers.append(answer)
+            answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+            answer.querySelector("input").setAttribute("name", `ans${qnum}`)
+            createListeners(answer.querySelectorAll("input"))
+            answers.append(answer)
+            container.append(answers)
+            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(true))
+            questions_container.append(clone)
+        }
+    }
+    function addAnswer(ev, type) {
+        let parent = ev.target.parentElement.parentElement.querySelector(".answers")
+        let answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+        answer.querySelector("input").setAttribute("name", `ans${ev.target.parentElement.parentElement.querySelector(".question-number").innerText}`)
+        createListeners(answer.querySelectorAll("input"))
+        parent.append(answer)
+        if (parent.querySelectorAll(`.answer-${type}`).length >= 5) {
+            ev.target.remove()
+        }
+    }
+
+
+    document.documentElement.setAttribute('data-theme', 'rainbow')
+    document.documentElement.setAttribute('data-theme', 'dark')
+    document.documentElement.setAttribute('data-theme', 'rainbow222')
+
+
+    // Auto save edits to task local storage
+    const saved_task = window.localStorage.getItem("saved_task") || ""
+    questions_container.innerHTML = saved_task
+    const observer = new MutationObserver((mut_list, observer) => {
+        window.localStorage.setItem("saved_task", questions_container.innerHTML)
+        let array = []
+        for (const input of questions_container.querySelectorAll("input")) {
+            array.push(input.value)
+        }
+    })
+    observer.observe(questions_container, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        characterData: true
+    })
+
+    // Ебать Артём спас
+    let inputs = questions_container.querySelectorAll("input")
+    createListeners(inputs)
+
+
+    function createListeners(inputs) {
+        for (const input of inputs) {
+            if (input.type == "text") {
+                input.oninput = function(event) {
+                    event.path[0].setAttribute("value", event.path[0].value)
+                }
+            } else if (input.type == "radio") {
+                input.onclick = function(event) {
+                    let radios = event.path[2].querySelectorAll("input[type=radio]")
+                    for (const radio of radios) {
+                        radio.removeAttribute("checked")
+                    }
+                    event.path[0].setAttribute("checked", true)
+                }
+            } else {
+                input.onclick = function(event) {
+                    if (event.path[0].getAttribute("checked")) {
+                        event.path[0].removeAttribute("checked")
+                    } else {
+                        event.path[0].setAttribute("checked", !0)
+                    }
+                }
+            }
+        }
+    }
+</script>

@@ -20,13 +20,7 @@ defmodule SchoolWarsWeb.Router do
 
   pipeline :session_verify_admin, do: plug(Session.PlugAdmin)
 
-  pipeline :token do
-    plug :session_verify
-  end
-
-  pipeline :admin do
-    plug :session_verify_admin
-  end
+  pipeline :session_verify_school_rep, do: plug(Session.PlugSchoolRep)
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
@@ -40,6 +34,13 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify]
 
     get "/home", HomeController, :index
+  end
+
+  scope "/", SchoolWarsWeb do
+    pipe_through [:browser, :home_layout, :session_verify_school_rep]
+
+    get "/create_task", TaskController, :create_task
+    post "/create_task", TaskController, :create_task
   end
 
   # Other scopes may use custom stacks.

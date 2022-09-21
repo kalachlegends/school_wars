@@ -200,3 +200,24 @@ a {
 .d-none {
     display: none;
 }
+.wp-margin-90 {
+    margin-left: rem(120);
+    margin-right: rem(70);
+    @media (max-width: 500px) {
+        margin-left: rem(16);
+        margin-right: rem(16);
+    }
+    height: 100%;
+}
+.default-avatar {
+    img {
+        width: 32px;
+        height: 32px;
+    }
+}
+.fw-bold {
+    font-weight: bold;
+}
+.language {
+    margin-right: 10px;
+}

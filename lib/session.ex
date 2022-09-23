@@ -155,8 +155,6 @@ end
 
 defmodule Session.PlugAdmin do
   import Plug.Conn
-  import Ecto.Query
-  alias SchoolWars.Repo
 
   def init(_opts), do: {:ok, []}
 

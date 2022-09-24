@@ -1,9 +1,10 @@
-<menu class="menu mb-20 gap-20">
+<menu class="menu mb-20 ">
     <ul class="menu-list">
-        <a href="" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt="">
+        <a href="/school" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt="">
             <span>Главная
                 страница</span></a>
-        <a href="" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/news-menu.svg" )} alt="">
+        <a href="/school/1/news" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/news-menu.svg" )}
+                alt="">
             <span>Новости</span>
         </a>
         <a href="" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/sostav.svg" )} alt="">
@@ -13,7 +14,7 @@
             <span>Рейтинги</span></a>
     </ul>
 </menu>
-<div class="main-bg">
+<div class="main-bg gap-50">
     <div class="profile-school">
         <div class="profile-school__images">
             <span class="img-fluid school-images-profile">
@@ -36,19 +37,56 @@
             </span>
         </div>
     </div>
-    <h2 class="h2">Школьный состав</h2>
+    <h2 class="h2 fw-600">Школьный состав</h2>
 
-    <div class="school-teachers">
+    <div class="school-teacher">
         <div class="school-teacher__item">
-            <div class="school-teachers__img">
-
+            <div class="school-teacher__img">
+                <span class="img-fluid teacher-imag">
+                    <img src={Routes.static_path(@conn, "/images/teacher.png" )} alt="">
+                </span>
             </div>
-            <div class=" school-teachers__text">
+            <div class=" school-teacher__text">
                 <span class="exp grey">Стаж 10 лет</span>
                 <span class="school-teacher-name">Наталья Сеергевна</span>
                 <span class="school-teacher-spec">Учитель Математики</span>
             </div>
         </div>
-
+        <div class="school-teacher__item">
+            <div class="school-teacher__img">
+                <span class="img-fluid teacher-imag">
+                    <img src={Routes.static_path(@conn, "/images/teacher.png" )} alt="">
+                </span>
+            </div>
+            <div class=" school-teacher__text">
+                <span class="exp grey">Стаж 10 лет</span>
+                <span class="school-teacher-name">Наталья Сеергевна</span>
+                <span class="school-teacher-spec">Учитель Математики</span>
+            </div>
+        </div>
+        <div class="school-teacher__item">
+            <div class="school-teacher__img">
+                <span class="img-fluid teacher-imag">
+                    <img src={Routes.static_path(@conn, "/images/teacher.png" )} alt="">
+                </span>
+            </div>
+            <div class=" school-teacher__text">
+                <span class="exp grey">Стаж 10 лет</span>
+                <span class="school-teacher-name">Наталья Сеергевна</span>
+                <span class="school-teacher-spec">Учитель Математики</span>
+            </div>
+        </div>
+        <div class="school-teacher__item">
+            <div class="school-teacher__img">
+                <span class="img-fluid teacher-imag">
+                    <img src={Routes.static_path(@conn, "/images/teacher.png" )} alt="">
+                </span>
+            </div>
+            <div class=" school-teacher__text">
+                <span class="exp grey">Стаж 10 лет</span>
+                <span class="school-teacher-name">Наталья Сеергевна</span>
+                <span class="school-teacher-spec">Учитель Математики</span>
+            </div>
+        </div>
     </div>
 </div>

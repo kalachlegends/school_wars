@@ -12,6 +12,13 @@ defmodule Comment.Services do
     )
   end
 
+  def get_by_id(id) do
+    Repo.one(
+      from comment in Comment,
+        where: comment.id == ^id
+    )
+  end
+
   def get_from_id_list(list) do
     Enum.map(list, &(Repo.one(
       from comment in Comment,

@@ -24,6 +24,13 @@ defmodule Group.Services do
     {:error, "Неверные входные данные"}
   end
 
+  def get_by_id(id) do
+    Repo.one(
+      from group in Group,
+        where: group.id == ^id
+    )
+  end
+
   def add_users(group_id, user_ids) when is_list(user_ids) and is_integer(group_id) do
     group =
       Repo.one(

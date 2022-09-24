@@ -32,5 +32,6 @@ defmodule Group do
       :user_ids,
       :comment_ids
     ])
+    |> Ecto.Changeset.foreign_key_constraint(:manager_id)
   end
 end

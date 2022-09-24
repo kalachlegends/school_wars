@@ -12,5 +12,6 @@ defmodule Comment do
     comment
     |> Ecto.Changeset.cast(params, [:data, :ratings, :author_id])
     |> Ecto.Changeset.validate_required([:data, :ratings, :author_id])
+    |> Ecto.Changeset.foreign_key_constraint(:author_id)
   end
 end

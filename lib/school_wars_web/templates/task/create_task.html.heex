@@ -18,6 +18,9 @@
         <%= hidden_input f, :html, value: "" %>
         <%= submit "Отправить форму", class: "submit-task" %>  
     </.form>
+    <div id="testing">
+        <%= raw(get_flash(@conn, :lol)) %>
+    </div>
 </div>
 
 
@@ -31,7 +34,7 @@
             <div class="question-number">
 
             </div>
-            <input type="text", placeholder="Текст вопроса", required>
+            <input type="text", class="question-text" placeholder="Текст вопроса", required>
         </div>
     </div>
 </template>
@@ -101,6 +104,7 @@
         if (type == "open") {
             let container = clone.querySelector(".question-container")
             answers.append(document.querySelector("#answer-open").content.cloneNode(!0))
+            answers.querySelector("input").setAttribute("name", `ans${qnum}`)
             container.append(answers)
             container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
             createListeners(clone.querySelectorAll("input"))
@@ -119,10 +123,7 @@
             createListeners(clone.querySelectorAll("input"))
             questions_container.append(clone)
         }
-        let numbers =  questions_container.querySelectorAll(".question-number")
-        for (let i = 0; i < numbers.length; i++) {
-            numbers[i].innerText = i + 1
-        }
+        numbers()
     }
     function addAnswer(ev, type) {
         ev.preventDefault()
@@ -145,14 +146,20 @@
     function deleteQuestion(ev) {
         ev.preventDefault()
         ev.target.parentElement.remove()
-        let numbers =  questions_container.querySelectorAll(".question-number")
-        for (let i = 0; i < numbers.length; i++) {
-            numbers[i].innerText = i + 1
-        }
+        numbers()
     }
     function deleteAnswer(ev) {
         ev.preventDefault()
         ev.target.parentElement.remove()
+    }
+    function numbers() {
+        let numbers =  questions_container.querySelectorAll(".question-number")
+        for (let i = 0; i < numbers.length; i++) {
+            for (const input of numbers[i].parentElement.parentElement.querySelectorAll("input")) {
+                input.setAttribute("name", `ans${i + 1}`)
+            }
+            numbers[i].innerText = i + 1
+        }
     }
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')

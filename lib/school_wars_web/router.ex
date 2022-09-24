@@ -30,6 +30,7 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify]
 
     get "/home", HomeController, :index
+    get "/uikit", HomeController, :uikit
     get "/school", SchoolController, :index
   end
 

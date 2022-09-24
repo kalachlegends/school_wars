@@ -15,6 +15,13 @@ defmodule Work.Services do
     )
   end
 
+  def get_by_id(id) do
+    Repo.one(
+      from work in Work,
+        where: work.id == ^id
+    )
+  end
+
   def change_data(work_id, data) do
     work =
       Repo.one(

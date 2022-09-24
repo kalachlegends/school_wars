@@ -1,33 +1,36 @@
 <div id="task-container">
-    <div id="task-content">
-        <div id="questions-container">
-
+    <.form let={f} for={@conn} action={Routes.task_path(@conn, :create_task)} as={:task}>
+        <div id="task-content">
+            <div id="questions-container">
+            </div>
+            <div id="task-adder">
+                <button onclick="addTask(event, 'open')">
+                    Add Open Task
+                </button>
+                <button onclick="addTask(event, 'closed')">
+                    Add Closed Task
+                </button>
+                <button onclick="addTask(event, 'multiple')">
+                    Add Closed Task With Multiple Answers
+                </button>
+            </div>
         </div>
-        <div id="task-adder">
-            <button onclick="addTask('open')">
-                Add Open Task
-            </button>
-            <button onclick="addTask('closed')">
-                Add Closed Task
-            </button>
-            <button onclick="addTask('multiple')">
-                Add Closed Task With Multiple Answers
-            </button>
-        </div>
-    </div>
-    <div id="task-sidebar-container">
+        <%= hidden_input f, :html, value: "" %>
+        <%= submit "Отправить форму", class: "submit-task" %>  
+    </.form>
+    <!-- <div id="task-sidebar-container">
         <div id="task-sidebar">
             <div class="task-sidebar-title">
                 Title
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 
 
 <template id="question-template">
-    <div class="question-container" onclick="selectQuestion(event)">
+    <div class="question-container" onclick="selectQuestion(event.target)">
         <button class="deleter" onclick="deleteQuestion(event)">
             Delete Question
         </button>
@@ -71,13 +74,13 @@
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
-        <input type="radio", class="answer1", name="">
+        <input type="radio", class="answer1", name="" required>
         <input type="text", class="answer2", placeholder="Put one of the answers here", required>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
-        <input type="checkbox", class="answer1", name="">
+        <input type="checkbox", class="answer1", name="" required>
         <input type="text", class="answer2", placeholder="Put one of the answers here", required>
     </div>
 </template>
@@ -88,7 +91,8 @@
     const questions_container = document.querySelector("#questions-container")
     const task_adder = document.querySelector("#task-adder")
     const template = document.querySelector("#question-template")
-    function addTask(type) {
+    function addTask(ev, type) {
+        ev.preventDefault()
         let qnum = questions_container.childElementCount + 1
         let clone = template.content.cloneNode(!0)
         clone.querySelector(".question-number").innerText = qnum
@@ -117,6 +121,7 @@
         }
     }
     function addAnswer(ev, type) {
+        ev.preventDefault()
         let parent = ev.target.parentElement.parentElement.querySelector(".answers")
         let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
         answer.querySelector("input").setAttribute("name", `ans${ev.target.parentElement.parentElement.querySelector(".question-number").innerText}`)
@@ -127,16 +132,18 @@
         }
     }
 
-
-    function selectQuestion(event) {
-        console.log(event)
+    function selectQuestion(target) {
+        if (!target.classList.contains("question-container")) {
+            selectQuestion(target.parentElement)
+        } else {
+            //console.log(target)
+        }
     }
 
-
-    function deleteQuestion(event) {
-        event.target.parentElement.remove()
+    function deleteQuestion(ev) {
+        ev.preventDefault()
+        ev.target.parentElement.remove()
     }
-
 
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
@@ -145,9 +152,13 @@
 
     // Auto save edits to task local storage
     const saved_task = window.localStorage.getItem("saved_task") || ""
-    questions_container.innerHTML = saved_task
+    const hinput = document.querySelector("#task_html")
+    questions_container.innerHTML = saved_task.replace(/>\s+</g,'><').trim()
+    hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
         window.localStorage.setItem("saved_task", questions_container.innerHTML)
+        hinput.value = questions_container.innerHTML.replace(/>\s+</g,'><').trim()
+        //console.log(hinput.value.replace(/>\s+</g,'><').trim())
         let array = []
         for (const input of questions_container.querySelectorAll("input")) {
             array.push(input.value)
@@ -161,9 +172,7 @@
     })
 
     // Ебать Артём спас
-    let inputs = questions_container.querySelectorAll("input")
-    createListeners(inputs)
-
+    createListeners(questions_container.querySelectorAll("input"))
 
     function createListeners(inputs) {
         for (const input of inputs) {

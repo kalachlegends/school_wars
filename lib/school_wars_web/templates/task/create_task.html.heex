@@ -20,7 +20,7 @@
 
 
 <template id="question-template">
-    <div class="question-container" onclick="selectQuestion(event)">
+    <div class="question-container" onclick="selectQuestion(event.target)">
         <button class="deleter" onclick="deleteQuestion(event)">
             Удалить вопрос
         </button>
@@ -90,7 +90,8 @@
     const questions_container = document.querySelector("#questions-container")
     const task_adder = document.querySelector("#task-adder")
     const template = document.querySelector("#question-template")
-    function addTask(type) {
+    function addTask(ev, type) {
+        ev.preventDefault()
         let qnum = questions_container.childElementCount + 1
         let clone = template.content.cloneNode(!0)
         clone.querySelector(".question-number").innerText = qnum
@@ -119,6 +120,7 @@
         }
     }
     function addAnswer(ev, type) {
+        ev.preventDefault()
         let parent = ev.target.parentElement.parentElement.querySelector(".answers")
         let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
         answer.querySelector("input").setAttribute("name", `ans${ev.target.parentElement.parentElement.querySelector(".question-number").innerText}`)
@@ -129,14 +131,17 @@
         }
     }
 
-
-    function selectQuestion(event) {
-        console.log(event)
+    function selectQuestion(target) {
+        if (!target.classList.contains("question-container")) {
+            selectQuestion(target.parentElement)
+        } else {
+            //console.log(target)
+        }
     }
 
-
-    function deleteQuestion(event) {
-        event.target.parentElement.remove()
+    function deleteQuestion(ev) {
+        ev.preventDefault()
+        ev.target.parentElement.remove()
     }
 
     function deleteAnswer(event) {
@@ -151,9 +156,13 @@
 
     // Auto save edits to task local storage
     const saved_task = window.localStorage.getItem("saved_task") || ""
-    questions_container.innerHTML = saved_task
+    const hinput = document.querySelector("#task_html")
+    questions_container.innerHTML = saved_task.replace(/>\s+</g, '><').trim()
+    hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
         window.localStorage.setItem("saved_task", questions_container.innerHTML)
+        hinput.value = questions_container.innerHTML.replace(/>\s+</g,'><').trim()
+        //console.log(hinput.value.replace(/>\s+</g,'><').trim())
         let array = []
         for (const input of questions_container.querySelectorAll("input")) {
             array.push(input.value)
@@ -167,9 +176,7 @@
     })
 
     // Ебать Артём спас
-    let inputs = questions_container.querySelectorAll("input")
-    createListeners(inputs)
-
+    createListeners(questions_container.querySelectorAll("input"))
 
     function createListeners(inputs) {
         for (const input of inputs) {

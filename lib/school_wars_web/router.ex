@@ -46,7 +46,7 @@ defmodule SchoolWarsWeb.Router do
     get "/tasks", TaskController, :all_taskes
 
     get "/create_task", TaskController, :create_task
-    post "/create_task", TaskController, :create_task
+    post "/create_task", TaskController, :create_task_send
   end
 
   # Other scopes may use custom stacks.

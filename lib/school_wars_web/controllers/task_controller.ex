@@ -6,7 +6,7 @@ defmodule SchoolWarsWeb.TaskController do
   end
 
   def create_task_send(conn, %{"task" => %{"html" => html}}) do
-    IO.inspect(String.replace(html, ~r/(\\n|\\r|\\t|\ \ )/, ""))
+    IO.inspect(String.replace(html, ~r/\\n|\\r|\\t|\ \ /, ""))
     render(conn, "create_task.html")
   end
 

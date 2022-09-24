@@ -3,10 +3,12 @@ defmodule Group do
 
   schema "groups" do
     field :name, :string
-    field :rating, :integer
     field :data, :map
-    field :users, {:array, :integer}
-    field :comments, {:array, :integer}
+    field :manager_id, :integer
+    field :group_type, :string
+    field :ratings, :map
+    field :user_ids, {:array, :integer}
+    field :comment_ids, {:array, :integer}
     field :inserted_at, :utc_datetime
   end
 
@@ -14,17 +16,21 @@ defmodule Group do
     group
     |> Ecto.Changeset.cast(params, [
       :name,
-      :rating,
       :data,
-      :users,
-      :comments
+      :manager_id,
+      :group_type,
+      :ratings,
+      :user_ids,
+      :comment_ids
     ])
     |> Ecto.Changeset.validate_required([
       :name,
-      :rating,
       :data,
-      :users,
-      :comments
+      :manager_id,
+      :group_type,
+      :ratings,
+      :user_ids,
+      :comment_ids
     ])
   end
 end

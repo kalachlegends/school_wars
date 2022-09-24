@@ -3,16 +3,18 @@ defmodule User do
 
   schema "users" do
     field :login, :string
-    field :hash, :string, redact: true
+    field :hash, :binary
     field :data, :map
-    field :comments, {:array, :integer}
+    field :ratings, :map
+    field :roles, {:array, :string}
+    field :comment_ids, {:array, :integer}
     field :inserted_at, :utc_datetime
   end
 
   def changeset(user, params \\ %{}) do
     user
-    |> Ecto.Changeset.cast(params, [:login, :hash, :data, :comments])
-    |> Ecto.Changeset.validate_required([:login, :hash, :data, :comments])
+    |> Ecto.Changeset.cast(params, [:login, :hash, :data, :ratings, :roles, :comment_ids])
+    |> Ecto.Changeset.validate_required([:login, :hash, :data, :ratings, :roles, :comment_ids])
     |> Ecto.Changeset.unique_constraint(:login)
   end
 end

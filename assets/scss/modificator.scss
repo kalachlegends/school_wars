@@ -245,6 +245,7 @@ a {
     margin-left: rem(120);
     margin-right: rem(70);
     padding-top: rem(110);
+    padding-bottom: rem(40);
 
     @media (max-width: 500px) {
         padding-top: rem(0);
@@ -272,4 +273,12 @@ a {
 
 .language {
     margin-right: 10px;
+}
+.fw-600 {
+    font-weight: 600;
+}
+.gap-10 {
+}
+.mb-10 {
+    margin-bottom: 10px;
 }

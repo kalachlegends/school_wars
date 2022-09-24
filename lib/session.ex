@@ -152,3 +152,23 @@ defmodule Session.Plug do
     end
   end
 end
+
+defmodule Session.AdminPlug do
+  import Plug.Conn
+
+  def init(_opts), do: {:ok, []}
+
+  def call(conn, _opts) do
+    Session.read(get_session(conn, :token))
+    |> case do
+      nil ->
+        conn
+        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :login))
+        |> halt()
+
+      any ->
+        IO.inspect(any)
+        conn
+    end
+  end
+end

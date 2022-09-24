@@ -87,7 +87,7 @@ defmodule Group.Services do
     end
   end
 
-  def chang_data(_group_id, _data) do
+  def change_data(_group_id, _data) do
     {:error, "Неверные входные данные"}
   end
 

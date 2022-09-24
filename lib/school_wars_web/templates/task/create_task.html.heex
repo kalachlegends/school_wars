@@ -70,18 +70,27 @@
 <template id="answer-open">
     <div class="answer-open">
         <input type="text", placeholder="Put the correct answer here", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Delete Answer
+        </button>
     </div>
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
         <input type="radio", class="answer1", name="" required>
         <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Delete Answer
+        </button>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
         <input type="checkbox", class="answer1", name="" required>
         <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Delete Answer
+        </button>
     </div>
 </template>
 
@@ -145,6 +154,11 @@
         ev.target.parentElement.remove()
     }
 
+    function deleteAnswer(ev) {
+        ev.preventDefault()
+        ev.target.parentElement.remove()
+    }
+
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
     document.documentElement.setAttribute('data-theme', 'light')
@@ -153,7 +167,7 @@
     // Auto save edits to task local storage
     const saved_task = window.localStorage.getItem("saved_task") || ""
     const hinput = document.querySelector("#task_html")
-    questions_container.innerHTML = saved_task.replace(/>\s+</g,'><').trim()
+    questions_container.innerHTML = saved_task.replace(/>\s+</g, '><').trim()
     hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
         window.localStorage.setItem("saved_task", questions_container.innerHTML)

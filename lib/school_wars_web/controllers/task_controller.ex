@@ -5,12 +5,12 @@ defmodule SchoolWarsWeb.TaskController do
     render(conn, "index.html")
   end
 
-  def create_task(conn, %{}) do
+  def create_task_send(conn, %{"task" => %{"html" => html}}) do
+    IO.inspect(String.replace(html, ~r/(\\n|\\r|\\t|\ \ )/, ""))
     render(conn, "create_task.html")
   end
 
-  def create_task(conn, params) do
-    IO.inspect(params)
+  def create_task(conn, _) do
     render(conn, "create_task.html")
   end
 

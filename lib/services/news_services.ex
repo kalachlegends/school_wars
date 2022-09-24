@@ -2,18 +2,18 @@ defmodule News.Services do
   import Ecto.Query
   alias SchoolWars.Repo
 
-
-  def insert_news(content, group_id) when is_map(content) and is_integer(group_id) do
+  def insert_news(data, group_id) when is_integer(group_id) and is_map(data) do
     Repo.insert(
       News.changeset(%News{}, %{
-        content: content,
+        data: data,
         group_id: group_id,
-        rating: %{"likes" => 0, "dislikes" => 0}
+        ratings: %{"likes" => [], "dislikes" => []},
+        rated_users: []
       })
     )
   end
-  
-  def insert_news(_content, _group_id) do
+
+  def insert_news(_content, _group_id, _data) do
     {:error, "Неправильная форма заполнения или не существует такой школы."}
   end
 
@@ -43,6 +43,52 @@ defmodule News.Services do
 
       list ->
         {:ok, list}
+    end
+  end
+
+  def rate(news_id, rate_type, user_id) do
+    news =
+      Repo.one(
+        from news in News,
+          where: news.id == ^news_id
+      )
+
+    if is_nil(news) or
+         is_nil(
+           Repo.one(
+             from user in User,
+               where: user.id == ^user_id
+           )
+         ) do
+      {:error, "Такой новости или пользователя не существует"}
+    else
+      rates = news.ratings
+
+      if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
+        Repo.update(
+          News.changeset(news, %{
+            ratings: Map.put(rates, rate_type, rates[rate_type] ++ [user_id])
+          })
+        )
+      else
+        if user_id in rates[rate_type] do
+          Repo.update(
+            News.changeset(news, %{
+              ratings: Map.put(rates, rate_type, List.delete(rates[rate_type], user_id))
+            })
+          )
+        else
+          opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+
+          Repo.update(
+            News.changeset(news, %{
+              ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
+            })
+          )
+
+          rate(news_id, rate_type, user_id)
+        end
+      end
     end
   end
 end

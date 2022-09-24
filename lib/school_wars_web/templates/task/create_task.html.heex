@@ -5,21 +5,14 @@
         </div>
         <div id="task-adder">
             <button onclick="addTask('open')">
-                Add Open Task
+                Добавить открытый вопрос
             </button>
             <button onclick="addTask('closed')">
-                Add Closed Task
+                Добавить закрытый вопрос
             </button>
             <button onclick="addTask('multiple')">
-                Add Closed Task With Multiple Answers
+                Добавить закрытый вопрос(несколько ответов)
             </button>
-        </div>
-    </div>
-    <div id="task-sidebar-container">
-        <div id="task-sidebar">
-            <div class="task-sidebar-title">
-                Title
-            </div>
         </div>
     </div>
 </div>
@@ -29,34 +22,34 @@
 <template id="question-template">
     <div class="question-container" onclick="selectQuestion(event)">
         <button class="deleter" onclick="deleteQuestion(event)">
-            Delete Question
+            Удалить вопрос
         </button>
         <div class="question">
             <div class="question-number">
 
             </div>
-            <input type="text", placeholder="Put your question text here", required>
+            <input type="text" , placeholder="Текст вопроса" , required>
         </div>
     </div>
 </template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
         <button onclick="addAnswer(event, 'open')">
-            Add Another Possible Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
         <button onclick="addAnswer(event, 'closed')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
         <button onclick="addAnswer(event, 'multiple')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
@@ -66,19 +59,28 @@
 </template>
 <template id="answer-open">
     <div class="answer-open">
-        <input type="text", placeholder="Put the correct answer here", required>
+        <input type="text" , placeholder="Правильный ответ" , required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить вопрос
+        </button>
     </div>
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
-        <input type="radio", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="radio" , class="answer1" , name="">
+        <input type="text" , class="answer2" , placeholder="Вариант ответа" , required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить вопрос
+        </button>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
-        <input type="checkbox", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="checkbox" , class="answer1" , name="">
+        <input type="text" , class="answer2" , placeholder="Вариант ответа" , required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить вопрос
+        </button>
     </div>
 </template>
 
@@ -136,6 +138,10 @@
     function deleteQuestion(event) {
         event.target.parentElement.remove()
     }
+
+    function deleteAnswer(event) {
+            event.target.parentElement.remove()
+        }
 
 
     document.documentElement.setAttribute('data-theme', 'rainbow')

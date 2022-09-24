@@ -32,11 +32,14 @@ defmodule SchoolWarsWeb.Router do
 
     get "/home", HomeController, :index
 
-    get "/school/:id/news", SchoolController, :news
 
     get "/uikit", HomeController, :uikit
 
     get "/school", SchoolController, :index
+    get "/school/news", SchoolController, :news
+    post "/school/news", SchoolController, :news
+    get "/school/rates", SchoolController, :news
+    post "/school/rates", SchoolController, :news
   end
 
   scope "/", SchoolWarsWeb do

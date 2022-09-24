@@ -36,7 +36,7 @@ defmodule News.Services do
     end
   end
 
-  def get_news(nil) do
+  def get_news() do
     case Repo.all(news_query()) do
       {:error, reason} ->
         {:error, reason}

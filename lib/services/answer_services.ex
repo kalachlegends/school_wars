@@ -14,6 +14,13 @@ defmodule Answer.Services do
     )
   end
 
+  def get_from_id_list(list) do
+    Enum.map(list, &(Repo.one(
+      from answer in Answer,
+        where: answer.id == ^&1
+    )))
+  end
+
   def change_data(answer_id, data) do
     answer =
       Repo.one(

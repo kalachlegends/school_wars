@@ -76,11 +76,18 @@ defmodule User.Services do
     end
   end
 
-  def make_school_rep(user) do
+  def add_role(user, role) do
     User.changeset(user, %{
-      data: %{roles: user.roles ++ ["school_rep"]}
+      data: %{roles: user.roles ++ [role]}
     })
     |> Repo.update()
+  end
+
+  def get_by_id_list(list) do
+    Enum.map(list, &(Repo.one(
+      from user in User,
+        where: user.id == ^&1
+    )))
   end
 
   def rate(user_id_receiver, rate_type, user_id) do

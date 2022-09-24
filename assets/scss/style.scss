@@ -211,12 +211,21 @@ body {
 
 .main-window {
     padding: 40px 0px;
+    @media (max-width: 768px) {
+        padding: 20px 0;
+    }
     .btn-default {
         text-transform: uppercase;
+        @media (max-width: 768px) {
+            margin-top: 10px;
+        }
     }
     &__row {
         justify-content: space-between;
         display: flex;
+        @media (max-width: 768px) {
+            position: relative;
+        }
     }
     &__body {
         display: flex;
@@ -227,6 +236,10 @@ body {
     &__btns {
         margin-top: 10px;
         display: flex;
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: start;
+        }
     }
     &__images {
         width: 50%;
@@ -247,6 +260,9 @@ body {
 // SECTION LESSON
 .lessons {
     padding: 40px 0px;
+    @media (max-width: 768px) {
+        padding: 20px 0;
+    }
     .df-as-js {
         flex: 0 0 30%;
     }

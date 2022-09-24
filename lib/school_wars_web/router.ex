@@ -17,6 +17,7 @@ defmodule SchoolWarsWeb.Router do
   end
 
   pipeline :session_verify, do: plug(Session.Plug)
+  pipeline :session_verify_admin, do: plug(Session.AdminPlug)
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
@@ -30,6 +31,11 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify]
 
     get "/home", HomeController, :index
+
+    get "/school/:id/news", SchoolController, :news
+
+    get "/uikit", HomeController, :uikit
+
     get "/school", SchoolController, :index
   end
 

@@ -26,5 +26,7 @@ defmodule Answer do
       :ratings,
       :comment_ids
     ])
+    |> Ecto.Changeset.foreign_key_constraint(:author_id)
+    |> Ecto.Changeset.foreign_key_constraint(:work_id)
   end
 end

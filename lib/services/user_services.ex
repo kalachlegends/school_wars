@@ -2,7 +2,7 @@ defmodule User.Services do
   import Ecto.Query
   alias SchoolWars.Repo
 
-  def register_user(login, password) do
+  def register_user(login, password, roles \\ []) do
     if String.contains?(login, "№") do
       {:error, "В логине находится знак №"}
     else
@@ -18,7 +18,7 @@ defmodule User.Services do
             hash: :crypto.hash(:sha224, password),
             data: %{},
             ratings: %{"likes" => [], "dislikes" => []},
-            roles: [],
+            roles: roles,
             comment_ids: []
           })
         )

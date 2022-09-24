@@ -4,13 +4,13 @@ defmodule User.Services do
 
   def register_user(login, password) do
     if String.contains?(login, "№") do
-      {:error, "login contains bad char"}
+      {:error, "В логине находится знак №"}
     else
       if Repo.one(
            from user in User,
              where: user.login == ^login
          ) != nil do
-        {:error, "login already exists"}
+        {:error, "Логин уже существует"}
       else
         Repo.insert(
           User.changeset(%User{}, %{
@@ -43,7 +43,7 @@ defmodule User.Services do
         {:ok, Session.write(%{account: user}).token}
 
       nil ->
-        {:error, "no such user"}
+        {:error, "Такого пользователя не существует"}
 
       any ->
         any
@@ -69,7 +69,7 @@ defmodule User.Services do
     |> Repo.update_all([])
     |> case do
       {1, nil} ->
-        {:ok, "user deleted"}
+        {:ok, "Пользователь удалён"}
 
       any ->
         any
@@ -90,7 +90,10 @@ defmodule User.Services do
           where: user.id == ^user_id_receiver
       )
 
-    if is_nil(user) do
+    if is_nil(user) or is_nil(Repo.one(
+      from user in User,
+        where: user.id == ^user_id
+    )) do
       {:error, "Такого пользователя не существует"}
     else
       rates = user.ratings

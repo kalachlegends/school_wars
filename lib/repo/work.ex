@@ -29,5 +29,6 @@ defmodule Work do
       :answer_ids,
       :comment_ids
     ])
+    |> Ecto.Changeset.foreign_key_constraint(:author_id)
   end
 end

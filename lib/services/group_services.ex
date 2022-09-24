@@ -13,7 +13,7 @@ defmodule Group.Services do
         data: group_data,
         manager_id: manager_id,
         group_type: group_type,
-        ratings: %{},
+        ratings: %{"likes" => [], "dislikes" => []},
         user_ids: [manager_id],
         comment_ids: []
       })
@@ -102,33 +102,27 @@ defmodule Group.Services do
       {:error, "Такой группы не существует"}
     else
       rates = group.ratings
-      if rate_type == "like" do
-        if user_id not in rates["likes"] do
-          Repo.update(
-            Group.changeset(group, %{
-              ratings: Map.put(rates, "likes", rates["likes"] ++ [user_id])
-            })
-          )
-        else
-          Repo.update(
-            Group.changeset(group, %{
-              ratings: Map.put(rates, "likes", List.delete(rates["likes"], user_id))
-            })
-          )
-        end
+      if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
+        Repo.update(
+          Group.changeset(group, %{
+            ratings: Map.put(rates, rate_type, rates[rate_type] ++ [user_id])
+          })
+        )
       else
-        if user_id not in rates["dislikes"] do
+        if user_id in rates[rate_type] do
           Repo.update(
             Group.changeset(group, %{
-              ratings: Map.put(rates, "dislikes", rates["dislikes"] ++ [user_id])
+              ratings: Map.put(rates, rate_type, List.delete(rates[rate_type], user_id))
             })
           )
         else
+          opposite = if rate_type == "likes", do: "dislikes", else: "likes"
           Repo.update(
             Group.changeset(group, %{
-              ratings: Map.put(rates, "dislikes", List.delete(rates["dislikes"], user_id))
+              ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
             })
           )
+          rate(group_id, rate_type, user_id)
         end
       end
     end

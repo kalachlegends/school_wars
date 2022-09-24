@@ -1,0 +1,77 @@
+defmodule Work.Services do
+  import Ecto.Query
+  alias SchoolWars.Repo
+
+  def create(author_id, work_data) do
+    Repo.insert(
+      Work.changeset(%Work{}, %{
+        status: 0,
+        author_id: author_id,
+        data: work_data,
+        ratings: %{"likes" => [], "dislikes" => []},
+        answer_ids: [],
+        comment_ids: []
+      })
+    )
+  end
+
+  def add_comment(work_id, comment_id)
+      when is_integer(work_id) and is_integer(comment_id) do
+    work =
+      Repo.one(
+        from work in Group,
+          where: work.id == ^work_id
+      )
+
+    if is_nil(work) do
+      {:error, "Такой работы не существует"}
+    else
+      Repo.update(
+        Group.changeset(work, %{
+          comment_ids: work.comment_ids ++ [comment_id]
+        })
+      )
+    end
+  end
+
+  def add_comment(_work_id, _comment_id) do
+    {:error, "Неверные входные данные"}
+  end
+
+  def rate(work_id, rate_type, user_id) do
+    work =
+      Repo.one(
+        from work in Work,
+          where: work.id == ^work_id
+      )
+
+    if is_nil(work) do
+      {:error, "Такой работы не существует"}
+    else
+      rates = work.ratings
+      if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
+        Repo.update(
+          Work.changeset(work, %{
+            ratings: Map.put(rates, rate_type, rates[rate_type] ++ [user_id])
+          })
+        )
+      else
+        if user_id in rates[rate_type] do
+          Repo.update(
+            Work.changeset(work, %{
+              ratings: Map.put(rates, rate_type, List.delete(rates[rate_type], user_id))
+            })
+          )
+        else
+          opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+          Repo.update(
+            Work.changeset(work, %{
+              ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
+            })
+          )
+          rate(work_id, rate_type, user_id)
+        end
+      end
+    end
+  end
+end

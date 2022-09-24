@@ -2,9 +2,9 @@ defmodule Group.Services do
   import Ecto.Query
   alias SchoolWars.Repo
 
-  def create_group(name, manager_id, group_type, group_data \\ %{})
+  def create(name, manager_id, group_type, group_data \\ %{})
 
-  def create_group(name, manager_id, group_type, group_data)
+  def create(name, manager_id, group_type, group_data)
       when is_bitstring(name) and is_integer(manager_id) and is_map(group_data) and
              is_bitstring(group_type) do
     Repo.insert(
@@ -20,11 +20,11 @@ defmodule Group.Services do
     )
   end
 
-  def create_group(_name, _manager_id, _group_type, _group_data) do
+  def create(_name, _manager_id, _group_type, _group_data) do
     {:error, "Неверные входные данные"}
   end
 
-  def add_users_to_group(group_id, user_ids) when is_list(user_ids) and is_integer(group_id) do
+  def add_users(group_id, user_ids) when is_list(user_ids) and is_integer(group_id) do
     group =
       Repo.one(
         from group in Group,
@@ -42,11 +42,11 @@ defmodule Group.Services do
     end
   end
 
-  def add_users_to_group(_group_id, _user_ids) do
+  def add_users(_group_id, _user_ids) do
     {:error, "Неверные входные данные"}
   end
 
-  def add_comment_to_group(group_id, comment_id)
+  def add_comment(group_id, comment_id)
       when is_integer(group_id) and is_integer(comment_id) do
     group =
       Repo.one(
@@ -65,11 +65,11 @@ defmodule Group.Services do
     end
   end
 
-  def add_comment_to_group(_group_id, _comment_id) do
+  def add_comment(_group_id, _comment_id) do
     {:error, "Неверные входные данные"}
   end
 
-  def change_group_data(group_id, data) when is_integer(group_id) and is_map(data) do
+  def change_data(group_id, data) when is_integer(group_id) and is_map(data) do
     group =
       Repo.one(
         from group in Group,
@@ -87,7 +87,7 @@ defmodule Group.Services do
     end
   end
 
-  def change_group_data(_group_id, _data) do
+  def chang_data(_group_id, _data) do
     {:error, "Неверные входные данные"}
   end
 

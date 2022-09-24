@@ -2,17 +2,18 @@ defmodule Group.Services do
   import Ecto.Query
   alias SchoolWars.Repo
 
-  def create_group(name, manager_id, group_type, group_data \\ %Group.Data{})
+  def create_group(name, manager_id, group_type, group_data \\ %{})
 
   def create_group(name, manager_id, group_type, group_data)
-      when is_bitstring(name) and is_integer(manager_id) and is_struct(group_data) do
+      when is_bitstring(name) and is_integer(manager_id) and is_map(group_data) and
+             is_bitstring(group_type) do
     Repo.insert(
       Group.changeset(%Group{}, %{
         name: name,
         data: group_data,
         manager_id: manager_id,
         group_type: group_type,
-        ratings: %Ratings{},
+        ratings: %{"likes" => [], "dislikes" => []},
         user_ids: [manager_id],
         comment_ids: []
       })
@@ -88,5 +89,42 @@ defmodule Group.Services do
 
   def change_group_data(_group_id, _data) do
     {:error, "Неверные входные данные"}
+  end
+
+  def rate(group_id, rate_type, user_id) do
+    group =
+      Repo.one(
+        from group in Group,
+          where: group.id == ^group_id
+      )
+
+    if is_nil(group) do
+      {:error, "Такой группы не существует"}
+    else
+      rates = group.ratings
+      if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
+        Repo.update(
+          Group.changeset(group, %{
+            ratings: Map.put(rates, rate_type, rates[rate_type] ++ [user_id])
+          })
+        )
+      else
+        if user_id in rates[rate_type] do
+          Repo.update(
+            Group.changeset(group, %{
+              ratings: Map.put(rates, rate_type, List.delete(rates[rate_type], user_id))
+            })
+          )
+        else
+          opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+          Repo.update(
+            Group.changeset(group, %{
+              ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
+            })
+          )
+          rate(group_id, rate_type, user_id)
+        end
+      end
+    end
   end
 end

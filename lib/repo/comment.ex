@@ -2,15 +2,15 @@ defmodule Comment do
   use Ecto.Schema
 
   schema "comments" do
-    field :content, :string
-    field :rating, :integer
+    field :data, :map
+    field :ratings, :map
     field :author_id, :integer
     field :inserted_at, :utc_datetime
   end
 
   def changeset(comment, params \\ %{}) do
     comment
-    |> Ecto.Changeset.cast(params, [:content, :rating, :author_id])
-    |> Ecto.Changeset.validate_required([:content, :rating, :author_id])
+    |> Ecto.Changeset.cast(params, [:data, :ratings, :author_id])
+    |> Ecto.Changeset.validate_required([:data, :ratings, :author_id])
   end
 end

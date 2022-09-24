@@ -6,13 +6,12 @@ defmodule SchoolWars.Repo.Migrations.Users do
       add :login, :string
       add :hash, :binary
       add :data, :map
-      add :rating, :integer
+      add :ratings, :map
       add :roles, {:array, :string}
       add :comment_ids, {:array, :integer}
       add :inserted_at, :utc_datetime, default: fragment("now()")
     end
 
     create index("users", [:login], unique: true)
-
   end
 end

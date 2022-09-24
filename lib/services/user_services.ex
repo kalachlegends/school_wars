@@ -17,7 +17,7 @@ defmodule User.Services do
             login: login,
             hash: :crypto.hash(:sha224, password),
             data: %{},
-            ratings: %Ratings{},
+            ratings: %{"likes" => [], "dislikes" => []},
             roles: [],
             comment_ids: []
           })
@@ -81,5 +81,42 @@ defmodule User.Services do
       data: %{roles: user.roles ++ ["school_rep"]}
     })
     |> Repo.update()
+  end
+
+  def rate(user_id_receiver, rate_type, user_id) do
+    user =
+      Repo.one(
+        from user in User,
+          where: user.id == ^user_id_receiver
+      )
+
+    if is_nil(user) do
+      {:error, "Такого пользователя не существует"}
+    else
+      rates = user.ratings
+      if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
+        Repo.update(
+          User.changeset(user, %{
+            ratings: Map.put(rates, rate_type, rates[rate_type] ++ [user_id])
+          })
+        )
+      else
+        if user_id in rates[rate_type] do
+          Repo.update(
+            User.changeset(user, %{
+              ratings: Map.put(rates, rate_type, List.delete(rates[rate_type], user_id))
+            })
+          )
+        else
+          opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+          Repo.update(
+            User.changeset(user, %{
+              ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
+            })
+          )
+          rate(user_id_receiver, rate_type, user_id)
+        end
+      end
+    end
   end
 end

@@ -17,7 +17,7 @@ defmodule User.Services do
             login: login,
             hash: :crypto.hash(:sha224, password),
             data: %{},
-            ratings: %Ratings{},
+            ratings: %{},
             roles: [],
             comment_ids: []
           })

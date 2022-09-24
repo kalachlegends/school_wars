@@ -217,14 +217,83 @@ body {
     text-align: center;
 }
 
-.answer-closed, .answer-multiple {
+.answer-closed,
+.answer-multiple {
     display: flex;
 }
 
-.answer-closed .answer2, .answer-multiple .answer2 {
+.answer-closed .answer2,
+.answer-multiple .answer2 {
     width: 90%;
 }
 
-.answer-closed .answer1, .answer-multiple .answer1 {
+.answer-closed .answer1,
+.answer-multiple .answer1 {
     width: 10%;
+}
+.profile {
+    position: fixed;
+    background: var(--color-nav-background);
+    /* Тень от окон */
+    top: 0px;
+    padding: 5px 18px;
+    height: 70px;
+    right: 0px;
+    box-shadow: 5px 6px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    &-item {
+        img {
+            width: 28px;
+            height: 28px;
+        }
+    }
+    .default-avatar {
+        img {
+            width: 42px;
+            height: 42px;
+        }
+    }
+}
+.drop-down {
+    font-weight: 500;
+    line-height: 24px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+    @include adaptiv-font(17, 14);
+    &__title {
+        padding: 3px 22px;
+        border: 2px solid #000000;
+        border-radius: 23px;
+        display: flex;
+        align-items: center;
+    }
+    &__image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__submenu {
+        display: none;
+        position: absolute;
+        width: 100%;
+        padding: 7px 10px;
+        background: white;
+        border: 2px solid #000000;
+        border-radius: 23px;
+        &.active {
+            display: block;
+        }
+    }
+    &__item {
+        display: flex;
+        cursor: pointer;
+    }
 }

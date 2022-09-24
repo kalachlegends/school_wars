@@ -33,7 +33,10 @@ defmodule SchoolWarsWeb.Router do
   end
 
   scope "/", SchoolWarsWeb do
-    pipe_through [:browser, :home_layout, :session_verify]
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout]
+
+    get "/tasks", TaskController, :all_taskes
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task

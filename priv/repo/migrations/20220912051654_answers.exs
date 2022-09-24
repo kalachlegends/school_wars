@@ -3,13 +3,12 @@ defmodule SchoolWars.Repo.Migrations.Answers do
 
   def change do
     create table("answers") do
-      add :content, :string
-      add :rating, :integer
-      add :author, references(:users)
+      add :author_id, references(:users)
+      add :work_id, references(:works)
       add :data, :map
-      add :comments, {:array, :integer}
+      add :ratings, :map
+      add :comment_ids, {:array, :integer}
       add :inserted_at, :utc_datetime, default: fragment("now()")
     end
-
   end
 end

@@ -1,4 +1,3 @@
-
 <div id="task-container">
     <div id="task-content">
         <div id="questions-container">
@@ -24,8 +23,14 @@
         </div>
     </div>
 </div>
+
+
+
 <template id="question-template">
-    <div class="question-container" onclick="console.log(event.target)">
+    <div class="question-container" onclick="selectQuestion(event)">
+        <button class="deleter" onclick="deleteQuestion(event)">
+            Delete Question
+        </button>
         <div class="question">
             <div class="question-number">
 
@@ -76,41 +81,44 @@
         <input type="text", class="answer2", placeholder="Put one of the answers here", required>
     </div>
 </template>
+
+
+
 <script>
     const questions_container = document.querySelector("#questions-container")
     const task_adder = document.querySelector("#task-adder")
     const template = document.querySelector("#question-template")
     function addTask(type) {
         let qnum = questions_container.childElementCount + 1
-        let clone = template.content.cloneNode(true)
+        let clone = template.content.cloneNode(!0)
         clone.querySelector(".question-number").innerText = qnum
-        let answers = document.querySelector("#answers").content.cloneNode(true).querySelector(".answers")
+        let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
         if (type == "open") {
             let container = clone.querySelector(".question-container")
-            answers.append(document.querySelector("#answer-open").content.cloneNode(true))
+            answers.append(document.querySelector("#answer-open").content.cloneNode(!0))
             createListeners(answers.querySelectorAll("input"))
             container.append(answers)
-            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(true))
+            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
             questions_container.append(clone)
         } else {
             let container = clone.querySelector(".question-container")
-            let answers = document.querySelector("#answers").content.cloneNode(true).querySelector(".answers")
-            let answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+            let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
+            let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
             createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
-            answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+            answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
             createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
             container.append(answers)
-            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(true))
+            container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
             questions_container.append(clone)
         }
     }
     function addAnswer(ev, type) {
         let parent = ev.target.parentElement.parentElement.querySelector(".answers")
-        let answer = document.querySelector(`#answer-${type}`).content.cloneNode(true)
+        let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
         answer.querySelector("input").setAttribute("name", `ans${ev.target.parentElement.parentElement.querySelector(".question-number").innerText}`)
         createListeners(answer.querySelectorAll("input"))
         parent.append(answer)
@@ -120,9 +128,19 @@
     }
 
 
+    function selectQuestion(event) {
+        console.log(event)
+    }
+
+
+    function deleteQuestion(event) {
+        event.target.parentElement.remove()
+    }
+
+
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
-    document.documentElement.setAttribute('data-theme', 'rainbow222')
+    document.documentElement.setAttribute('data-theme', 'light')
 
 
     // Auto save edits to task local storage
@@ -136,10 +154,10 @@
         }
     })
     observer.observe(questions_container, {
-        subtree: true,
-        childList: true,
-        attributes: true,
-        characterData: true
+        subtree: !0,
+        childList: !0,
+        attributes: !0,
+        characterData: !0
     })
 
     // Ебать Артём спас
@@ -159,7 +177,7 @@
                     for (const radio of radios) {
                         radio.removeAttribute("checked")
                     }
-                    event.path[0].setAttribute("checked", true)
+                    event.path[0].setAttribute("checked", !0)
                 }
             } else {
                 input.onclick = function(event) {

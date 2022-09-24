@@ -152,8 +152,8 @@
     }
 
     function deleteAnswer(event) {
-            event.target.parentElement.remove()
-        }
+        event.target.parentElement.remove()
+    }
 
 
     document.documentElement.setAttribute('data-theme', 'rainbow')
@@ -168,7 +168,7 @@
     hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
         window.localStorage.setItem("saved_task", questions_container.innerHTML)
-        hinput.value = questions_container.innerHTML.replace(/>\s+</g,'><').trim()
+        hinput.value = questions_container.innerHTML.replace(/>\s+</g, '><').trim()
         //console.log(hinput.value.replace(/>\s+</g,'><').trim())
         let array = []
         for (const input of questions_container.querySelectorAll("input")) {
@@ -188,11 +188,11 @@
     function createListeners(inputs) {
         for (const input of inputs) {
             if (input.type == "text") {
-                input.oninput = function(event) {
+                input.oninput = function (event) {
                     event.path[0].setAttribute("value", event.path[0].value)
                 }
             } else if (input.type == "radio") {
-                input.onclick = function(event) {
+                input.onclick = function (event) {
                     let radios = event.path[2].querySelectorAll("input[type=radio]")
                     for (const radio of radios) {
                         radio.removeAttribute("checked")
@@ -200,7 +200,7 @@
                     event.path[0].setAttribute("checked", !0)
                 }
             } else {
-                input.onclick = function(event) {
+                input.onclick = function (event) {
                     if (event.path[0].getAttribute("checked")) {
                         event.path[0].removeAttribute("checked")
                     } else {

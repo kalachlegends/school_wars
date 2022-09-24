@@ -1,20 +1,23 @@
 <div id="task-container">
-    <div id="task-content">
-        <div id="questions-container">
-
+    <.form let={f} for={@conn} action={Routes.task_path(@conn, :create_task)} as={:task}>
+        <div id="task-content">
+            <div id="questions-container">
+            </div>
+            <div id="task-adder">
+                <button onclick="addTask(event, 'open')">
+                    Добавить открытый вопрос
+                </button>
+                <button onclick="addTask(event, 'closed')">
+                    Добавить закрытый вопрос
+                </button>
+                <button onclick="addTask(event, 'multiple')">
+                    Добавить закрытый вопрос(несколько ответов)
+                </button>
+            </div>
         </div>
-        <div id="task-adder">
-            <button onclick="addTask('open')">
-                Добавить открытый вопрос
-            </button>
-            <button onclick="addTask('closed')">
-                Добавить закрытый вопрос
-            </button>
-            <button onclick="addTask('multiple')">
-                Добавить закрытый вопрос(несколько ответов)
-            </button>
-        </div>
-    </div>
+        <%= hidden_input f, :html, value: "" %>
+        <%= submit "Отправить форму", class: "submit-task" %>  
+    </.form>
 </div>
 
 

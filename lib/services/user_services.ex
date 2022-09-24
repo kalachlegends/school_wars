@@ -75,4 +75,11 @@ defmodule User.Services do
         any
     end
   end
+
+  def make_school_rep(user) do
+    User.changeset(user, %{
+      data: %{roles: user.roles ++ ["school_rep"]}
+    })
+    |> Repo.update()
+  end
 end

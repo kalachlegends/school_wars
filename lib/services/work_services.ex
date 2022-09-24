@@ -15,11 +15,10 @@ defmodule Work.Services do
     )
   end
 
-  def add_comment(work_id, comment_id)
-      when is_integer(work_id) and is_integer(comment_id) do
+  def change_data(work_id, data) do
     work =
       Repo.one(
-        from work in Group,
+        from work in Work,
           where: work.id == ^work_id
       )
 
@@ -27,7 +26,44 @@ defmodule Work.Services do
       {:error, "Такой работы не существует"}
     else
       Repo.update(
-        Group.changeset(work, %{
+        Work.changeset(work, %{
+          data: Map.merge(work.data, data)
+        })
+      )
+    end
+  end
+
+  def change_status(work_id, status) do
+    work =
+      Repo.one(
+        from work in Work,
+          where: work.id == ^work_id
+      )
+
+    if is_nil(work) do
+      {:error, "Такой работы не существует"}
+    else
+      Repo.update(
+        Work.changeset(work, %{
+          status: status
+        })
+      )
+    end
+  end
+
+  def add_comment(work_id, comment_id)
+      when is_integer(work_id) and is_integer(comment_id) do
+    work =
+      Repo.one(
+        from work in Work,
+          where: work.id == ^work_id
+      )
+
+    if is_nil(work) do
+      {:error, "Такой работы не существует"}
+    else
+      Repo.update(
+        Work.changeset(work, %{
           comment_ids: work.comment_ids ++ [comment_id]
         })
       )
@@ -35,6 +71,29 @@ defmodule Work.Services do
   end
 
   def add_comment(_work_id, _comment_id) do
+    {:error, "Неверные входные данные"}
+  end
+
+  def add_answer(work_id, answer_id)
+      when is_integer(work_id) and is_integer(answer_id) do
+    work =
+      Repo.one(
+        from work in Work,
+          where: work.id == ^work_id
+      )
+
+    if is_nil(work) do
+      {:error, "Такой работы не существует"}
+    else
+      Repo.update(
+        Work.changeset(work, %{
+          answer_ids: work.answer_ids ++ [answer_id]
+        })
+      )
+    end
+  end
+
+  def add_answer(_work_id, _answer_id) do
     {:error, "Неверные входные данные"}
   end
 

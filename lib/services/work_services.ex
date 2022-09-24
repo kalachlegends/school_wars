@@ -104,8 +104,11 @@ defmodule Work.Services do
           where: work.id == ^work_id
       )
 
-    if is_nil(work) do
-      {:error, "Такой работы не существует"}
+    if is_nil(work) or is_nil(Repo.one(
+      from user in User,
+        where: user.id == ^user_id
+    )) do
+      {:error, "Такой работы или пользователя не существует"}
     else
       rates = work.ratings
       if user_id not in rates["likes"] and user_id not in rates["dislikes"] do

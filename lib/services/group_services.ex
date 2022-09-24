@@ -98,8 +98,11 @@ defmodule Group.Services do
           where: group.id == ^group_id
       )
 
-    if is_nil(group) do
-      {:error, "Такой группы не существует"}
+    if is_nil(group) or is_nil(Repo.one(
+      from user in User,
+        where: user.id == ^user_id
+    )) do
+      {:error, "Такой группы или пользователя не существует"}
     else
       rates = group.ratings
       if user_id not in rates["likes"] and user_id not in rates["dislikes"] do

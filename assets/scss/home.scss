@@ -297,3 +297,89 @@ body {
         cursor: pointer;
     }
 }
+
+.menu {
+    background: white;
+    padding: rem(10);
+    border-radius: 15px;
+    &-list {
+        padding: 10px;
+        gap: rem(30);
+        display: flex;
+    }
+    &-item {
+        font-weight: bold;
+        @include adaptiv-font(15, 12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+.h2 {
+}
+.exp {
+}
+.grey {
+}
+.mb-20 {
+}
+.gap-20 {
+}
+.main-bg {
+}
+.school-images-profile {
+    display: flex;
+    position: relative;
+    width: 100%;
+    position: relative;
+    padding: 1px 0 100% 0;
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+    border-collapse: separate;
+}
+.profile-school {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    &__images {
+        border-collapse: separate;
+        border-radius: 100px;
+        flex: 1 1 5%;
+    }
+    &__text {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 60%;
+        gap: 15px;
+    }
+}
+.school {
+    &-title {
+        font-weight: 700;
+        font-size: 48px;
+    }
+    &-history {
+        font-weight: 600;
+        @include adaptiv-font(24, 16);
+    }
+    &-sub-title {
+        font-weight: 500;
+        @include adaptiv-font(14, 12);
+        margin-top: 10px;
+    }
+}
+.school-teachers {
+    &-teacher__item {
+    }
+    &-teachers__img {
+    }
+    &-teachers__text {
+    }
+    &-teacher-name {
+    }
+    &-teacher-spec {
+    }
+}

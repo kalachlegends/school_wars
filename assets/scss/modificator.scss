@@ -203,7 +203,9 @@ a {
 .wp-margin-90 {
     margin-left: rem(120);
     margin-right: rem(70);
+    padding-top: rem(110);
     @media (max-width: 500px) {
+        padding-top: rem(0);
         margin-left: rem(16);
         margin-right: rem(16);
     }

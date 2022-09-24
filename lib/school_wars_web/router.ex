@@ -18,10 +18,6 @@ defmodule SchoolWarsWeb.Router do
 
   pipeline :session_verify, do: plug(Session.Plug)
 
-  pipeline :session_verify_admin, do: plug(Session.PlugAdmin)
-
-  pipeline :session_verify_school_rep, do: plug(Session.PlugSchoolRep)
-
   scope "/", SchoolWarsWeb do
     pipe_through :browser
 
@@ -37,7 +33,7 @@ defmodule SchoolWarsWeb.Router do
   end
 
   scope "/", SchoolWarsWeb do
-    pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify]
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task

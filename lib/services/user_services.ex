@@ -16,8 +16,10 @@ defmodule User.Services do
           User.changeset(%User{}, %{
             login: login,
             hash: :crypto.hash(:sha224, password),
-            data: %{roles: ["admin", "school_rep"]},
-            comments: []
+            data: %{},
+            roles: [],
+            rating: 0,
+            comment_ids: []
           })
         )
       end

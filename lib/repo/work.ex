@@ -5,7 +5,7 @@ defmodule Work do
 
     field :rating, :integer
     field :status, :string
-    field :author, :integer
+    field :author_id, :integer
     field :data, :map
     field :answer_ids, {:array, :integer}
     field :comment_ids, {:array, :integer}
@@ -18,7 +18,7 @@ defmodule Work do
     |> Ecto.Changeset.cast(params, [
       :rating,
       :status,
-      :author,
+      :author_id,
       :data,
       :answer_ids,
       :comment_ids
@@ -26,7 +26,7 @@ defmodule Work do
     |> Ecto.Changeset.validate_required([
       :rating,
       :status,
-      :author,
+      :author_id,
       :data,
       :answer_ids,
       :comment_ids

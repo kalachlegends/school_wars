@@ -2,35 +2,34 @@ defmodule Work do
   use Ecto.Schema
 
   schema "works" do
-    field :content, :string
+
     field :rating, :integer
-    field :status, :integer
+    field :status, :string
     field :author, :integer
     field :data, :map
-    field :answers, {:array, :integer}
-    field :comments, {:array, :integer}
+    field :answer_ids, {:array, :integer}
+    field :comment_ids, {:array, :integer}
     field :inserted_at, :utc_datetime
+
   end
 
   def changeset(work, params \\ %{}) do
     work
     |> Ecto.Changeset.cast(params, [
-      :content,
       :rating,
       :status,
       :author,
       :data,
-      :answers,
-      :comments
+      :answer_ids,
+      :comment_ids
     ])
     |> Ecto.Changeset.validate_required([
-      :content,
       :rating,
       :status,
       :author,
       :data,
-      :answers,
-      :comments
+      :answer_ids,
+      :comment_ids
     ])
   end
 end

@@ -2,17 +2,22 @@ defmodule User do
   use Ecto.Schema
 
   schema "users" do
+
     field :login, :string
-    field :hash, :string, redact: true
+    field :hash, :binary
     field :data, :map
-    field :comments, {:array, :integer}
+    field :rating, :integer
+    field :roles, {:array, :string}
+    field :group_id, :integer
+    field :comment_ids, {:array, :integer}
     field :inserted_at, :utc_datetime
+
   end
 
   def changeset(user, params \\ %{}) do
     user
-    |> Ecto.Changeset.cast(params, [:login, :hash, :data, :comments])
-    |> Ecto.Changeset.validate_required([:login, :hash, :data, :comments])
+    |> Ecto.Changeset.cast(params, [:login, :hash, :data, :rating, :roles, :group_id, :comment_ids])
+    |> Ecto.Changeset.validate_required([:login, :hash, :data, :rating, :roles, :group_id, :comment_ids])
     |> Ecto.Changeset.unique_constraint(:login)
   end
 end

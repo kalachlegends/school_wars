@@ -6,7 +6,10 @@ defmodule SchoolWars.Repo.Migrations.Users do
       add :login, :string
       add :hash, :binary
       add :data, :map
-      add :comments, {:array, :integer}
+      add :rating, :integer
+      add :roles, {:array, :string}
+      add :group_id, references(:groups)
+      add :comment_ids, {:array, :integer}
       add :inserted_at, :utc_datetime, default: fragment("now()")
     end
 

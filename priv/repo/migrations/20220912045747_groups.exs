@@ -4,10 +4,10 @@ defmodule SchoolWars.Repo.Migrations.Groups do
   def change do
     create table("groups") do
       add :name, :string
-      add :rating, :integer
       add :data, :map
-      add :users, {:array, :integer}
-      add :comments, {:array, :integer}
+      add :manager_id, references(:users)
+      add :user_ids, {:array, :integer}
+      add :comment_ids, {:array, :integer}
       add :inserted_at, :utc_datetime, default: fragment("now()")
     end
 

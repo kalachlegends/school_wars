@@ -1,30 +1,20 @@
 <div id="task-container">
-    <.form let={f} for={@conn} action={Routes.task_path(@conn, :create_task)} as={:task}>
-        <div id="task-content">
-            <div id="questions-container">
-            </div>
-            <div id="task-adder">
-                <button onclick="addTask(event, 'open')">
-                    Add Open Task
-                </button>
-                <button onclick="addTask(event, 'closed')">
-                    Add Closed Task
-                </button>
-                <button onclick="addTask(event, 'multiple')">
-                    Add Closed Task With Multiple Answers
-                </button>
-            </div>
+    <div id="task-content">
+        <div id="questions-container">
+
         </div>
-        <%= hidden_input f, :html, value: "" %>
-        <%= submit "Отправить форму", class: "submit-task" %>  
-    </.form>
-    <!-- <div id="task-sidebar-container">
-        <div id="task-sidebar">
-            <div class="task-sidebar-title">
-                Title
-            </div>
+        <div id="task-adder">
+            <button onclick="addTask('open')">
+                Добавить открытый вопрос
+            </button>
+            <button onclick="addTask('closed')">
+                Добавить закрытый вопрос
+            </button>
+            <button onclick="addTask('multiple')">
+                Добавить закрытый вопрос(несколько ответов)
+            </button>
         </div>
-    </div> -->
+    </div>
 </div>
 
 
@@ -32,34 +22,34 @@
 <template id="question-template">
     <div class="question-container" onclick="selectQuestion(event.target)">
         <button class="deleter" onclick="deleteQuestion(event)">
-            Delete Question
+            Удалить вопрос
         </button>
         <div class="question">
             <div class="question-number">
 
             </div>
-            <input type="text", placeholder="Put your question text here", required>
+            <input type="text" , placeholder="Текст вопроса" , required>
         </div>
     </div>
 </template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
         <button onclick="addAnswer(event, 'open')">
-            Add Another Possible Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
         <button onclick="addAnswer(event, 'closed')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
         <button onclick="addAnswer(event, 'multiple')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
@@ -69,27 +59,27 @@
 </template>
 <template id="answer-open">
     <div class="answer-open">
-        <input type="text", placeholder="Put the correct answer here", required>
+        <input type="text" , placeholder="Правильный ответ" , required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить вопрос
         </button>
     </div>
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
-        <input type="radio", class="answer1", name="" required>
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="radio" , class="answer1" , name="">
+        <input type="text" , class="answer2" , placeholder="Вариант ответа" , required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить вопрос
         </button>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
-        <input type="checkbox", class="answer1", name="" required>
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="checkbox" , class="answer1" , name="">
+        <input type="text" , class="answer2" , placeholder="Вариант ответа" , required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить вопрос
         </button>
     </div>
 </template>
@@ -154,10 +144,10 @@
         ev.target.parentElement.remove()
     }
 
-    function deleteAnswer(ev) {
-        ev.preventDefault()
-        ev.target.parentElement.remove()
-    }
+    function deleteAnswer(event) {
+            event.target.parentElement.remove()
+        }
+
 
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')

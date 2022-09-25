@@ -43,10 +43,17 @@ defmodule SchoolWarsWeb.Router do
     # pipe_through [:browser, :home_layout, :session_verify_school_rep]
     pipe_through [:browser, :home_layout]
 
-    get "/tasks", TaskController, :all_taskes
+    get "/tasks", TaskController, :manager
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task_send
+  end
+
+  scope "/", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout]
+
+    get "/manager", ManagerController, :manager
   end
 
   # Other scopes may use custom stacks.

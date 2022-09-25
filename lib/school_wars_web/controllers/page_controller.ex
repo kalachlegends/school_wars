@@ -22,4 +22,10 @@ defmodule SchoolWarsWeb.PageController do
     |> put_root_layout({SchoolWarsWeb.LayoutView, "clean.html"})
     |> render("login.html")
   end
+
+  def rating(conn, params) do
+    list = Group.Services.get_all()
+
+    render(conn, "rating.html", schools: list)
+  end
 end

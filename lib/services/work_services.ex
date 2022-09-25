@@ -2,6 +2,21 @@ defmodule Work.Services do
   import Ecto.Query
   alias SchoolWars.Repo
 
+  def get_by_filter(user_id, status \\ "")
+
+  def get_by_filter(user_id, status) when is_integer(user_id) and is_bitstring(status) do
+    from(
+      work in Work,
+      where: work.author_id == ^user_id and work.status == ^status,
+      select: work
+    )
+    |> Repo.all()
+  end
+
+  def get_by_filter(_user_id, _status) do
+    {:error, "Неправильный формат данных."}
+  end
+
   def create(author_id, work_data) do
     Repo.insert(
       Work.changeset(%Work{}, %{
@@ -123,13 +138,17 @@ defmodule Work.Services do
           where: work.id == ^work_id
       )
 
-    if is_nil(work) or is_nil(Repo.one(
-      from user in User,
-        where: user.id == ^user_id
-    )) do
+    if is_nil(work) or
+         is_nil(
+           Repo.one(
+             from user in User,
+               where: user.id == ^user_id
+           )
+         ) do
       {:error, "Такой работы или пользователя не существует"}
     else
       rates = work.ratings
+
       if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
         Repo.update(
           Work.changeset(work, %{
@@ -145,11 +164,13 @@ defmodule Work.Services do
           )
         else
           opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+
           Repo.update(
             Work.changeset(work, %{
               ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
             })
           )
+
           rate(work_id, rate_type, user_id)
         end
       end

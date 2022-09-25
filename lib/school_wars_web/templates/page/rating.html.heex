@@ -1,0 +1,31 @@
+<div class="wp-margin-landing">
+    <h1 class="h1 mb-16">Рейтинги ЕНТ ПО ПРЕДМЕТАМ</h1>
+    <table class="table" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+            <tr>
+                <th>Название школы</th>
+                <th>Рейтинг</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <%= for item <- @schools do %>
+                <tr>
+                    <td>
+                        <%= item.name %>
+                    </td>
+
+                    <td class="rating">
+                        <span>
+                            <%= item.data["balls"] %>
+                        </span> <span> <img src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg"
+                                )}alt=""></span>
+
+                    </td>
+
+                </tr>
+                <% end %>
+
+        </tbody>
+    </table>
+</div>

@@ -31,6 +31,19 @@ defmodule Group.Services do
     )
   end
 
+  def get_all() do
+    Repo.all(from(group in Group))
+  end
+
+  def get_by_manager_id(id) do
+    from(
+      group in Group,
+      where: group.manager_id == ^id,
+      select: group
+    )
+    |> Repo.one()
+  end
+
   def add_users(group_id, user_ids) when is_list(user_ids) and is_integer(group_id) do
     group =
       Repo.one(
@@ -105,13 +118,17 @@ defmodule Group.Services do
           where: group.id == ^group_id
       )
 
-    if is_nil(group) or is_nil(Repo.one(
-      from user in User,
-        where: user.id == ^user_id
-    )) do
+    if is_nil(group) or
+         is_nil(
+           Repo.one(
+             from user in User,
+               where: user.id == ^user_id
+           )
+         ) do
       {:error, "Такой группы или пользователя не существует"}
     else
       rates = group.ratings
+
       if user_id not in rates["likes"] and user_id not in rates["dislikes"] do
         Repo.update(
           Group.changeset(group, %{
@@ -127,11 +144,13 @@ defmodule Group.Services do
           )
         else
           opposite = if rate_type == "likes", do: "dislikes", else: "likes"
+
           Repo.update(
             Group.changeset(group, %{
               ratings: Map.put(rates, opposite, List.delete(rates[opposite], user_id))
             })
           )
+
           rate(group_id, rate_type, user_id)
         end
       end

@@ -184,8 +184,12 @@ body {
 .answer2 {
     width: 100%;
 }
-testing{
-    display: none;
+.question-text{
+    font-size: 25px;
+}
+.question-text,
+.answer1{
+    margin-bottom: 30px;
 }
 // .task-deleter {
 //     margin: 0 0 0 10px;
@@ -235,12 +239,13 @@ testing{
     font-size: 40px;
     font-weight: 600;
 }
-
 .answer-closed,
 .answer-multiple {
     display: flex;
 }
-
+.answer2{
+    margin-left: 40px;
+}
 // .answer-closed .answer2,
 // .answer-multiple .answer2 {
 //     width: 50%;
@@ -248,7 +253,7 @@ testing{
 
 .answer-closed .answer1,
 .answer-multiple .answer1 {
-    width: 10%;
+    width: 5%;
 }
 
 .profile {
@@ -271,6 +276,7 @@ testing{
         &:hover {
             .sub-menu {
                 visibility: visible;
+                pointer-events: all;
                 opacity: 1;
             }
         }
@@ -501,7 +507,7 @@ testing{
     position: absolute;
 
     left: -100%;
-    top: 40px;
+    top: 10px;
     padding: 100;
     z-index: 100;
     display: flex;
@@ -632,4 +638,9 @@ testing{
 .news {
     &__tags {
     }
+}
+
+.school-direction {
+    font-size: 20px;
+    font-weight: 300;
 }

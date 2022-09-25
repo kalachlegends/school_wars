@@ -18,10 +18,11 @@ defmodule SchoolWarsWeb.Router do
 
   pipeline :session_verify, do: plug(Session.Plug)
   pipeline :session_verify_admin, do: plug(Session.AdminPlug)
+  pipeline :session_verify_manager, do: plug(Session.ManagerPlug)
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
-
+    get "/rating", PageController, :rating
     get "/", PageController, :index
     get "/login", PageController, :login
     post "/login", UserController, :login_submit
@@ -36,18 +37,20 @@ defmodule SchoolWarsWeb.Router do
 
     get "/profile", UserController, :profile
     get "/profile/tasks", UserController, :tasks
+    get "/logout", UserController, :logout
 
     get "/news_editor", NewsController, :news_editor
 
     get "/do_task/:id", TaskController, :do_task
+    post "/news_form", NewsController, :news_form
+
     post "/submit_answer", TaskController, :submit_answer
 
     scope "/school" do
       get "/", SchoolController, :index
       get "/news", SchoolController, :news
       get "/one_news", SchoolController, :one_news_display
-      get "/rates", SchoolController, :news
-      post "/rates", SchoolController, :news
+      get "/workers", SchoolController, :news
     end
   end
 
@@ -62,6 +65,23 @@ defmodule SchoolWarsWeb.Router do
 
     post "/edit_task", TaskController, :edit_task
     post "/edit_task_send", TaskController, :edit_task_send
+  end
+
+  scope "/manager", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify_manager]
+
+    get "/panel", ManagerController, :panel
+    post "/new_student", ManagerController, :new_student
+  end
+
+  scope "/admin", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify_admin]
+
+    get "/panel", AdminController, :panel
+
+    post "/new_manager", AdminController, :new_school
   end
 
   # Other scopes may use custom stacks.

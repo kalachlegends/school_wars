@@ -38,7 +38,7 @@ defmodule SchoolWarsWeb.ManagerController do
     Group.Services.add_users(id, [user.id])
 
     conn
-    |> put_flash(:ok, "Актор спешно добавлен")
+    |> put_flash(:info, " спешно добавлен")
     |> redirect(to: "/manager/panel")
   end
 end

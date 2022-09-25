@@ -5,10 +5,11 @@
     <h3>Ссылка на главную</h3>
     <%= form_for @conn, Routes.news_path(@conn, :news_form), fn f -> %>
         <input name="image" type="text" placeholder="Ссылка на главную картинку">
-        <h3>Описание</h3>
         <input name="description" type="text" placeholder="Описание">
         <h3>Название</h3>
         <input name="title" type="text" placeholder="Название">
+        <h3>Описание</h3>
+
         <input name="html" type="text" id="html" class="d-none" value="">
         <button id="htmlButton" class="func-btn ">
             Отправить

@@ -1,20 +1,19 @@
 <div id="task-container">
-    <.form let={f} for={@conn} action={Routes.task_path(@conn, :create_task)} as={:task}>
+    <.form let={f} for={@conn} action={Routes.task_path(@conn, :edit_task_send)} as={:task}>
         <div id="task-content">
             <div id="questions-container">
+                <%= raw(get_flash(@conn, :original)) %>
             </div>
             <div id="task-adder">
-                <button class="task-answer pd-btn mb-5" onclick="addTask(event, 'open')">
+                <button onclick="addTask(event, 'open')">
                     Добавить открытый вопрос
                 </button>
-                <button class="task-answer pd-btn mb-5" onclick="addTask(event, 'closed')">
+                <button onclick="addTask(event, 'closed')">
                     Добавить закрытый вопрос
                 </button>
-                <button class="task-answer pd-btn mb-5" onclick="addTask(event, 'multiple')">
+                <button onclick="addTask(event, 'multiple')">
                     Добавить закрытый вопрос(несколько ответов)
                 </button>
-                <%= hidden_input f, :html, value: "" %>
-                <%= submit "Отправить форму", class: "task-deleter pd-btn fz-btn" %>  
             </div>
         </div>
         <%= hidden_input f, :html, value: "" %>
@@ -29,7 +28,7 @@
 
 <template id="question-template">
     <div class="question-container" onclick="selectQuestion(event.target)">
-        <button class="task-deleter pd-btn-small" onclick="deleteQuestion(event)">
+        <button class="deleter" onclick="deleteQuestion(event)">
             Удалить вопрос
         </button>
         <div class="question">
@@ -42,21 +41,21 @@
 </template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
-        <button class="task-answer" onclick="addAnswer(event, 'open')">
+        <button onclick="addAnswer(event, 'open')">
             Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
-        <button class="task-answer" onclick="addAnswer(event, 'closed')">
+        <button onclick="addAnswer(event, 'closed')">
             Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
-        <button class="task-answer" onclick="addAnswer(event, 'multiple')">
+        <button onclick="addAnswer(event, 'multiple')">
             Добавить ответ
         </button>
     </div>
@@ -68,7 +67,7 @@
 <template id="answer-open">
     <div class="answer-open">
         <input type="text", placeholder="Правильный ответ", required>
-        <button class="task-deleter pd-btn-small" onclick="deleteAnswer(event)">
+        <button class="deleter" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
     </div>
@@ -77,7 +76,7 @@
     <div class="answer-closed">
         <input type="radio", class="answer1", name="">
         <input type="text", class="answer2", placeholder="Вариант ответа", required>
-        <button class="task-task-deleter pd-btn-small" onclick="deleteAnswer(event)">
+        <button class="deleter" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
     </div>
@@ -86,7 +85,7 @@
     <div class="answer-multiple">
         <input type="checkbox", class="answer1", name="">
         <input type="text", class="answer2", placeholder="Вариант ответа", required>
-        <button class="task-deleter pd-btn-small" onclick="deleteAnswer(event)">
+        <button class="deleter" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
     </div>
@@ -164,18 +163,18 @@
         }
     }
     function clearWork() {
-        window.localStorage.setItem("saved_task", "")
+        window.localStorage.setItem("saved_edit_task", "")
     }
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
     document.documentElement.setAttribute('data-theme', 'light')
     // Auto save edits to task local storage
-    const saved_task = window.localStorage.getItem("saved_task") || ""
+    const saved_task = window.localStorage.getItem("saved_edit_task") || ""
     const hinput = document.querySelector("#task_html")
     questions_container.innerHTML = saved_task.replace(/>\s+</g, '><').trim()
     hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
-        window.localStorage.setItem("saved_task", questions_container.innerHTML)
+        window.localStorage.setItem("saved_edit_task", questions_container.innerHTML)
         hinput.value = questions_container.innerHTML.replace(/>\s+</g,'><').trim()
         //console.log(hinput.value.replace(/>\s+</g,'><').trim())
         let array = []

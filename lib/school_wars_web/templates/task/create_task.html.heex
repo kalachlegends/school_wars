@@ -19,7 +19,10 @@
         <%= submit "Отправить форму", class: "submit-task", onclick: "clearWork()" %>  
     </.form>
     <div id="testing">
-        <%= raw(get_flash(@conn, :lol)) %>
+        <.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
+            <%= raw(get_flash(@conn, :lol)) %>
+            <%= submit "Отправить форму", class: "submit-task" %>  
+        </.form>
     </div>
 </div>
 

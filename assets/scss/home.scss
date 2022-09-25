@@ -539,13 +539,83 @@ body {
 }
 .profile {
     &-content {
+        justify-content: space-between;
+        display: flex;
+        @include adaptiv-font(16, 14);
+    }
+    &-row {
+        justify-content: space-between;
+        display: flex;
+        gap: 20px;
     }
 }
-.d {
-    &-flex-gap-20 {
-    }
+.d-flex-gap-20 {
+    display: flex;
+    gap: 20px;
 }
 .fw {
     &-300 {
+    }
+}
+
+.tags {
+}
+.like {
+    cursor: pointer;
+}
+.dislike {
+    cursor: pointer;
+
+    img {
+        transform: rotate(-180deg);
+    }
+}
+
+.tasks {
+    padding: 30px;
+    background: #ffffff;
+    /* Тень от окон */
+    @include adaptiv-font(24, 15);
+    box-shadow: 5px 6px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    &__body {
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    &__title {
+        font-weight: 600;
+    }
+    &__sub-title {
+        font-weight: 400;
+    }
+    &__report {
+        @include adaptiv-font(20, 17);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        gap: 20px;
+        right: 20px;
+    }
+    &__ball {
+        position: absolute;
+        display: flex;
+        gap: 20px;
+        right: 20px;
+        bottom: 0px;
+    }
+    .rating {
+        @include adaptiv-font(20, 17);
+        margin-left: 20px;
+    }
+    &__likes {
+        gap: 10px;
+        display: flex;
+    }
+}
+.news {
+    &__tags {
     }
 }

@@ -29,4 +29,8 @@ defmodule SchoolWarsWeb.UserController do
   def profile(conn, _params) do
     render(conn, "profile.html")
   end
+
+  def tasks(conn, _params) do
+    render(conn, "tasks.html")
+  end
 end

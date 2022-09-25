@@ -35,7 +35,11 @@ defmodule SchoolWarsWeb.Router do
     get "/uikit", HomeController, :uikit
 
     get "/profile", UserController, :profile
+    get "/profile/tasks", UserController, :tasks
+
     get "/news_editor", NewsController, :news_editor
+
+    post "/submit_answer", TaskController, :submit_answer
 
     scope "/school" do
       get "/", SchoolController, :index

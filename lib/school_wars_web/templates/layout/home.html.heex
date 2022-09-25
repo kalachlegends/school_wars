@@ -28,7 +28,7 @@
               Главная
             </div>
             <div class="nav__sub-title">
-               Краткие новости, рейтинг, рекомендуемая задача
+              Краткие новости, рейтинг, рекомендуемая задача
             </div>
           </div>
         </a>
@@ -65,7 +65,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="">
+        <a href="/school">
           <div class="nav__img ">
             <img src={Routes.static_path(@conn, "/images/menu-icon/news.png" )} alt="">
           </div>
@@ -94,15 +94,34 @@
           </div>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="/news_editor">
+          <div class="nav__img ">
+            <img src={Routes.static_path(@conn, "/images/menu-icon/news-plus.png" )} alt="">
+          </div>
+          <div class="nav__content">
+            <div class="nav__title">
+              Создать новосоть
+            </div>
+            <div class="nav__sub-title">
+
+            </div>
+          </div>
+        </a>
+      </li>
     </ul>
   </nav>
   <ul class="profile">
     <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/sun.png" )} alt=""></li>
     <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/notification.png" )} alt=""></li>
-    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/profile.png" )} alt=""></li>
-    <li class="  profile-item default-avatar"><img src={Routes.static_path(@conn, "/images/icon/avatar-default.png" )}
-        alt="">
+    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/profile.png" )} alt="">
+      <ul class="sub-menu">
+        <a class="sub-menu-item" href="/profile">assaasas</a>
+      </ul>
     </li>
+    <a href="/profile" class="profile-item default-avatar"><img
+        src={Routes.static_path(@conn, "/images/icon/avatar-default.png" )} alt="">
+    </a>
     <li class="profile-item fw-bold"> 20 очков</li>
     <li class="profile-item ">
       <div class="drop-down">

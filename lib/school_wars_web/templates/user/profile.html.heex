@@ -1,0 +1,88 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="df-gap-10-fxdc">
+
+    <%= render(SchoolWarsWeb.UserView,"menu.html", id: 1, conn: @conn) %>
+        <div class="profile-row">
+            <div class="main-bg pad-20 flex-0-1-70">
+                <div class="profile-content">
+                    <div class="df-gap-20-fxdc">
+                        <span class="d-flex-gap-20 align-items-center"> <span>Прогресс</span> <span><img
+                                    src={Routes.static_path(@conn, "/images/icon/chart-fill.svg" )}
+                                    alt=""></span></span>
+                        <span class="d-flex-gap-20"> <span>Позиция в таблице лидеров</span> <span class="fw-300">30
+                                баллов</span></span>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span class="fw-300">30 баллов</span></span>
+                    </div>
+                    <div class="charts">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-bg pad-20 flex-0-1-20">
+                <div class="profile-content">
+                    <div class="df-gap-20-fxdc">
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span><img
+                                    src={Routes.static_path(@conn, "/images/icon/chart-fill.svg" )}
+                                    alt=""></span></span>
+                        <span class="d-flex-gap-20"> <span>Позиция в таблице лидеров</span> <span class="fw-300">30
+                                баллов</span></span>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span class="fw-300">30 баллов</span></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>
+<div class="d-none" id="balls">20,20,30</div>
+<script>
+    const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+    ];
+    let dataBalls = document.querySelector("#balls").textContent.split(",")
+
+
+    const data = {
+        labels: ['Общее количество баллов', "Созданные задачи", 'Пройденные Задачи'],
+        datasets: [
+            {
+                label: 'Dataset 1',
+                data: dataBalls,
+                backgroundColor: ['#4dc9f6',
+                    '#f67019',
+                    '#f53794',
+                    '#537bc4',
+                    '#acc236',
+                    '#166a8f',
+                    '#00a950',
+                    '#58595b',
+                    '#8549ba'],
+            }
+        ]
+    };
+
+    const config = {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                }
+            }
+        },
+    };
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>

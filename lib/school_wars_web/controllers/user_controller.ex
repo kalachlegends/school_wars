@@ -19,9 +19,18 @@ defmodule SchoolWarsWeb.UserController do
 
       any ->
         IO.inspect(any, label: "actual error")
+
         conn
         |> put_flash(:error, "Произошла серверная ошибка")
         |> redirect(to: Routes.page_path(conn, :login))
     end
+  end
+
+  def profile(conn, _params) do
+    render(conn, "profile.html")
+  end
+
+  def tasks(conn, _params) do
+    render(conn, "tasks.html")
   end
 end

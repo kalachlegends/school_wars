@@ -267,6 +267,14 @@ testing{
     justify-content: center;
 
     &-item {
+        cursor: pointer;
+        &:hover {
+            .sub-menu {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+        position: relative;
         img {
             width: 28px;
             height: 28px;
@@ -368,6 +376,12 @@ testing{
     background: #ffffff;
     border-radius: 22px;
     padding: 35px;
+    &.pad-20 {
+        padding: 20px;
+    }
+    &.pad-10 {
+        padding: 10px;
+    }
 }
 
 .gap-50 {
@@ -479,5 +493,143 @@ testing{
         font-weight: 700;
         font-size: 15px;
         line-height: 18px;
+    }
+}
+.sub-menu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+
+    left: -100%;
+    top: 40px;
+    padding: 100;
+    z-index: 100;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 30px;
+    background: #ffffff;
+    /* Тень для selecta */
+
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    &-item {
+        font-size: 15px;
+        display: flex;
+        gap: 20px;
+        font-weight: bold;
+    }
+}
+.profile-block {
+    display: flex;
+    gap: 20px;
+
+    &__img {
+        img {
+            width: 52px;
+            height: 50px;
+        }
+    }
+    &__body {
+        display: flex;
+        flex-direction: column;
+    }
+    .name {
+        font-weight: 600;
+        @include adaptiv-font(20, 18);
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .class {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.charts {
+}
+.profile {
+    &-content {
+        justify-content: space-between;
+        display: flex;
+        @include adaptiv-font(16, 14);
+    }
+    &-row {
+        justify-content: space-between;
+        display: flex;
+        gap: 20px;
+    }
+}
+.d-flex-gap-20 {
+    display: flex;
+    gap: 20px;
+}
+.fw {
+    &-300 {
+    }
+}
+
+.tags {
+}
+.like {
+    cursor: pointer;
+}
+.dislike {
+    cursor: pointer;
+
+    img {
+        transform: rotate(-180deg);
+    }
+}
+
+.tasks {
+    padding: 30px;
+    background: #ffffff;
+    /* Тень от окон */
+    @include adaptiv-font(24, 15);
+    box-shadow: 5px 6px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    &__body {
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    &__title {
+        font-weight: 600;
+    }
+    &__sub-title {
+        font-weight: 400;
+    }
+    &__report {
+        @include adaptiv-font(20, 17);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        gap: 20px;
+        right: 20px;
+    }
+    &__ball {
+        position: absolute;
+        display: flex;
+        gap: 20px;
+        right: 20px;
+        bottom: 0px;
+    }
+    .rating {
+        @include adaptiv-font(20, 17);
+        margin-left: 20px;
+    }
+    &__likes {
+        gap: 10px;
+        display: flex;
+    }
+}
+.news {
+    &__tags {
     }
 }

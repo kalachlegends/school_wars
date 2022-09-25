@@ -340,6 +340,75 @@ a {
     &__tags {
     }
 }
+.mb-16 {
+    margin-bottom: 16px;
+}
+h1 {
+    @include adaptiv-font(40, 19);
+    font-weight: bold;
+}
+
+h2 {
+    @include adaptiv-font(33, 15);
+    font-weight: 400;
+}
+h3 {
+    @include adaptiv-font(25, 13);
+    font-weight: 300;
+}
+
+h4 {
+    @include adaptiv-font(18, 15);
+    font-weight: 300;
+}
+
+h5 {
+    @include adaptiv-font(15, 14);
+    font-weight: 300;
+}
+.df-gap-50-fxdc {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.df-gap-30-fxdc {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.df-gap-20-fxdc {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.df-gap-10-fxdc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pad-20 {
+}
+.d-flex {
+    display: flex;
+}
+.gap-10 {
+    gap: 10px;
+}
+.gap-20 {
+    gap: 10px;
+}
+.gap-30 {
+    gap: 10px;
+}
+.align-items-center {
+    align-items: center;
+}
+.flex-0-1-70 {
+    flex: 0 1 70%;
+}
+.flex-0-1-20 {
+    flex: 1 1 20%;
+}
 
 .mb-5{
     margin-bottom: 5px;

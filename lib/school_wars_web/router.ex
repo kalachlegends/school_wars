@@ -41,7 +41,7 @@ defmodule SchoolWarsWeb.Router do
 
   scope "/", SchoolWarsWeb do
     # pipe_through [:browser, :home_layout, :session_verify_school_rep]
-    pipe_through [:browser, :home_layout]
+    pipe_through [:browser, :home_layout, :session_verify]
 
     get "/tasks", TaskController, :all_taskes
 

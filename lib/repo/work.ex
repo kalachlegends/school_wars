@@ -6,8 +6,6 @@ defmodule Work do
     field :author_id, :integer
     field :data, :map
     field :ratings, :map
-    field :original, :binary
-    field :front, :binary
     field :answer_ids, {:array, :integer}
     field :comment_ids, {:array, :integer}
     field :inserted_at, :utc_datetime
@@ -19,8 +17,6 @@ defmodule Work do
       :status,
       :author_id,
       :data,
-      :original,
-      :front,
       :ratings,
       :answer_ids,
       :comment_ids
@@ -29,8 +25,6 @@ defmodule Work do
       :status,
       :author_id,
       :data,
-      :original,
-      :front,
       :ratings,
       :answer_ids,
       :comment_ids

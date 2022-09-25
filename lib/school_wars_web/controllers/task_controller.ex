@@ -45,11 +45,11 @@ defmodule SchoolWarsWeb.TaskController do
           {acc <> string, ans, values}
       end
     end)
-    IO.inspect(html_orig, label: "uncompressed")
-    compress_original(html_orig)
-    |> IO.inspect(label: "compressed")
-    #Work.Services.create(user.id, %{editable: html_orig, values: values, front: html, answers: answers})
-    #|> IO.inspect()
+    #IO.inspect(html_orig, label: "uncompressed")
+    #compress_original(html_orig)
+    #|> IO.inspect(label: "compressed")
+    Work.Services.create(user.id, %{editable: html_orig, values: values, front: html, answers: answers})
+    |> IO.inspect()
     conn
     |> put_flash(:lol, html)
     |> render("create_task.html")

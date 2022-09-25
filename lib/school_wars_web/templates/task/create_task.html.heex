@@ -16,7 +16,7 @@
             </div>
         </div>
         <%= hidden_input f, :html, value: "" %>
-        <%= submit "Отправить форму", class: "submit-task" %>  
+        <%= submit "Отправить форму", class: "submit-task", onclick: "clearWork()" %>  
     </.form>
     <div id="testing">
         <%= raw(get_flash(@conn, :lol)) %>
@@ -160,6 +160,9 @@
             }
             numbers[i].innerText = i + 1
         }
+    }
+    function clearWork() {
+        window.localStorage.setItem("saved_task", "")
     }
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')

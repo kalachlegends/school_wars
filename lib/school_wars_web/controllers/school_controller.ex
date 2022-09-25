@@ -10,4 +10,8 @@ defmodule SchoolWarsWeb.SchoolController do
     {:ok, news} = News.Services.get_news()
     render(conn, "news.html", news: news)
   end
+
+  def rating(conn, _params) do
+    render(conn, "rating.html")
+  end
 end

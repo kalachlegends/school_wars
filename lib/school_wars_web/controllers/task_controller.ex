@@ -48,6 +48,7 @@ defmodule SchoolWarsWeb.TaskController do
           {acc <> string, ans, values}
       end
     end)
+    html = Regex.replace(~r/(<div class=\"answer-(closed|open|multiple)-adder\"><\/div>)/, html, "")
     #IO.inspect(html_orig, label: "uncompressed")
     #compress_original(html_orig)
     #|> IO.inspect(label: "compressed")
@@ -62,11 +63,19 @@ defmodule SchoolWarsWeb.TaskController do
     render(conn, "create_task.html")
   end
 
+  def edit_task_send(conn, _params) do
+    render(conn, "create_task.html")
+  end
+
+  def edit_task(conn, _params) do
+    render(conn, "create_task.html")
+  end
+
   def all_taskes(conn, _params) do
     render(conn, "all_taskes.html")
   end
 
-  defp compress_original(original) do
-    String.replace(original, "<div class=\"question-container\" onclick=\"selectQuestion(event.target)\"><button class=\"deleter\" onclick=\"deleteQuestion(event)\">Удалить вопрос</button><div class=\"question\"><div class=\"question-number\">", "%@--+1")
-  end
+  #defp compress_original(original) do
+  #  String.replace(original, "<div class=\"question-container\" onclick=\"selectQuestion(event.target)\"><button class=\"deleter\" onclick=\"deleteQuestion(event)\">Удалить вопрос</button><div class=\"question\"><div class=\"question-number\">", "%@--+1")
+  #end
 end

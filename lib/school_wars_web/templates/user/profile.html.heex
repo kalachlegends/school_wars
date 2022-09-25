@@ -1,0 +1,49 @@
+<div class="df-gap-10-fxdc">
+    <div class="main-bg pad-20">
+        <div class="profile-block">
+            <div class="profile-block__img">
+                <img src={Routes.static_path(@conn, "/images/icon/avatar-default.png" )} alt="">
+            </div>
+            <div class="profile-block__body">
+                <span class="d-flex gap-20"><span class="name">Артем Калачев</span> <span
+                        class="class">10-класс</span></span>
+                <span class="d-flex align-items-center  gap-10"><span>Артем Калачев</span> <span><img
+                            src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt=""></span></span>
+            </div>
+        </div>
+    </div>
+    <%= render(SchoolWarsWeb.UserView,"menu.html", id: 1, conn: @conn) %>
+        <div class="profile-row">
+            <div class="main-bg pad-20">
+                <div class="profile-content">
+                    <div>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span><img
+                                    src={Routes.static_path(@conn, "/images/icon/chart-fill.svg" )}
+                                    alt=""></span></span>
+                        <span class="d-flex-gap-20"> <span>Позиция в таблице лидеров</span> <span class="fw-300">30
+                                баллов</span></span>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span class="fw-300">30 баллов</span></span>
+                    </div>
+                    <div class="charts">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="main-bg pad-20">
+                <div class="profile-content">
+                    <div>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span><img
+                                    src={Routes.static_path(@conn, "/images/icon/chart-fill.svg" )}
+                                    alt=""></span></span>
+                        <span class="d-flex-gap-20"> <span>Позиция в таблице лидеров</span> <span class="fw-300">30
+                                баллов</span></span>
+                        <span class="d-flex-gap-20"> <span>Прогресс</span> <span class="fw-300">30 баллов</span></span>
+                    </div>
+                    <div class="charts">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

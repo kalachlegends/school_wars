@@ -33,12 +33,18 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify]
 
     get "/home", HomeController, :index
-
-    get "/school/:id/news", SchoolController, :news
-    get "/school/:id/rating", SchoolController, :rating
     get "/uikit", HomeController, :uikit
 
-    get "/school", SchoolController, :index
+    get "/profile", UserController, :profile
+    get "/news_editor", NewsController, :news_editor
+
+    scope "/school" do
+      get "/", SchoolController, :index
+      get "/news", SchoolController, :news
+      get "/one_news", SchoolController, :one_news_display
+      get "/rates", SchoolController, :news
+      post "/rates", SchoolController, :news
+    end
   end
 
   scope "/", SchoolWarsWeb do
@@ -49,6 +55,9 @@ defmodule SchoolWarsWeb.Router do
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task_send
+
+    post "/edit_task", TaskController, :edit_task
+    post "/edit_task_send", TaskController, :edit_task_send
   end
 
   scope "/manager", SchoolWarsWeb do

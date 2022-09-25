@@ -37,6 +37,18 @@ defmodule Work.Services do
     )
   end
 
+  def get_all_except_done_by_user_id(user_id) do
+    work_ids = Repo.all(
+      from answer in Answer,
+        where:  answer.author_id == ^user_id
+    )
+    |> Enum.map(&(&1.work_id))
+    Repo.all(
+      from work in Work,
+        where: work.id not in ^work_ids
+    )
+  end
+
   def change_data(work_id, data) do
     work =
       Repo.one(

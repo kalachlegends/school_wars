@@ -1,0 +1,29 @@
+<div class="df-gap-20-fxdc">
+    <%= for item <- @data.works do %>
+        <a href={"/do_task/#{item.id}"} class="tasks">
+            <div class="tasks__body">
+                <span class="tasks__title"><%= item.data["title"] %></span>
+                <span class="tasks__sub-title"><%= item.data["desc"] %></span>
+                <div class="news__tags">
+                    <span class="tags"><%= item.data["difficulty"] %></span>
+                </div>
+
+
+                <%# <div class="tasks__report">
+                    <span>2 Жалобы</span>
+                    <img src={Routes.static_path(@conn, "/images/icon/info.svg" )} alt="">
+                </div> %>
+                <div class="tasks__ball">
+                    <div class="tasks__likes">
+                        <span data-user="" data-id="" class="like"> <img
+                                src={Routes.static_path(@conn, "/images/icon/like.svg" )} alt=""></span>
+                        <span data-user="" data-id="" class="dislike"> <img
+                                src={Routes.static_path(@conn, "/images/icon/like.svg" )} alt=""></span>
+                    </div>
+                    <span class="rating"><span><%= length(item.ratings["likes"]) - length(item.ratings["dislikes"]) %></span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></span>
+                </div>
+            </div>
+        </a>
+    <% end %>
+</div>

@@ -8,7 +8,7 @@ defmodule SchoolWarsWeb.TaskController do
     render(conn, "index.html")
   end
 
-  def create_task_send(conn, %{"task" => %{"html" => html_orig}}) do
+  def create_task_send(conn, %{"task" => %{"html" => html_orig, "difficulty" => diff, "desc" => desc, "title" => title}}) do
     session = Session.read(get_session(conn, :token)).data
     user = session.account
     # ((?<!\\)<)|((?<!\\)>) Matches <> that have no \
@@ -35,8 +35,8 @@ defmodule SchoolWarsWeb.TaskController do
           count = length(last)
           last = last ++ [String.contains?(string, " checked=\"true\"")]
           string = String.replace(string, " checked=\"true\"", "")
-          string = String.replace(string, ~r/(name=\")(.*?)(\")/, "name=\"answer[#{name}]\"")
-          {acc <> "<" <> string <> "value=\"#{count}\"" <> ">", list ++ [last], values}
+          string = String.replace(string, ~r/(name=\")(.*?)(\")/, "name=\"answer[#{if String.contains?(string, "input type=\"checkbox\""), do: name <> "m#{count}", else: name}]\"")
+          {acc <> "<" <> string <> "value=\"#{count}\"" <> (if String.contains?(string, "input type=\"checkbox\""), do: "", else: " required=\"true\"") <> ">", list ++ [last], values}
         String.contains?(string, "input type=\"text\" class=") ->
           {value, list} = List.pop_at(values, 0)
           {acc <> "<div class=\"question-text\">#{value}</div>", ans, list}
@@ -45,11 +45,11 @@ defmodule SchoolWarsWeb.TaskController do
           |> Enum.at(2)
           {last, list} = List.pop_at(ans, -1)
           {value, list2} = List.pop_at(values, 0)
-          last = last ++ [value]
+          last = last ++ [String.downcase(value)]
           if String.contains?(acc, name) do
             {acc, list ++ [last], list2}
           else
-            {acc <> "<input type=\"text\" ,=\"\" class=\"answer-input\" name=\"answer[#{name}]\" placeholder=\"Ваш ответ\" required=\"\"", list ++ [last], list2}
+            {acc <> "<input type=\"text\" ,=\"\" class=\"answer-input\" name=\"answer[#{name}]\" placeholder=\"Ваш ответ\" required=\"true\"", list ++ [last], list2}
           end
         true ->
           IO.inspect(string, label: "string")
@@ -60,12 +60,12 @@ defmodule SchoolWarsWeb.TaskController do
     #IO.inspect(html_orig, label: "uncompressed")
     #compress_original(html_orig)
     #|> IO.inspect(label: "compressed")
-    {:ok, work} = Work.Services.create(user.id, %{editable: html_orig, values: values, front: html, answers: answers})
+    {:ok, work} = Work.Services.create(user.id, %{editable: html_orig, values: values, front: html, answers: answers, difficulty: diff, desc: desc, title: title})
     |> IO.inspect()
-    Session.update(get_session(conn, :token), Map.merge(session, %{group_id: work.id}))
+    Session.update(get_session(conn, :token), Map.merge(session, %{work_id: work.id}))
     conn
-    |> put_flash(:lol, html)
-    |> render("create_task.html")
+    |> put_flash(:info, "Задача создана!")
+    |> redirect(to: Routes.task_path(conn, :all_tasks))
   end
 
   def create_task(conn, _) do
@@ -80,14 +80,59 @@ defmodule SchoolWarsWeb.TaskController do
     render(conn, "create_task.html")
   end
 
-  def all_taskes(conn, _params) do
-    render(conn, "all_taskes.html")
+  def do_task(conn, params) do
+    IO.inspect(params)
+    case Work.Services.get_by_id(String.to_integer(params["id"])) do
+      nil ->
+        conn
+        |> put_flash(:error, "Такой задачи не существует")
+        |> redirect(to: Routes.task_path(conn, :all_tasks))
+      data ->
+        render(conn, "do_task.html", data: data.data["front"])
+    end
   end
 
-  def submit_answer(conn, _) do
+  def all_tasks(conn, _params) do
+    render(conn, "all_tasks.html", data: %{works: Work.Services.get_all_except_done_by_user_id(Session.read(get_session(conn, :token)).data.account.id)})
+  end
+
+  def submit_answer(conn, %{"answer" => answers}) do
+    answers = Enum.reduce(answers, %{}, fn {key, value}, acc ->
+      ans = Regex.run(~r/ans./, key)
+      |> Enum.at(0)
+
+      Map.put(acc, ans, Map.get(acc, ans, []) ++ [value])
+    end)
+    |> IO.inspect(label: "reduce")
+    answers = Map.values(answers)
     session = Session.read(get_session(conn, :token)).data
-    IO.inspect(session, label: "session")
-    render(conn, "all_taskes.html")
+    correct = Work.Services.get_by_id(session.work_id).data["answers"]
+    answers = Enum.reduce(0..length(correct)-1, [], fn
+      index, acc ->
+        answer = Enum.at(answers, index)
+        correct = Enum.at(correct, index)
+        answer = if is_boolean(hd(correct)) do
+          Enum.map(0..length(correct)-1, fn index ->
+            to_string(index) in answer
+          end)
+        else
+          String.downcase(hd(answer))
+        end
+        IO.inspect({answer, correct})
+        acc ++ [(if is_boolean(hd(correct)), do: answer == correct, else: answer in correct)]
+    end)
+
+    {:ok, answer} = Answer.Services.create(session.account.id, session.work_id, %{answers: answers})
+    Work.Services.add_answer(session.work_id, answer.id)
+
+    conn
+    |> put_flash(:info, "Вы получили #{Float.round(Enum.reduce(answers, 0, fn
+      true, acc ->
+        acc + 1
+      false, acc ->
+        acc
+    end) / length(answers) * 100, 2)}%")
+    |> redirect(to: Routes.task_path(conn, :all_tasks))
   end
 
   #defp compress_original(original) do

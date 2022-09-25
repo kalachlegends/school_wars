@@ -29,7 +29,7 @@ defmodule SchoolWarsWeb.ManagerController do
     User.Services.register_user_random_pass(params["email"], data, role)
 
     conn
-    |> put_flash(:ok, "Актор спешно добавлен")
+    |> put_flash(:info, " спешно добавлен")
     |> redirect(to: "/manager/panel")
   end
 end

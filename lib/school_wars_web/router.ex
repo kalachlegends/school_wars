@@ -18,6 +18,7 @@ defmodule SchoolWarsWeb.Router do
 
   pipeline :session_verify, do: plug(Session.Plug)
   pipeline :session_verify_admin, do: plug(Session.AdminPlug)
+  pipeline :session_verify_manager, do: plug(Session.ManagerPlug)
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
@@ -56,13 +57,31 @@ defmodule SchoolWarsWeb.Router do
     # pipe_through [:browser, :home_layout, :session_verify_school_rep]
     pipe_through [:browser, :home_layout, :session_verify]
 
-    get "/tasks", TaskController, :all_taskes
+    get "/tasks", TaskController, :manager
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task_send
 
     post "/edit_task", TaskController, :edit_task
     post "/edit_task_send", TaskController, :edit_task_send
+  end
+
+  scope "/manager", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify_manager]
+
+    get "/panel", ManagerController, :panel
+    post "/new_student", ManagerController, :new_student
+
+  end
+
+  scope "/admin", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify_admin]
+
+    get "/panel", AdminController, :panel
+    post "/new_manager", AdminController, :new_school
+
   end
 
   # Other scopes may use custom stacks.

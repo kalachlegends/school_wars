@@ -1,6 +1,9 @@
 defmodule SchoolWarsWeb.TaskController do
   use SchoolWarsWeb, :controller
 
+    # 0 - alpha(можно редактировать, доступно модераторам), 1 - beta(можно редактитровать, доступно всем),
+    # 2 - completed(нельзя редактировать, доступно всем), 3 - (можно редактировать, доступно модераторам)
+
   def index(conn, _params) do
     render(conn, "index.html")
   end

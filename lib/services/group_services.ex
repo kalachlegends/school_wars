@@ -31,6 +31,14 @@ defmodule Group.Services do
     )
   end
 
+  def get_by_manager_id(id) do
+      from(
+        group in Group,
+        where: group.manager_id == ^id,
+        select: group)
+      |> Repo.one()
+  end
+
   def add_users(group_id, user_ids) when is_list(user_ids) and is_integer(group_id) do
     group =
       Repo.one(

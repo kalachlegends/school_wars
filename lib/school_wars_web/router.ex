@@ -25,6 +25,7 @@ defmodule SchoolWarsWeb.Router do
     get "/", PageController, :index
     get "/login", PageController, :login
     post "/login", UserController, :login_submit
+    get "/news", PageController, :news
   end
 
   scope "/", SchoolWarsWeb do
@@ -33,7 +34,7 @@ defmodule SchoolWarsWeb.Router do
     get "/home", HomeController, :index
 
     get "/school/:id/news", SchoolController, :news
-
+    get "/school/:id/rating", SchoolController, :rating
     get "/uikit", HomeController, :uikit
 
     get "/school", SchoolController, :index

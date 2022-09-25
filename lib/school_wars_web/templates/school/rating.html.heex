@@ -1,19 +1,63 @@
-<menu class="menu mb-20 ">
-    <ul class="menu-list">
-        <a href="/school" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt="">
-            <span>Главная
-                страница</span></a>
-        <a href="/school/1/news" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/news-menu.svg" )}
-                alt="">
-            <span>Новости</span>
-        </a>
-        <a href="" class="menu-item"><img src={Routes.static_path(@conn, "/images/icon/sostav.svg" )} alt="">
-            <span>Состав
-                школы</span></a>
-        <a href="" class=" menu-item"><img src={Routes.static_path(@conn, "/images/icon/rate-menu.svg" )} alt="">
-            <span>Рейтинги</span></a>
-    </ul>
-</menu>
-<div class="b gap-10">
- 
-</div>
+<%= render(SchoolWarsWeb.SchoolView,"menu.html", id: 1, conn: @conn) %>
+    <div class="main-bg gap-50">
+        <h1 class="h1">Рейтинги ЕНТ ПО ПРЕДМЕТАМ</h1>
+        <table class="table" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>Место</th>
+                    <th>Ученик</th>
+                    <th>Рейтинг</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+            </tbody>
+        </table>
+        <h1 class="h1">Рейтинги ЕНТ ПО ПРЕДМЕТАМ</h1>
+        <table class="table" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>Место</th>
+                    <th>Ученик</th>
+                    <th>Рейтинг</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Артем Калачев </td>
+                    <td class="rating"><span>19 200 </span> <span> <img
+                                src={Routes.static_path(@conn, "/images/icon/meni-rating-red.svg" )}alt=""></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>

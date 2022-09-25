@@ -112,17 +112,22 @@
     </ul>
   </nav>
   <ul class="profile">
-    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/sun.png" )} alt=""></li>
-    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/notification.png" )} alt=""></li>
-    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/profile.png" )} alt="">
-      <ul class="sub-menu">
-        <a class="sub-menu-item" href="/profile">assaasas</a>
-      </ul>
-    </li>
+    <!--   <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/sun.png" )} alt=""></li>
+    <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/notification.png" )} alt=""></li> 
+   <li class="profile-item"><img src={Routes.static_path(@conn, "/images/icon/profile.png" )} alt="">     </li>-->
+
+
+
+
     <a href="/profile" class="profile-item default-avatar"><img
         src={Routes.static_path(@conn, "/images/icon/avatar-default.png" )} alt="">
+
     </a>
-    <li class="profile-item fw-bold"> 20 очков</li>
+    <li class="profile-item fw-bold"> 20 очков
+      <ul class="sub-menu">
+        <a class="sub-menu-item" href="/logout">Выйти из аккаунта</a>
+      </ul>
+    </li>
     <li class="profile-item ">
       <div class="drop-down">
         <div class="drop-down__title">

@@ -4,57 +4,47 @@
             <div id="questions-container">
             </div>
             <div id="task-adder">
-                <button onclick="addTask(event, 'open')">
+                <button class="task-answer pd-btn" onclick="addTask(event, 'open')">
                     Добавить открытый вопрос
                 </button>
-                <button onclick="addTask(event, 'closed')">
+                <button class="task-answer pd-btn" onclick="addTask(event, 'closed')">
                     Добавить закрытый вопрос
                 </button>
-                <button onclick="addTask(event, 'multiple')">
+                <button class="task-answer pd-btn" onclick="addTask(event, 'multiple')">
                     Добавить закрытый вопрос(несколько ответов)
                 </button>
+                <%= hidden_input f, :html, value: "" %>
+                <%= submit "Отправить форму", class: "task-deleter pd-btn fz-btn" %>  
             </div>
         </div>
-        <%= hidden_input f, :html, value: "" %>
-        <%= submit "Отправить форму", class: "submit-task", onclick: "clearWork()" %>  
     </.form>
     <div id="testing">
-        <%= raw(get_flash(@conn, :lol)) %>
+        <.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
+            <%= raw(get_flash(@conn, :lol)) %>
+            <%= submit "Отправить форму", class: "submit-task" %>  
+        </.form>
     </div>
 </div>
 
 
 
-<template id="question-template">
-    <div class="question-container" onclick="selectQuestion(event.target)">
-        <button class="deleter" onclick="deleteQuestion(event)">
-            Удалить вопрос
-        </button>
-        <div class="question">
-            <div class="question-number">
-
-            </div>
-            <input type="text", class="question-text" placeholder="Текст вопроса", required>
-        </div>
-    </div>
-</template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
-        <button onclick="addAnswer(event, 'open')">
+        <button class="task-answer mt-5" onclick="addAnswer(event, 'open')">
             Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
-        <button onclick="addAnswer(event, 'closed')">
+        <button class="task-answer mt-5" onclick="addAnswer(event, 'closed')">
             Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
-        <button onclick="addAnswer(event, 'multiple')">
+        <button class="task-answer mt-5" onclick="addAnswer(event, 'multiple')">
             Добавить ответ
         </button>
     </div>
@@ -64,29 +54,42 @@
     </div>
 </template>
 <template id="answer-open">
-    <div class="answer-open">
-        <input type="text", placeholder="Правильный ответ", required>
-        <button class="deleter" onclick="deleteAnswer(event)">
+    <div class="answer-open task-block">
+        <input type="text" placeholder="Правильный ответ" required>
+        <button class="task-deleter pd-btn-small ml-10" style="width: 20%;" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed">
-    <div class="answer-closed">
-        <input type="radio", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Вариант ответа", required>
-        <button class="deleter" onclick="deleteAnswer(event)">
+    <div class="answer-closed task-block">
+        <input type="radio" class="answer1" name="">
+        <input type="text" class="answer2" placeholder="Вариант ответа" required>
+        <button class="task-deleter pd-btn-small ml-10" style="width: 20%;" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple">
-    <div class="answer-multiple">
-        <input type="checkbox", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Вариант ответа", required>
-        <button class="deleter" onclick="deleteAnswer(event)">
+    <div class="answer-multiple  task-block">
+        <input type="checkbox" class="answer1" name="">
+        <input type="text" class="answer2" placeholder="Вариант ответа" required>
+        <button class="task-deleter pd-btn-small ml-10" style="width:20%" onclick="deleteAnswer(event)">
             Удалить ответ
         </button>
+    </div>
+</template>
+<template id="question-template">
+    <div class="question-container" style="margin-bottom: 50px;" onclick="selectQuestion(event.target)">
+        <button class="task-deleter pd-btn-small" onclick="deleteQuestion(event)">
+            Удалить вопрос
+        </button>
+        <div class="question">
+            <div class="question-number">
+
+            </div>
+            <input type="text" class="question-text" placeholder="Текст вопроса" required>
+        </div>
     </div>
 </template>
 

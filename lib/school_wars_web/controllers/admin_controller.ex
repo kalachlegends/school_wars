@@ -12,10 +12,14 @@ defmodule SchoolWarsWeb.AdminController do
 
   def new_school(conn, params) do
     data_manager = %{
-      first_name: params["first_name"],
-      last_name: params["last_name"],
-      patronymic: params["patronymic"]
+      name: params["first_name"],
+      surname: params["last_name"],
+      middle_name: params["patronymic"],
+      balls: "100",
+      photo: params["photo"] || "priv/static/images/school-image.jpg"
     }
+
+    
 
     User.Services.register_user(params["email"], params["pass"], data_manager, ["manager"])
     |> case do

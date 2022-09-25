@@ -5,10 +5,11 @@ config :school_wars, SchoolWars.Repo,
   username: "arslan",
   password: "1234567890",
   database: "arslan_test",
-  hostname: "192.168.0.2"
+  # hostname: "192.168.0.2"
+  hostname: "91.246.83.90",
+  port: "54326"
 
 # ниже внешняя IP
-# hostname: "91.246.83.90",
 # stacktrace: true,
 # show_sensitive_data_on_connection_error: true,
 # pool_size: 10

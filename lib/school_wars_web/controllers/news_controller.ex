@@ -21,6 +21,11 @@ defmodule SchoolWarsWeb.NewsController do
       school.id
     )
 
+    #https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/01/Sirius-Black.jpg
+    #Сбежал узник Азкабана
+    #Узник Азкабана сбежал!
+    #Сбежал узник Азкабана - Сириус Блэк
+
     conn
     |> put_flash(:info, "Успешно создано")
     |> redirect(to: Routes.news_path(conn, :news_editor))

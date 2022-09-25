@@ -5,26 +5,22 @@
             </div>
             <div id="task-adder">
                 <button onclick="addTask(event, 'open')">
-                    Add Open Task
+                    Добавить открытый вопрос
                 </button>
                 <button onclick="addTask(event, 'closed')">
-                    Add Closed Task
+                    Добавить закрытый вопрос
                 </button>
                 <button onclick="addTask(event, 'multiple')">
-                    Add Closed Task With Multiple Answers
+                    Добавить закрытый вопрос(несколько ответов)
                 </button>
             </div>
         </div>
         <%= hidden_input f, :html, value: "" %>
         <%= submit "Отправить форму", class: "submit-task" %>  
     </.form>
-    <!-- <div id="task-sidebar-container">
-        <div id="task-sidebar">
-            <div class="task-sidebar-title">
-                Title
-            </div>
-        </div>
-    </div> -->
+    <div id="testing">
+        <%= raw(get_flash(@conn, :lol)) %>
+    </div>
 </div>
 
 
@@ -32,34 +28,34 @@
 <template id="question-template">
     <div class="question-container" onclick="selectQuestion(event.target)">
         <button class="deleter" onclick="deleteQuestion(event)">
-            Delete Question
+            Удалить вопрос
         </button>
         <div class="question">
             <div class="question-number">
 
             </div>
-            <input type="text", placeholder="Put your question text here", required>
+            <input type="text", class="question-text" placeholder="Текст вопроса", required>
         </div>
     </div>
 </template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
         <button onclick="addAnswer(event, 'open')">
-            Add Another Possible Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
         <button onclick="addAnswer(event, 'closed')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
         <button onclick="addAnswer(event, 'multiple')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
@@ -69,27 +65,27 @@
 </template>
 <template id="answer-open">
     <div class="answer-open">
-        <input type="text", placeholder="Put the correct answer here", required>
+        <input type="text", placeholder="Правильный ответ", required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
-        <input type="radio", class="answer1", name="" required>
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="radio", class="answer1", name="">
+        <input type="text", class="answer2", placeholder="Вариант ответа", required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
-        <input type="checkbox", class="answer1", name="" required>
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="checkbox", class="answer1", name="">
+        <input type="text", class="answer2", placeholder="Вариант ответа", required>
         <button class="deleter" onclick="deleteAnswer(event)">
-            Delete Answer
+            Удалить ответ
         </button>
     </div>
 </template>
@@ -104,30 +100,30 @@
         ev.preventDefault()
         let qnum = questions_container.childElementCount + 1
         let clone = template.content.cloneNode(!0)
-        clone.querySelector(".question-number").innerText = qnum
         let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
         if (type == "open") {
             let container = clone.querySelector(".question-container")
             answers.append(document.querySelector("#answer-open").content.cloneNode(!0))
-            createListeners(answers.querySelectorAll("input"))
+            answers.querySelector("input").setAttribute("name", `ans${qnum}`)
             container.append(answers)
             container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
+            createListeners(clone.querySelectorAll("input"))
             questions_container.append(clone)
         } else {
             let container = clone.querySelector(".question-container")
             let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
             let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
-            createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
             answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
-            createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
             container.append(answers)
             container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
+            createListeners(clone.querySelectorAll("input"))
             questions_container.append(clone)
         }
+        numbers()
     }
     function addAnswer(ev, type) {
         ev.preventDefault()
@@ -140,7 +136,6 @@
             ev.target.remove()
         }
     }
-
     function selectQuestion(target) {
         if (!target.classList.contains("question-container")) {
             selectQuestion(target.parentElement)
@@ -148,22 +143,27 @@
             //console.log(target)
         }
     }
-
     function deleteQuestion(ev) {
         ev.preventDefault()
         ev.target.parentElement.remove()
+        numbers()
     }
-
     function deleteAnswer(ev) {
         ev.preventDefault()
         ev.target.parentElement.remove()
     }
-
+    function numbers() {
+        let numbers =  questions_container.querySelectorAll(".question-number")
+        for (let i = 0; i < numbers.length; i++) {
+            for (const input of numbers[i].parentElement.parentElement.querySelectorAll("input")) {
+                input.setAttribute("name", `ans${i + 1}`)
+            }
+            numbers[i].innerText = i + 1
+        }
+    }
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
     document.documentElement.setAttribute('data-theme', 'light')
-
-
     // Auto save edits to task local storage
     const saved_task = window.localStorage.getItem("saved_task") || ""
     const hinput = document.querySelector("#task_html")
@@ -184,10 +184,8 @@
         attributes: !0,
         characterData: !0
     })
-
     // Ебать Артём спас
     createListeners(questions_container.querySelectorAll("input"))
-
     function createListeners(inputs) {
         for (const input of inputs) {
             if (input.type == "text") {

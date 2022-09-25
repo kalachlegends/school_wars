@@ -5,6 +5,10 @@ defmodule SchoolWarsWeb.PageController do
     render(conn, "index.html")
   end
 
+  def news(conn, _params) do
+    render(conn, "news.html")
+  end
+
   # def index_token(conn, _params) do
   #   conn
   #   |> put_flash(:info, Session.read(get_session(conn, :token)).data.account.login)

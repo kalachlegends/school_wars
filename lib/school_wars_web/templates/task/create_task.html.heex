@@ -21,7 +21,7 @@
     <div id="testing">
         <.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
             <%= raw(get_flash(@conn, :lol)) %>
-            <%= submit "Отправить форму", class: "submit-task" %>  
+            <%= submit "Отправить форму", class: "submit-task task-deleter pd-btn fz-btn" %>  
         </.form>
     </div>
 </div>

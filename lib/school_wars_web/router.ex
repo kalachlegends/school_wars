@@ -45,8 +45,7 @@ defmodule SchoolWarsWeb.Router do
       get "/", SchoolController, :index
       get "/news", SchoolController, :news
       get "/one_news", SchoolController, :one_news_display
-      get "/rates", SchoolController, :news
-      post "/rates", SchoolController, :news
+      get "/workers", SchoolController, :news
     end
   end
 

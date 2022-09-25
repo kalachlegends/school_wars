@@ -2,14 +2,20 @@
 <div class="news">
     <%= for news <- @news do %>
         <a href="" class="news__item">
-            <div class="news__title"><span> <%= news.data["title"] %> </span> <span class="time"><%= NaiveDateTime.to_date(news.inserted_at) %></span>
+            <div class="news__title"><span>
+                    <%= news.data["title"] %>
+                </span> <span class="time">
+                    <%= NaiveDateTime.to_date(news.inserted_at) %>
+                </span>
             </div>
-            <div class="news__sub-title"><%= news.data["description"] %></div>
+            <div class="news__sub-title">
+                <%= news.data["description"] %>
+            </div>
             <%= if news.data["photo"] do %>
                 <div class="news__block">
                     <span class="img-fluid news-img"><img src={news.data["photo"]} alt=""></span>
                 </div>
-            <% end %>
+                <% end %>
         </a>
-    <% end %>
+        <% end %>
 </div>

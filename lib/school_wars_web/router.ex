@@ -22,7 +22,7 @@ defmodule SchoolWarsWeb.Router do
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
-
+    get "/rating", PageController, :rating
     get "/", PageController, :index
     get "/login", PageController, :login
     post "/login", UserController, :login_submit
@@ -72,7 +72,6 @@ defmodule SchoolWarsWeb.Router do
 
     get "/panel", ManagerController, :panel
     post "/new_student", ManagerController, :new_student
-
   end
 
   scope "/admin", SchoolWarsWeb do
@@ -80,8 +79,8 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify_admin]
 
     get "/panel", AdminController, :panel
-    post "/new_manager", AdminController, :new_school
 
+    post "/new_manager", AdminController, :new_school
   end
 
   # Other scopes may use custom stacks.

@@ -80,8 +80,7 @@ defmodule SchoolWarsWeb.Router do
     pipe_through [:browser, :home_layout, :session_verify_admin]
 
     get "/panel", AdminController, :panel
-    post "/new_manager", AdminController, :new_manager
-    post "/new_group", AdminController, :new_group
+    post "/new_manager", AdminController, :new_school
 
   end
 

@@ -2,24 +2,25 @@ import Config
 
 # Configure your database
 config :school_wars, SchoolWars.Repo,
-   username: "arslan",
+  username: "arslan",
   password: "1234567890",
-   database: "arslan_test",
-   hostname: "192.168.0.2"
-   # ниже внешняя IP
-  # hostname: "91.246.83.90",
-  # stacktrace: true,
-  # show_sensitive_data_on_connection_error: true,
-  # pool_size: 10
+  database: "arslan_test",
+  hostname: "192.168.0.2"
 
-  # default artem conifig
-  # username: "postgres",
-  # password: "postgres",
-  # database: "school_wars",
-  # # hostname: "192.168.0.2",
-  # stacktrace: true,
-  # show_sensitive_data_on_connection_error: true,
-  # pool_size: 10
+# ниже внешняя IP
+# hostname: "91.246.83.90",
+# stacktrace: true,
+# show_sensitive_data_on_connection_error: true,
+# pool_size: 10
+
+# default artem conifig
+# username: "postgres",
+# password: "postgres",
+# database: "school_wars",
+# # hostname: "192.168.0.2",
+# stacktrace: true,
+# show_sensitive_data_on_connection_error: true,
+# pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

@@ -1,40 +1,38 @@
-<div class="wp-margin">
-    <div class="login-block">
+<div class="login-block">
 
 
+    <a href="/" class=" logo-vertical">
+        <div class="logo-vertical__image img-fluid">
+            <img src={Routes.static_path(@conn, "/images/logo-2.png" )} alt="">
+        </div>
+        <span>School Wars</span>
+    </a>
+    <%= form_for @conn, Routes.user_path(@conn, :login_submit), fn f -> %>
+        <div class="login-block__body">
 
-        <a href="/" class=" logo-vertical">
-            <div class="logo-vertical__image img-fluid">
-                <img src={Routes.static_path(@conn, "/images/logo-2.png" )} alt="">
+            <div class="input-block icon">
+                <input name="login" placeholder="Логин" type="text" class="input">
+                <img src={Routes.static_path(@conn, "/images/icon/user.svg" )} alt="">
             </div>
-            <span>School Wars</span>
-        </a>
-        <%= form_for @conn, Routes.user_path(@conn, :login_submit), fn f -> %>
-            <div class="login-block__body">
-
-                <div class="input-block icon">
-                    <input name="login" placeholder="Логин" type="text" class="input">
-                    <img src={Routes.static_path(@conn, "/images/icon/user.svg" )} alt="">
-                </div>
-                <div class="input-block icon">
-                    <input name="password" placeholder="Пароль" type="password" class="input">
-                    <img src={Routes.static_path(@conn, "/images/icon/lock-password.svg" )} alt="">
-                </div>
-                <button type="submit" class="btn-grey">
-                    Войти
-                </button>
-                <div class="df-aic-jc-fx-c gap-10">
-                    <a href="" class="text-align-center "> Забыли пароль?</a>
-                    <a href="" class="text-align-center width-80">Нету аккаунта? попросите администратора
-                        зарегировать
-                        вас,
-                        или вас нету в списке школ оставте заявку.</a>
-                </div>
-
+            <div class="input-block icon">
+                <input name="password" placeholder="Пароль" type="password" class="input">
+                <img src={Routes.static_path(@conn, "/images/icon/lock-password.svg" )} alt="">
             </div>
-            <% end %>
-    </div>
+            <button type="submit" class="btn-grey">
+                Войти
+            </button>
+            <div class="df-aic-jc-fx-c gap-10">
+                <a href="" class="text-align-center "> Забыли пароль?</a>
+                <a href="" class="text-align-center width-80">Нету аккаунта? попросите администратора
+                    зарегировать
+                    вас,
+                    или вас нету в списке школ оставте заявку.</a>
+            </div>
+
+        </div>
+        <% end %>
 </div>
+
 <script>
 
 </script>

@@ -22,7 +22,7 @@ defmodule SchoolWarsWeb.Router do
 
   scope "/", SchoolWarsWeb do
     pipe_through :browser
-
+    get "/rating", PageController, :rating
     get "/", PageController, :index
     get "/login", PageController, :login
     post "/login", UserController, :login_submit
@@ -31,8 +31,6 @@ defmodule SchoolWarsWeb.Router do
 
   scope "/", SchoolWarsWeb do
     pipe_through [:browser, :home_layout, :session_verify]
-
-    get "/rating", PageController, :rating
 
     get "/home", HomeController, :index
     get "/uikit", HomeController, :uikit

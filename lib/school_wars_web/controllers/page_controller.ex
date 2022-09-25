@@ -24,6 +24,8 @@ defmodule SchoolWarsWeb.PageController do
   end
 
   def rating(conn, params) do
-    render(conn, "rating.html")
+    list = Group.Services.get_all()
+
+    render(conn, "rating.html", schools: list)
   end
 end

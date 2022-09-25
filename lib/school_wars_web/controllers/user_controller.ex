@@ -33,4 +33,13 @@ defmodule SchoolWarsWeb.UserController do
   def tasks(conn, _params) do
     render(conn, "tasks.html")
   end
+
+  def logout(conn, params) do
+    token = get_session(conn, :token)
+    User.Services.logout_user(token)
+
+    conn
+    |> put_flash(:info, "Вы успешно вышли")
+    |> redirect(to: Routes.page_path(conn, :login))
+  end
 end

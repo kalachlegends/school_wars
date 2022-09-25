@@ -3,11 +3,17 @@
 
 <div class="df-gap-10-fxdc pad-20 mb-16">
     <h3>Ссылка на главную</h3>
-    <input type="text" placeholder="Ссылка на главную картинку">
-    <h3>Описание</h3>
-    <input type="text" placeholder="Описание">
-    <h3>Название</h3>
-    <input type="text" placeholder="Название">
+    <%= form_for @conn, Routes.news_path(@conn, :news_form), fn f -> %>
+        <input name="image" type="text" placeholder="Ссылка на главную картинку">
+        <h3>Описание</h3>
+        <input name="description" type="text" placeholder="Описание">
+        <h3>Название</h3>
+        <input name="title" type="text" placeholder="Название">
+        <input name="html" type="text" id="html" class="" value="">
+        <button id="htmlButton" class="func-btn ">
+            Отправить
+        </button>
+        <% end %>
 </div>
 <div id="editor">
     <p>This is some sample content.</p>
@@ -15,6 +21,7 @@
 
 
 <script>
+
     // This sample still does not showcase all CKEditor 5 features (!)
     // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
     ClassicEditor.create(document.getElementById("editor"), {
@@ -151,5 +158,15 @@
             // from a local file system (file://) - load this site via HTTP server if you enable MathType
             'MathType'
         ]
-    });
+    })
+    setTimeout((e) => {
+
+        let placeholderElem = document.querySelector('.ck-content')
+        let htmlButton = document.querySelector("#htmlButton")
+        htmlButton.addEventListener('click', (event) => {
+            let inputElem = document.querySelector("#html")
+            inputElem.setAttribute("value", placeholderElem.innerHTML)
+        });
+
+    }, 1200)
 </script>

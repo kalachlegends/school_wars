@@ -36,8 +36,11 @@ defmodule SchoolWarsWeb.Router do
 
     get "/profile", UserController, :profile
     get "/profile/tasks", UserController, :tasks
+    get "/logout", UserController, :logout
 
     get "/news_editor", NewsController, :news_editor
+
+    post "/news_form", NewsController, :news_form
 
     scope "/school" do
       get "/", SchoolController, :index

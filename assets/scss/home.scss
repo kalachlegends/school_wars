@@ -269,6 +269,7 @@ body {
         &:hover {
             .sub-menu {
                 visibility: visible;
+                pointer-events: all;
                 opacity: 1;
             }
         }
@@ -487,7 +488,7 @@ body {
     position: absolute;
 
     left: -100%;
-    top: 40px;
+    top: 10px;
     padding: 100;
     z-index: 100;
     display: flex;

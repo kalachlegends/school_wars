@@ -88,7 +88,7 @@ defmodule SchoolWarsWeb.TaskController do
         |> put_flash(:error, "Такой задачи не существует")
         |> redirect(to: Routes.task_path(conn, :all_tasks))
       data ->
-        render(conn, "do_task.html", data: data.data["front"])
+        render(conn, "do_task.html", data: %{html: data.data["front"], session: Session.read(get_session(conn, :token)).data, work_id: params["id"], token: get_session(conn, :token)})
     end
   end
 

@@ -1,4 +1,5 @@
 <.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
-    <%= raw(@data) %>
-    <%= submit "Отправить форму", class: "submit-task" %>  
+    <%= raw(@data.html) %>
+    <%= Session.update(@data.token, Map.merge(@data.session, %{work_id: @data.work_id})); "" %>
+    <%= submit "Отправить форму", class: "submit-task pd-btn fz-btn" %>
 </.form>

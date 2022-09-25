@@ -37,6 +37,7 @@ defmodule Work.Services do
     )
   end
 
+  @spec get_all_except_done_by_user_id(any) :: any
   def get_all_except_done_by_user_id(user_id) do
     work_ids = Repo.all(
       from answer in Answer,
@@ -45,7 +46,7 @@ defmodule Work.Services do
     |> Enum.map(&(&1.work_id))
     Repo.all(
       from work in Work,
-        where: work.id not in ^work_ids
+        where: work.id not in ^work_ids and work.author_id != ^user_id
     )
   end
 

@@ -1,13 +1,28 @@
+<div hidden>
+    <%=
+        role =
+        case hd(@user.roles) do
+            "teacher" ->
+                "преподаватель"
+            "manager" ->
+                "менеджер"
+            "admin" ->
+                "админ"
+            "student" ->
+                "ученик"
+            "moderator" ->
+                "модератор"
+        end
+    %>
+</div>
 <div class="main-bg pad-20 mb-16">
     <div class="profile-block">
         <div class="profile-block__img ">
-            <img src={Routes.static_path(@conn, "/images/icon/avatar-default.png" )} alt="">
+            <img src={@user.data["photo"]} alt="">
         </div>
         <div class="profile-block__body">
-            <span class="d-flex gap-20"><span class="name">Артем Калачев</span> <span
-                    class="class">10-класс</span></span>
-            <span class="d-flex align-items-center  gap-10"><span>Артем Калачев</span> <span><img
-                        src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt=""></span></span>
+            <span class="d-flex gap-20"><span class="name"><%= @user.data["name"] %> <%= @user.data["surname"] %></span></span>
+            <span class="d-flex align-items-center  gap-10"><span><%= role %></span> <span><img src={Routes.static_path(@conn, "/images/icon/school.svg" )} alt=""></span></span>
         </div>
     </div>
 </div>

@@ -153,8 +153,9 @@ defmodule Session.Plug do
   end
 end
 
-defmodule Session.AdminPlug do
+defmodule Session.ManagerPlug do
   import Plug.Conn
+  use SchoolWarsWeb, :controller
 
   def init(_opts), do: {:ok, []}
 
@@ -167,8 +168,41 @@ defmodule Session.AdminPlug do
         |> halt()
 
       any ->
-        IO.inspect(any)
+        if "manager" in any.data.account.roles do
+          conn
+        else
+          conn
+          |> put_flash(:error, "Вы не менеджер")
+          |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :login))
+          |> halt()
+        end
+    end
+  end
+end
+
+defmodule Session.AdminPlug do
+  import Plug.Conn
+  use SchoolWarsWeb, :controller
+
+  def init(_opts), do: {:ok, []}
+
+  def call(conn, _opts) do
+    Session.read(get_session(conn, :token))
+    |> case do
+      nil ->
         conn
+        |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :login))
+        |> halt()
+
+      any ->
+        if "admin" in any.data.account.roles do
+          conn
+        else
+          conn
+          |> put_flash(:error, "Вы не admin")
+          |> Phoenix.Controller.redirect(to: SchoolWarsWeb.Router.Helpers.page_path(conn, :login))
+          |> halt()
+        end
     end
   end
 end

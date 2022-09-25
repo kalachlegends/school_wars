@@ -27,8 +27,8 @@ defmodule User.Services do
           User.changeset(%User{}, %{
             login: login,
             hash: :crypto.hash(:sha224, password),
-            data: @user_data,
-            ratings: %{"likes" => [], "dislikes" => []},
+            data: %{},
+                        ratings: %{"likes" => [], "dislikes" => []},
             roles: roles,
             comment_ids: []
           })
@@ -42,7 +42,7 @@ defmodule User.Services do
     end
   end
 
-  def register_user_random_pass(login, roles \\ []) do
+  def register_user_random_pass(login, data, roles \\ []) do
     password = for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
     if String.contains?(login, "№") do
       {:error, "В логине находится знак №"}
@@ -57,17 +57,21 @@ defmodule User.Services do
           User.changeset(%User{}, %{
             login: login,
             hash: :crypto.hash(:sha224, password),
-            data: %{},
+            data: data,
             ratings: %{"likes" => [], "dislikes" => []},
             roles: roles,
             comment_ids: []
           })
         )
-
-        {Repo.one(
-          from user in User,
-            where: user.login == ^login
-        ), password}
+        |> case do
+          {:ok, _} ->
+            {Repo.one(
+              from user in User,
+                where: user.login == ^login
+            ), password}
+          any ->
+            any
+        end
       end
     end
   end

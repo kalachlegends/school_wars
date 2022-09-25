@@ -1,0 +1,49 @@
+<div>
+<h1>
+   Панель менеджера школы - <%= @school_name %>
+</h1>
+</div>
+<div>
+Регистрация нового актора:
+</div>
+
+ <%= form_for @conn, Routes.manager_path(@conn, :new_student), fn f -> %>
+<div>
+<br><br><br>
+
+<%= text_input f, :first_name, type: "text", placeholder: "ИМЯ", required: true %>
+<br><br>
+<%= text_input f, :last_name, type: "text", placeholder: "ФАМИЛИЯ", required: true %>
+<br><br>
+<%= text_input f, :patronymic, type: "text", placeholder: "ОТЧЕСТВО" %>
+<br><br>
+<%= text_input f, :email, type: "text", placeholder: "Email", required: true %>
+<br><br>
+   <div class="select-class select-img">
+   <%= select f, :class, [
+"Выберите класс": 0,
+"1 класс": 1,
+"2 класс": 2,
+"3 класс": 3,
+"4 класс": 4,
+"5 класс": 5,
+"6 класс": 6,
+"7 класс": 7,
+"8 класс": 8,
+"9 класс": 9,
+"10 класс": 10,
+"11 класс": 11
+], required: true %>
+   </div>
+<br><br>
+   <div class="select-class select-img">
+   <%= select f, :role, [
+"Выберите роль": 0,
+"Ученик": 1,
+"Преподаватель": 2
+], required: true %>
+   </div>
+<br><br><br>
+<%= submit "Сохранить", class: "func-btn func-btn-link" %>
+</div>
+ <% end %>

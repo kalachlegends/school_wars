@@ -69,6 +69,16 @@ defmodule SchoolWarsWeb.Router do
 
   end
 
+  scope "/admin", SchoolWarsWeb do
+    # pipe_through [:browser, :home_layout, :session_verify_school_rep]
+    pipe_through [:browser, :home_layout, :session_verify_admin]
+
+    get "/panel", AdminController, :panel
+    post "/new_manager", AdminController, :new_manager
+    post "/new_group", AdminController, :new_group
+
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SchoolWarsWeb do
   #   pipe_through :api

@@ -1,0 +1,25 @@
+<div>
+<h1>
+   Добро пожаловать, Администратор
+</h1>
+</div>
+<div>
+Регистрация нового менеджера:
+</div>
+
+ <%= form_for @conn, Routes.manager_path(@conn, :new_student), fn f -> %>
+<div>
+<br><br><br>
+
+<%= text_input f, :first_name, type: "text", placeholder: "ИМЯ", required: true %>
+<br><br>
+<%= text_input f, :last_name, type: "text", placeholder: "ФАМИЛИЯ", required: true %>
+<br><br>
+<%= text_input f, :patronymic, type: "text", placeholder: "ОТЧЕСТВО" %>
+<br><br>
+<%= text_input f, :email, type: "text", placeholder: "Email", required: true %>
+<br><br>
+<br><br><br>
+<%= submit "Сохранить", class: "func-btn func-btn-link" %>
+</div>
+ <% end %>

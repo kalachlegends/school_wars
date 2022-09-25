@@ -5,15 +5,6 @@ defmodule SchoolWarsWeb.ManagerController do
     render(conn, "index.html")
   end
 
-  # def create_task_send(conn, %{"task" => %{"html" => html}}) do
-  #   IO.inspect(String.replace(html, ~r/(\\n|\\r|\\t|\ \ )/, ""))
-  #   render(conn, "create_task.html")
-  # end
-
-  # def create_task(conn, _) do
-  #   render(conn, "create_task.html")
-  # end
-
   def panel(conn, _params) do
     user = Session.read(get_session(conn, :token)).data.account
     school_name = Group.Services.get_by_manager_id(user.id).name
@@ -27,7 +18,6 @@ defmodule SchoolWarsWeb.ManagerController do
       patronymic: params["patronymic"],
       class: params["class"]
     }
-    IO.inspect(params["role"])
 
     role =
       case params["role"] do

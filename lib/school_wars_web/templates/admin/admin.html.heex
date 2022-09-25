@@ -3,14 +3,12 @@
    Добро пожаловать, Администратор
 </h1>
 </div>
-<div>
-Регистрация нового менеджера:
-</div>
 
- <%= form_for @conn, Routes.manager_path(@conn, :new_student), fn f -> %>
+ <%= form_for @conn, Routes.admin_path(@conn, :new_school), fn f -> %>
 <div>
 <br><br><br>
-
+<h3>Данные модератора школы</h3>
+<br>
 <%= text_input f, :first_name, type: "text", placeholder: "ИМЯ", required: true %>
 <br><br>
 <%= text_input f, :last_name, type: "text", placeholder: "ФАМИЛИЯ", required: true %>
@@ -19,7 +17,24 @@
 <br><br>
 <%= text_input f, :email, type: "text", placeholder: "Email", required: true %>
 <br><br>
+<%= text_input f, :pass, type: "text", placeholder: "Пароль", required: true  %>
+<br><br>
 <br><br><br>
+<br><br><br>
+<h3>Данные о школе</h3>
+<br>
+<%= text_input f, :name, type: "text", placeholder: "Название школы", required: true %>
+<br><br>
+<%= text_input f, :photo, type: "text", placeholder: "Ссылка на фото", required: true %>
+<br><br>
+<%= text_input f, :history, type: "text", placeholder: "История школы" %>
+<br><br>
+<%= text_input f, :description, type: "text", placeholder: "Описание школы", required: true %>
+<br><br>
+<%= text_input f, :school_direction, type: "text", placeholder: "Направление школы", required: true  %>
+<br><br>
+<%= text_input f, :class_count, type: "text", placeholder: "Количество классов", required: true  %>
+<br><br>
 <%= submit "Сохранить", class: "func-btn func-btn-link" %>
 </div>
  <% end %>

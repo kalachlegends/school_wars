@@ -13,7 +13,7 @@ defmodule User.Services do
     "surname" => "Зубенко"
   }
 
-  def register_user(login, password, roles \\ []) do
+  def register_user(login, password, data, roles \\ []) do
     if String.contains?(login, "№") do
       {:error, "В логине находится знак №"}
     else
@@ -27,8 +27,8 @@ defmodule User.Services do
           User.changeset(%User{}, %{
             login: login,
             hash: :crypto.hash(:sha224, password),
-            data: %{},
-                        ratings: %{"likes" => [], "dislikes" => []},
+            data: data,
+            ratings: %{"likes" => [], "dislikes" => []},
             roles: roles,
             comment_ids: []
           })

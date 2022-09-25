@@ -4,6 +4,9 @@
             <div id="questions-container">
             </div>
             <div id="task-adder">
+                <%= text_input f, :title, placeholder: "Титульник", required: true %>
+                <%= text_input f, :desc, placeholder: "Краткое описание", required: true %>
+                <%= select f, :difficulty, ["Для младенцев", "Лёгкая", "Средняя", "Сложная", "Хардкор"], required: true %>
                 <button class="task-answer pd-btn" onclick="addTask(event, 'open')">
                     Добавить открытый вопрос
                 </button>
@@ -14,16 +17,10 @@
                     Добавить закрытый вопрос(несколько ответов)
                 </button>
                 <%= hidden_input f, :html, value: "" %>
-                <%= submit "Отправить форму", class: "task-deleter pd-btn fz-btn" %>  
+                <%= submit "Отправить форму", class: "task-deleter pd-btn fz-btn", onclick: "clearWork(event)" %>  
             </div>
         </div>
     </.form>
-    <div id="testing">
-        <.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
-            <%= raw(get_flash(@conn, :lol)) %>
-            <%= submit "Отправить форму", class: "submit-task" %>  
-        </.form>
-    </div>
 </div>
 
 
@@ -164,7 +161,7 @@
             numbers[i].innerText = i + 1
         }
     }
-    function clearWork() {
+    function clearWork(ev) {
         window.localStorage.setItem("saved_task", "")
     }
     document.documentElement.setAttribute('data-theme', 'rainbow')

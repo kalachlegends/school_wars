@@ -39,6 +39,7 @@ defmodule SchoolWarsWeb.Router do
 
     get "/news_editor", NewsController, :news_editor
 
+    get "/do_task/:id", TaskController, :do_task
     post "/submit_answer", TaskController, :submit_answer
 
     scope "/school" do
@@ -54,7 +55,7 @@ defmodule SchoolWarsWeb.Router do
     # pipe_through [:browser, :home_layout, :session_verify_school_rep]
     pipe_through [:browser, :home_layout, :session_verify]
 
-    get "/tasks", TaskController, :all_taskes
+    get "/tasks", TaskController, :all_tasks
 
     get "/create_task", TaskController, :create_task
     post "/create_task", TaskController, :create_task_send

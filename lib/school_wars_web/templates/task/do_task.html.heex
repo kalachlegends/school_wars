@@ -1,0 +1,4 @@
+<.form for={@conn} action={Routes.task_path(@conn, :submit_answer)} as={:answer}>
+    <%= raw(@data) %>
+    <%= submit "Отправить форму", class: "submit-task" %>  
+</.form>

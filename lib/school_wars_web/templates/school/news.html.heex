@@ -22,7 +22,7 @@
             <div class="news__title"><span><%= news.data["title"] %></span> <span class="time"><%= news.inserted_at%></span></div>
             <div class="news__sub-title"><%= news.data["text"] %></div>
             <div class="news__block">
-                <span class="img-fluid news-img"><img src={news.data["photo"]}  alt=""></span>
+                <span class="img-fluid news-img"><img src={Routes.static_path(@conn, news.data["photo"] )} alt=""></span>
             </div>
             <div class="news__tags">
                 <span class="tags">  </span>

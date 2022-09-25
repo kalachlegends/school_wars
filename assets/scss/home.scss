@@ -138,66 +138,45 @@ body {
     }
 }
 
-#task-container {
-    position: absolute;
-    display: flex;
-    height: 100%;
-    padding-left: 80px;
-    width: 100%;
-}
+// #task-container {
+//     position: absolute;
+//     display: flex;
+//     height: 100%;
+//     padding-left: 80px;
+//     width: 100%;
+// }
 
 #task-content {
     display: flex;
-    flex-direction: column;
-    width: 68%;
-    height: 100%;
-    align-items: center;
-    padding: 3% 0 3% 4%;
-    justify-content: flex-start;
-}
-
-#task-sidebar-container {
-    width: 26%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 #task-sidebar {
-    padding: 3%;
-    align-items: flex-start;
-    justify-content: center;
     background-color: #a1a1a1;
-    height: 65%;
-    border-radius: 20px 0 0 20px;
     width: 100%;
     display: flex;
 }
 
 #task-adder {
-    padding: 0.5rem;
     height: auto;
     min-height: 15%;
-    border: #a1a1a1 dashed 0.55rem;
     border-radius: 20px;
-    align-items: center;
-    justify-content: space-evenly;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 100%;
 }
 
-#task-adder button {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    padding: 0.3rem;
-    border-radius: 0.5rem;
-    font-size: 1.5rem;
-}
+// #task-adder button {
+//     align-items: center;
+//     justify-content: center;
+//     display: flex;
+//     padding: 0.3rem;
+//     border-radius: 0.5rem;
+//     font-size: 1.5rem;
+// }
 
 .task-sidebar-title {
     font-size: 2.5rem;
@@ -210,10 +189,9 @@ body {
 
 .question-container {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     display: flex;
-    margin-bottom: 3rem;
     width: 100%;
 }
 
@@ -226,12 +204,14 @@ body {
 }
 
 .question input {
-    width: 90%;
+    width: 100%;
 }
 
 .question-number {
-    width: 10%;
+    width: 5%;
     text-align: center;
+    font-size: 40px;
+    font-weight: 600;
 }
 
 .answer-closed,
@@ -241,7 +221,7 @@ body {
 
 .answer-closed .answer2,
 .answer-multiple .answer2 {
-    width: 90%;
+    width: 50%;
 }
 
 .answer-closed .answer1,

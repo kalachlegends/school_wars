@@ -1,4 +1,17 @@
-.func-btn {
+.pd-btn {
+   padding: 15px 20px;
+}
+
+.pd-btn-small {
+   padding: 15px 20px;
+}
+
+.fz-btn{
+   font-size: 20px;
+}
+
+.func-btn,
+.task-answer {
    background-color: #fff;
    border-radius: 10px;
    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
@@ -6,7 +19,31 @@
    padding: 6px 20px;
    font-size: 16px;
    text-decoration: none;
+   transition: all .3s ease 0s;
+
+   &:hover {
+      color: #fff;
+      background-color: #000;
+   }
 }
+
+.task-deleter {
+   background-color: #353535;
+   border-radius: 10px;
+   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+   cursor: pointer;
+   color: #fff;
+   margin: 3px 0;
+   text-decoration: none;
+   width: 100%;
+   transition: all .3s ease 0s;
+
+   &:hover {
+      color: #353535;
+      background-color: #fff;
+   }
+}
+
 
 .class-billet {
    background-color: #F6F6F6;

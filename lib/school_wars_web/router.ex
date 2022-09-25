@@ -39,6 +39,8 @@ defmodule SchoolWarsWeb.Router do
 
     get "/news_editor", NewsController, :news_editor
 
+    post "/submit_answer", TaskController, :submit_answer
+
     scope "/school" do
       get "/", SchoolController, :index
       get "/news", SchoolController, :news

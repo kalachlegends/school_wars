@@ -1,6 +1,31 @@
+<div>
 Манагерская панель
-Ваша школа - 
+</div>
+<div>
+Ваша школа - <%= @school_name %>
+</div>
+<div>
+Регистрация нового ученика:
+</div>
 
+ <%= form_for @conn, Routes.manager_path(@conn, :new_student), fn f -> %>
+<div>
+<br><br><br>
+
+<%= text_input f, :first_name, type: "text", placeholder: "ИМЯ" %>
+<br><br>
+<%= text_input f, :last_name, type: "text", placeholder: "ФАМИЛИЯ" %>
+<br><br>
+<%= text_input f, :patronymic, type: "text", placeholder: "ОТЧЕСТВО" %>
+<br><br>
+<%= text_input f, :patronymic, type: "text", placeholder: "Email" %>
+<br><br>
+<%= text_input f, :class, type: "text", placeholder: "Класс" %>
+
+<br><br><br>
+<%= submit "Обычная кнопка", class: "func-btn func-btn-link" %>
+</div>
+ <% end %>
 <%# <a href="" class="func-btn func-btn-link">
    Lorem
 </a>

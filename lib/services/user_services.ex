@@ -17,7 +17,7 @@ defmodule User.Services do
             login: login,
             hash: :crypto.hash(:sha224, password),
             data: %{},
-            ratings: %{"likes" => [], "dislikes" => []},
+                        ratings: %{"likes" => [], "dislikes" => []},
             roles: roles,
             comment_ids: []
           })
@@ -82,7 +82,7 @@ defmodule User.Services do
 
   def add_role(user, role) do
     User.changeset(user, %{
-      data: %{roles: user.roles ++ [role]}
+      roles: user.roles ++ [role]
     })
     |> Repo.update()
   end

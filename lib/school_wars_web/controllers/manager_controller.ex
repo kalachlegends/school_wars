@@ -14,7 +14,16 @@ defmodule SchoolWarsWeb.ManagerController do
   #   render(conn, "create_task.html")
   # end
 
-  def manager(conn, _params) do
-    render(conn, "manager.html")
+  def panel(conn, _params) do
+    user = Session.read(get_session(conn, :token)).data.account
+    school_name = Group.Services.get_by_manager_id(user.id).name
+    render(conn, "manager.html", school_name: school_name)
+  end
+
+  def new_student(conn,params) do
+    IO.inspect(params)
+    conn
+    |> put_flash(:ok, "Менеджер добавлен.")
+    |> redirect(to: "/manager/panel")
   end
 end

@@ -3,10 +3,10 @@ defmodule SchoolWarsWeb.SchoolController do
 
   def index(conn, _params) do
     school = Enum.find(Session.read(get_session(conn, :token)).data.groups, &(&1.group_type == "school"))
-    
+
     render(conn, "index.html",
       school: school,
-      users: User.Services.get_by_params(school.user_ids, "teacher")
+      users: User.Services.get_by_excluding_params(school.user_ids, "student")
     )
   end
 

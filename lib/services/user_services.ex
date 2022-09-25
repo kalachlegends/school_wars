@@ -43,7 +43,11 @@ defmodule User.Services do
   end
 
   def register_user_random_pass(login, roles \\ []) do
-    password = for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
+    password =
+      for _ <- 1..10,
+          into: "",
+          do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
+
     if String.contains?(login, "№") do
       {:error, "В логине находится знак №"}
     else
@@ -65,9 +69,9 @@ defmodule User.Services do
         )
 
         {Repo.one(
-          from user in User,
-            where: user.login == ^login
-        ), password}
+           from user in User,
+             where: user.login == ^login
+         ), password}
       end
     end
   end
@@ -150,25 +154,15 @@ defmodule User.Services do
     end
   end
 
-  def get_by_params(list, role \\ "")
-
-  def get_by_params(list, role) when is_list(list) and is_bitstring(role) do
-    query =
-      from(
-        user in User,
-        where: user.id in ^list,
-        select: user
-      )
-
-    if role == "" do
-      query
-    else
-      where(query, [user], ^role in user.roles)
-    end
+  def get_by_excluding_params(list, role) when is_list(list) and is_bitstring(role) do
+    from(
+      user in User,
+      where: user.id in ^list and ^role not in user.roles
+    )
     |> Repo.all()
   end
 
-  def get_by_params(_list, _role) do
+  def get_by_excluding_params(_list, _role) do
     {:error, "Неправильные входные данные."}
   end
 

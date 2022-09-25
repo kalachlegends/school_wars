@@ -42,12 +42,13 @@ defmodule SchoolWarsWeb.Router do
 
     post "/news_form", NewsController, :news_form
 
+    post "/submit_answer", TaskController, :submit_answer
+
     scope "/school" do
       get "/", SchoolController, :index
       get "/news", SchoolController, :news
       get "/one_news", SchoolController, :one_news_display
-      get "/rates", SchoolController, :news
-      post "/rates", SchoolController, :news
+      get "/workers", SchoolController, :news
     end
   end
 

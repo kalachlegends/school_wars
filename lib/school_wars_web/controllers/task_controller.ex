@@ -45,6 +45,7 @@ defmodule SchoolWarsWeb.TaskController do
           {acc <> string, ans, values}
       end
     end)
+    html = Regex.replace(~r/(<div class=\"answer-(closed|open|multiple)-adder\"><\/div>)/, html, "")
     #IO.inspect(html_orig, label: "uncompressed")
     #compress_original(html_orig)
     #|> IO.inspect(label: "compressed")

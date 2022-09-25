@@ -6,7 +6,9 @@ defmodule SchoolWarsWeb.PageController do
   end
 
   def news(conn, _params) do
-    render(conn, "news.html")
+    {:ok, news} = News.Services.get_news(1)
+
+    render(conn, "news.html", news: news)
   end
 
   # def index_token(conn, _params) do

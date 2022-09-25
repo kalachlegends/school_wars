@@ -5,7 +5,7 @@ defmodule Work.Services do
   def create(author_id, work_data) do
     Repo.insert(
       Work.changeset(%Work{}, %{
-        status: 0,
+        status: "alpha",
         author_id: author_id,
         data: work_data,
         ratings: %{"likes" => [], "dislikes" => []},

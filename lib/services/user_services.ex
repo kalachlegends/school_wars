@@ -22,12 +22,42 @@ defmodule User.Services do
             comment_ids: []
           })
         )
-      end
 
-      Repo.one(
-        from user in User,
-          where: user.login == ^login
-      )
+        Repo.one(
+          from user in User,
+            where: user.login == ^login
+        )
+      end
+    end
+  end
+
+  def register_user_random_pass(login, roles \\ []) do
+    password = for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')>>
+    if String.contains?(login, "№") do
+      {:error, "В логине находится знак №"}
+    else
+      if Repo.one(
+           from user in User,
+             where: user.login == ^login
+         ) != nil do
+        {:error, "Логин уже существует"}
+      else
+        Repo.insert(
+          User.changeset(%User{}, %{
+            login: login,
+            hash: :crypto.hash(:sha224, password),
+            data: %{},
+            ratings: %{"likes" => [], "dislikes" => []},
+            roles: roles,
+            comment_ids: []
+          })
+        )
+
+        {Repo.one(
+          from user in User,
+            where: user.login == ^login
+        ), password}
+      end
     end
   end
 

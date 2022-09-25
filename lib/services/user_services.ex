@@ -40,7 +40,11 @@ defmodule User.Services do
     )
     |> case do
       %User{} = user ->
-        {:ok, Session.write(%{account: user}).token}
+        groups = Repo.all(
+          from group in Group,
+            where: ^user.id in group.user_ids
+        )
+        {:ok, Session.write(%{account: user, groups: groups}).token}
 
       nil ->
         {:error, "Такого пользователя не существует"}

@@ -2,30 +2,17 @@
     <div class=" gap-10">
         <h1 class="h1 mb-10">Новости</h1>
         <div class="news">
-            <a href="" class="news__item">
-                <div class="news__title"><span>В СОШ 58 РОДИЛИСЬ КОТЯТКИ!</span> <span class="time">24.05.2022</span>
+            <%= for news <- @news do %>
+            <a href={"/school/one_news?news_id=#{ news.id }"} class="news__item">
+                <div class="news__title"><span><%= news.data["title"] %></span> <span class="time"><%= NaiveDateTime.to_date(news.inserted_at) %></span>
                 </div>
-                <div class="news__sub-title">В этом разделе можно просмотреть количество баллов твоих одноклассников,
-                    и общее количество баллов по всем классам</div>
-                <div class="news__block">
-                    <span class="img-fluid news-img"><img src={Routes.static_path(@conn, "/images/school-image.jpg" )}
-                            alt=""></span>
-                </div>
-                <div class="news__tags">
-                    <span class="tags">СОШ 58</span>
-                </div>
-
+                <div class="news__sub-title"><%= news.data["text"] %></div>
+                <%= if news.data["photo"] do %>
+                    <div class="news__block">
+                        <span class="img-fluid news-img"><img src={news.data["photo"]} alt=""></span>
+                    </div>
+                <% end %>
             </a>
-            <a href="" class="news__item">
-                <div class="news__title"><span>В СОШ 58 РОДИЛИСЬ КОТЯТКИ!</span> <span class="time">24.05.2022</span>
-                </div>
-                <div class="news__sub-title">В этом разделе можно просмотреть количество баллов твоих одноклассников,
-                    и общее количество баллов по всем классам</div>
-
-                <div class="news__tags">
-                    <span class="tags">СОШ 58</span>
-                </div>
-
-            </a>
+            <% end %>
         </div>
     </div>

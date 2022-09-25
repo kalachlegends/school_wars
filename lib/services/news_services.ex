@@ -17,11 +17,39 @@ defmodule News.Services do
     {:error, "Неправильная форма заполнения или не существует такой школы."}
   end
 
+  def update_news(data, news_id) when is_integer(news_id) and is_map(data) do
+    case get_by_id(news_id) do
+      {:ok, struct} ->
+        data_to_update = Map.merge(struct.data, data)
+        Repo.update(Ecto.Changeset.change(struct, data: data_to_update))
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
+  def update_news(_data, _news_id) do
+    {:error, "Неверны  формат даных."}
+  end
+
   def news_query do
     from(
       news in News,
       select: news
     )
+  end
+
+  def get_by_id(news_id) when is_integer(news_id) do
+    case Repo.one(where(news_query(), [news], news.id == ^news_id)) do
+      {:error, reason} ->
+        {:error, reason}
+
+      struct ->
+        {:ok, struct}
+    end
+  end
+
+  def get_by_id(_news_id) do
+    {:error, "Неправильный формат news_id."}
   end
 
   def get_news(group_id) when is_integer(group_id) do
@@ -36,7 +64,7 @@ defmodule News.Services do
     end
   end
 
-  def get_news(nil) do
+  def get_news() do
     case Repo.all(news_query()) do
       {:error, reason} ->
         {:error, reason}

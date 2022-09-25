@@ -154,25 +154,15 @@ defmodule User.Services do
     end
   end
 
-  def get_by_params(list, role \\ "")
-
-  def get_by_params(list, role) when is_list(list) and is_bitstring(role) do
-    query =
-      from(
-        user in User,
-        where: user.id in ^list,
-        select: user
-      )
-
-    if role == "" do
-      query
-    else
-      where(query, [user], ^role in user.roles)
-    end
+  def get_by_excluding_params(list, role) when is_list(list) and is_bitstring(role) do
+    from(
+      user in User,
+      where: user.id in ^list and ^role not in user.roles
+    )
     |> Repo.all()
   end
 
-  def get_by_params(_list, _role) do
+  def get_by_excluding_params(_list, _role) do
     {:error, "Неправильные входные данные."}
   end
 

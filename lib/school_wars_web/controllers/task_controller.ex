@@ -15,7 +15,9 @@ defmodule SchoolWarsWeb.TaskController do
     IO.inspect(values, label: "values")
     html_orig = String.replace(html_orig, ~r/(value=\")(.*?)(\")/, "")
     html_orig = String.replace(html_orig, ~r/(\r)(\n)( +)/, "")
+    html_orig = String.replace(html_orig, " ,=\"\"", "")
     html = String.replace(html_orig, ~r/((<button)(.*?)(button>))|( onclick=\"selectQuestion\(event\.target\)\")/, "")
+    #html = String.replace(html, "task-block", "")
     html = Regex.split(~r/((?<!\\)<)|((?<!\\)>)/, html, trim: true)
     {html, answers, _} = Enum.reduce(html, {"", [], values}, fn string, {acc, ans, values} ->
       cond do
@@ -23,7 +25,7 @@ defmodule SchoolWarsWeb.TaskController do
           {acc <> "<" <> string <> ">", ans ++ [[]], values}
         String.contains?(string, "div") ->
           {acc <> "<" <> string <> ">", ans, values}
-        String.contains?(string, "input type=\"radio\" ,=\"\"") or String.contains?(string, "input type=\"checkbox\" ,=\"\"") ->
+        String.contains?(string, "input type=\"radio\"") or String.contains?(string, "input type=\"checkbox\"") ->
           name = Regex.run(~r/(name=\")(.*?)(\")/, string)
           |> Enum.at(2)
           {last, list} = List.pop_at(ans, -1)
@@ -32,10 +34,10 @@ defmodule SchoolWarsWeb.TaskController do
           string = String.replace(string, " checked=\"true\"", "")
           string = String.replace(string, ~r/(name=\")(.*?)(\")/, "name=\"answer[#{name}]\"")
           {acc <> "<" <> string <> "value=\"#{count}\"" <> ">", list ++ [last], values}
-        String.contains?(string, "input type=\"text\" ,=\"\" class=") ->
+        String.contains?(string, "input type=\"text\" class=") ->
           {value, list} = List.pop_at(values, 0)
-          {acc <> "<div class=\"answer\">#{value}</div>", ans, list}
-        String.contains?(string, "input type=\"text\" ,=\"\"") ->
+          {acc <> "<div class=\"question-text\">#{value}</div>", ans, list}
+        String.contains?(string, "input type=\"text\"") ->
           name = Regex.run(~r/(name=\")(.*?)(\")/, string)
           |> Enum.at(2)
           {last, list} = List.pop_at(ans, -1)
@@ -47,6 +49,7 @@ defmodule SchoolWarsWeb.TaskController do
             {acc <> "<input type=\"text\" ,=\"\" class=\"answer-input\" name=\"answer[#{name}]\" placeholder=\"Ваш ответ\" required=\"\"", list ++ [last], list2}
           end
         true ->
+          IO.inspect(string, label: "string")
           {acc <> string, ans, values}
       end
     end)

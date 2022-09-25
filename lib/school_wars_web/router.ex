@@ -47,7 +47,7 @@ defmodule SchoolWarsWeb.Router do
     get "/tasks", TaskController, :all_taskes
 
     get "/create_task", TaskController, :create_task
-    post "/create_task_send", TaskController, :create_task_send
+    post "/create_task", TaskController, :create_task_send
 
     post "/edit_task", TaskController, :edit_task
     post "/edit_task_send", TaskController, :edit_task_send

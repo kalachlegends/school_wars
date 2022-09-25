@@ -8,4 +8,8 @@ defmodule SchoolWarsWeb.SchoolController do
   def news(conn, _params) do
     render(conn, "news.html")
   end
+
+  def rating(conn, _params) do
+    render(conn, "rating.html")
+  end
 end

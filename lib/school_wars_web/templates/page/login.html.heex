@@ -9,8 +9,8 @@
             </div>
             <span>School Wars</span>
         </a>
-      <%= form_for @conn, Routes.user_path(@conn, :login_submit), fn f -> %>
-        <div class="login-block__body">
+        <%= form_for @conn, Routes.user_path(@conn, :login_submit), fn f -> %>
+            <div class="login-block__body">
 
                 <div class="input-block icon">
                     <input name="login" placeholder="Логин" type="text" class="input">
@@ -31,8 +31,8 @@
                         или вас нету в списке школ оставте заявку.</a>
                 </div>
 
-        </div>
-     <% end %>
+            </div>
+            <% end %>
     </div>
 </div>
 <script>

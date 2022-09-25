@@ -38,6 +38,8 @@ defmodule SchoolWarsWeb.Router do
     get "/uikit", HomeController, :uikit
 
     get "/school", SchoolController, :index
+    get "/profile", UserController, :profile
+    get "/news_editor", NewsController, :news_editor
   end
 
   scope "/", SchoolWarsWeb do

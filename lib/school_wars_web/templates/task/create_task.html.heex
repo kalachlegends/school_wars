@@ -1,62 +1,58 @@
 <div id="task-container">
-    <div id="task-content">
-        <div id="questions-container">
-
-        </div>
-        <div id="task-adder">
-            <button onclick="addTask('open')">
-                Add Open Task
-            </button>
-            <button onclick="addTask('closed')">
-                Add Closed Task
-            </button>
-            <button onclick="addTask('multiple')">
-                Add Closed Task With Multiple Answers
-            </button>
-        </div>
-    </div>
-    <div id="task-sidebar-container">
-        <div id="task-sidebar">
-            <div class="task-sidebar-title">
-                Title
+    <.form let={f} for={@conn} action={Routes.task_path(@conn, :create_task)} as={:task}>
+        <div id="task-content">
+            <div id="questions-container">
+            </div>
+            <div id="task-adder">
+                <button onclick="addTask(event, 'open')">
+                    Добавить открытый вопрос
+                </button>
+                <button onclick="addTask(event, 'closed')">
+                    Добавить закрытый вопрос
+                </button>
+                <button onclick="addTask(event, 'multiple')">
+                    Добавить закрытый вопрос(несколько ответов)
+                </button>
             </div>
         </div>
-    </div>
+        <%= hidden_input f, :html, value: "" %>
+        <%= submit "Отправить форму", class: "submit-task" %>  
+    </.form>
 </div>
 
 
 
 <template id="question-template">
-    <div class="question-container" onclick="selectQuestion(event)">
+    <div class="question-container" onclick="selectQuestion(event.target)">
         <button class="deleter" onclick="deleteQuestion(event)">
-            Delete Question
+            Удалить вопрос
         </button>
         <div class="question">
             <div class="question-number">
 
             </div>
-            <input type="text", placeholder="Put your question text here", required>
+            <input type="text", placeholder="Текст вопроса", required>
         </div>
     </div>
 </template>
 <template id="answer-open-adder">
     <div class="answer-open-adder">
         <button onclick="addAnswer(event, 'open')">
-            Add Another Possible Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-closed-adder">
     <div class="answer-closed-adder">
         <button onclick="addAnswer(event, 'closed')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
 <template id="answer-multiple-adder">
     <div class="answer-multiple-adder">
         <button onclick="addAnswer(event, 'multiple')">
-            Add Another Answer
+            Добавить ответ
         </button>
     </div>
 </template>
@@ -66,19 +62,28 @@
 </template>
 <template id="answer-open">
     <div class="answer-open">
-        <input type="text", placeholder="Put the correct answer here", required>
+        <input type="text", placeholder="Правильный ответ", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить ответ
+        </button>
     </div>
 </template>
 <template id="answer-closed">
     <div class="answer-closed">
         <input type="radio", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="text", class="answer2", placeholder="Вариант ответа", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить ответ
+        </button>
     </div>
 </template>
 <template id="answer-multiple">
     <div class="answer-multiple">
         <input type="checkbox", class="answer1", name="">
-        <input type="text", class="answer2", placeholder="Put one of the answers here", required>
+        <input type="text", class="answer2", placeholder="Вариант ответа", required>
+        <button class="deleter" onclick="deleteAnswer(event)">
+            Удалить ответ
+        </button>
     </div>
 </template>
 
@@ -88,35 +93,39 @@
     const questions_container = document.querySelector("#questions-container")
     const task_adder = document.querySelector("#task-adder")
     const template = document.querySelector("#question-template")
-    function addTask(type) {
+    function addTask(ev, type) {
+        ev.preventDefault()
         let qnum = questions_container.childElementCount + 1
         let clone = template.content.cloneNode(!0)
-        clone.querySelector(".question-number").innerText = qnum
         let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
         if (type == "open") {
             let container = clone.querySelector(".question-container")
             answers.append(document.querySelector("#answer-open").content.cloneNode(!0))
-            createListeners(answers.querySelectorAll("input"))
             container.append(answers)
             container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
+            createListeners(clone.querySelectorAll("input"))
             questions_container.append(clone)
         } else {
             let container = clone.querySelector(".question-container")
             let answers = document.querySelector("#answers").content.cloneNode(!0).querySelector(".answers")
             let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
-            createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
             answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
             answer.querySelector("input").setAttribute("name", `ans${qnum}`)
-            createListeners(answer.querySelectorAll("input"))
             answers.append(answer)
             container.append(answers)
             container.append(document.querySelector(`#answer-${type}-adder`).content.cloneNode(!0))
+            createListeners(clone.querySelectorAll("input"))
             questions_container.append(clone)
+        }
+        let numbers =  questions_container.querySelectorAll(".question-number")
+        for (let i = 0; i < numbers.length; i++) {
+            numbers[i].innerText = i + 1
         }
     }
     function addAnswer(ev, type) {
+        ev.preventDefault()
         let parent = ev.target.parentElement.parentElement.querySelector(".answers")
         let answer = document.querySelector(`#answer-${type}`).content.cloneNode(!0)
         answer.querySelector("input").setAttribute("name", `ans${ev.target.parentElement.parentElement.querySelector(".question-number").innerText}`)
@@ -126,28 +135,37 @@
             ev.target.remove()
         }
     }
-
-
-    function selectQuestion(event) {
-        console.log(event)
+    function selectQuestion(target) {
+        if (!target.classList.contains("question-container")) {
+            selectQuestion(target.parentElement)
+        } else {
+            //console.log(target)
+        }
     }
-
-
-    function deleteQuestion(event) {
-        event.target.parentElement.remove()
+    function deleteQuestion(ev) {
+        ev.preventDefault()
+        ev.target.parentElement.remove()
+        let numbers =  questions_container.querySelectorAll(".question-number")
+        for (let i = 0; i < numbers.length; i++) {
+            numbers[i].innerText = i + 1
+        }
     }
-
-
+    function deleteAnswer(ev) {
+        ev.preventDefault()
+        ev.target.parentElement.remove()
+    }
     document.documentElement.setAttribute('data-theme', 'rainbow')
     document.documentElement.setAttribute('data-theme', 'dark')
     document.documentElement.setAttribute('data-theme', 'light')
-
-
     // Auto save edits to task local storage
     const saved_task = window.localStorage.getItem("saved_task") || ""
-    questions_container.innerHTML = saved_task
+    const hinput = document.querySelector("#task_html")
+    questions_container.innerHTML = saved_task.replace(/>\s+</g, '><').trim()
+    hinput.value = saved_task
     const observer = new MutationObserver((mut_list, observer) => {
         window.localStorage.setItem("saved_task", questions_container.innerHTML)
+        hinput.value = questions_container.innerHTML.replace(/>\s+</g,'><').trim()
+        //console.log(hinput.value.replace(/>\s+</g,'><').trim())
         let array = []
         for (const input of questions_container.querySelectorAll("input")) {
             array.push(input.value)
@@ -159,12 +177,8 @@
         attributes: !0,
         characterData: !0
     })
-
     // Ебать Артём спас
-    let inputs = questions_container.querySelectorAll("input")
-    createListeners(inputs)
-
-
+    createListeners(questions_container.querySelectorAll("input"))
     function createListeners(inputs) {
         for (const input of inputs) {
             if (input.type == "text") {

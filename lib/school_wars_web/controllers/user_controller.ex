@@ -10,7 +10,7 @@ defmodule SchoolWarsWeb.UserController do
         conn
         |> put_session(:token, token)
         |> put_flash(:info, "Вы успешно авторизованы!")
-        |> redirect(to: Routes.home_path(conn, :index))
+        |> redirect(to: Routes.user_path(conn, :profile))
 
       {:error, "no such user"} ->
         conn
@@ -27,14 +27,18 @@ defmodule SchoolWarsWeb.UserController do
   end
 
   def profile(conn, _params) do
-    render(conn, "profile.html")
+    user = Session.read(get_session(conn, :token)).data.account
+
+    render(conn, "profile.html", user: user)
   end
 
   def tasks(conn, _params) do
-    render(conn, "tasks.html")
+    user = Session.read(get_session(conn, :token)).data.account
+    IO.inspect(user)
+    render(conn, "tasks.html", user: user)
   end
 
-  def logout(conn, params) do
+  def logout(conn, _params) do
     token = get_session(conn, :token)
     User.Services.logout_user(token)
 

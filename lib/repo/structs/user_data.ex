@@ -4,6 +4,7 @@ defmodule User.Data do
             history: "У этого пользователя нет истории.",
             specialty: "Математика",
             work_experience: 0,
+            balls: 0,
             name: "Михайл",
             middle_name: "Петрович",
             surname: "Зубенко"

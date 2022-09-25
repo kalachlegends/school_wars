@@ -2,8 +2,9 @@ defmodule SchoolWarsWeb.SchoolController do
   use SchoolWarsWeb, :controller
 
   def index(conn, _params) do
-    school = Enum.find(Session.read(get_session(conn, :token)).data.groups, &(&1.group_type == "school"))
-    
+    school =
+      Enum.find(Session.read(get_session(conn, :token)).data.groups, &(&1.group_type == "school"))
+
     render(conn, "index.html",
       school: school,
       users: User.Services.get_by_params(school.user_ids, "teacher")
@@ -23,7 +24,7 @@ defmodule SchoolWarsWeb.SchoolController do
   def one_news_display(conn, params) do
     news_id = String.to_integer(params["news_id"])
     {:ok, news} = News.Services.get_by_id(news_id)
-    render(conn, "news.html", news: [news])
+    render(conn, "one_news.html", news: news)
   end
 
   def rating(conn, _params) do

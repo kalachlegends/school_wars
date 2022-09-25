@@ -20,10 +20,26 @@ defmodule SchoolWarsWeb.ManagerController do
     render(conn, "manager.html", school_name: school_name)
   end
 
-  def new_student(conn,params) do
-    IO.inspect(params)
+  def new_student(conn, params) do
+    data = %{
+      first_name: params["first_name"],
+      last_name: params["last_name"],
+      patronymic: params["patronymic"],
+      class: params["class"]
+    }
+    IO.inspect(params["role"])
+
+    role =
+      case params["role"] do
+        "0" -> [nil]
+        "1" -> ["student"]
+        "2" -> ["teacher"]
+      end
+
+    User.Services.register_user_random_pass(params["email"], data, role)
+
     conn
-    |> put_flash(:ok, "Менеджер добавлен.")
+    |> put_flash(:ok, "Актор спешно добавлен")
     |> redirect(to: "/manager/panel")
   end
 end

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project participated in a local hackathon held in Karaganda. The hackathon provided several themes, including a school news website, a forum for pregnant women, and an open-ended "create your own" theme. Our team decided to innovate and refine one of the given themes, resulting in a unique and engaging platform for schools to compete academically.
+This project participated in a local hackathon held in Karaganda. The hackathon provided several themes, including a school news website, a forum for pregnant women, and a game dev theme. Our team decided to innovate and refine one of the given themes, resulting in a unique and engaging platform for schools to compete academically.
 
 ## Project Description 🧪
 
@@ -33,7 +33,7 @@ The School Competition Platform is more than just a project; it's a tool to insp
 
 ## Обзор 
 
-Этот проект участвовал в местном хакатоне, проведенном в Караганде. Темами хакатона были: школьный новостной сайт, форум для беременных и свободная тема "придумай свою". Наша команда решила импровизировать и усовершенствовать одну из предложенных тем, создав уникальную и увлекательную платформу для академических соревнований между школами.
+Этот проект участвовал в местном хакатоне, проведенном в Караганде. Темами хакатона были: школьный новостной сайт, форум для беременных и игровая тема. Наша команда решила импровизировать и усовершенствовать одну из предложенных тем, создав уникальную и увлекательную платформу для академических соревнований между школами.
 
 ## Описание Проекта
 

@@ -3,7 +3,7 @@
 
 ## Overview
 
-This project participated in a local hackathon held in Karaganda. The hackathon provided several themes, including a school news website, a forum for pregnant women, and a game dev theme. Our team decided to innovate and refine one of the given themes, resulting in a unique and engaging platform for schools to compete academically.
+This project participated in a local hackathon held in Karaganda. The hackathon provided several themes, including a school news website, a game dev theme, and something others. Our team decided to innovate and refine one of the given themes, resulting in a unique and engaging platform for schools to compete academically.
 
 ## Project Description 🧪
 
@@ -22,10 +22,6 @@ Our project focuses on fostering a competitive spirit among schools by allowing 
 - **Database**: PostgreSQL for storing user data, tests, and scores.
 - **Authentication**: Secure login system to ensure only authorized users can access the platform.
 
-## Hackathon Experience
-
-Participating in the hackathon was a thrilling experience. Our team worked tirelessly to bring this idea to life. The project not only showcased our technical skills but also highlighted our ability to innovate and think creatively under pressure.
-
 ## Conclusion
 
 The School Competition Platform is more than just a project; it's a tool to inspire and motivate students by turning learning into an exciting competition. We believe this platform has the potential to make a significant impact on how academic challenges are approached in schools.
@@ -34,7 +30,7 @@ The School Competition Platform is more than just a project; it's a tool to insp
 
 ## Обзор 
 
-Этот проект участвовал в местном хакатоне, проведенном в Караганде. Темами хакатона были: школьный новостной сайт, форум для беременных и игровая тема. Наша команда решила импровизировать и усовершенствовать одну из предложенных тем, создав уникальную и увлекательную платформу для академических соревнований между школами.
+Этот проект участвовал в местном хакатоне, проведенном в Караганде. Темами хакатона были: школьный новостной сайт, игровая тема, и другие. Наша команда решила импровизировать и усовершенствовать одну из предложенных тем, создав уникальную и увлекательную платформу для академических соревнований между школами.
 
 ## Описание Проекта
 
@@ -53,10 +49,6 @@ The School Competition Platform is more than just a project; it's a tool to insp
 - **База данных**: PostgreSQL для хранения данных пользователей, тестов и результатов.
 - **Аутентификация**: Система безопасного входа, чтобы обеспечить доступ только авторизованным пользователям.
 
-
-## Опыт Участия в Хакатоне
-
-Участие в хакатоне было захватывающим опытом. Наша команда усердно работала, чтобы воплотить эту идею в жизнь. Проект не только продемонстрировал наши технические навыки, но и подчеркнул нашу способность к инновациям и творческому мышлению под давлением.
 
 ## Заключение
 

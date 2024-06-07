@@ -20,7 +20,6 @@ Our project focuses on fostering a competitive spirit among schools by allowing 
 - **Backend**: Elixir/Phoenix for handling server-side logic and real-time features.
 - **Database**: PostgreSQL for storing user data, tests, and scores.
 - **Authentication**: Secure login system to ensure only authorized users can access the platform.
-- **Real-Time Updates**: Leveraging Phoenix Channels for real-time leaderboard updates and notifications.
 
 ## Hackathon Experience
 
@@ -52,7 +51,7 @@ The School Competition Platform is more than just a project; it's a tool to insp
 - **Backend**: Elixir/Phoenix для обработки логики на серверной стороне и обеспечения функций в реальном времени.
 - **База данных**: PostgreSQL для хранения данных пользователей, тестов и результатов.
 - **Аутентификация**: Система безопасного входа, чтобы обеспечить доступ только авторизованным пользователям.
-- **Обновления в Реальном Времени**: Использование Phoenix Channels для обновлений таблицы лидеров и уведомлений в реальном времени.
+
 
 ## Опыт Участия в Хакатоне
 
